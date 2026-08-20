@@ -59,13 +59,6 @@ PUBLIC_FIGURES = [
     "figure_05_model_morphology_and_limits.png",
 ]
 
-HISTORICAL_ROOT_SCRIPTS = [
-    "3D.py", "AME.py", "EC.py", "Gap.py", "Grover.py", "MPD.py",
-    "Prime_Almost.py", "QFT.py", "Renyi.py", "Shor.py", "Shor_functions.py",
-    "alphabeta.py", "bounds.py", "grover_3sat_functions.py",
-    "grover_hash_functions.py", "mean_MPD.py",
-]
-
 TRANSIENT_PARTS = {"outputs", "__pycache__", ".pytest_cache", "build", "dist"}
 SELF_REFERENTIAL = {"metadata/release_manifest.json", "SHA256SUMS.txt"}
 
