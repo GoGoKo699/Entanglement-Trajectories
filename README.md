@@ -178,7 +178,7 @@ See [Reproducibility](docs/REPRODUCIBILITY.md) for output locations, determinist
 | 30 seconds | this summary and Figure 1 |
 | 5 minutes | [Results at a glance](docs/RESULTS_AT_A_GLANCE.md) and [Corrections](CORRECTIONS.md) |
 | 20 minutes | [Scientific overview](docs/SCIENTIFIC_OVERVIEW.md) and [Public figure story](docs/PUBLIC_FIGURE_STORY.md) |
-| Technical audit | [Exact spectral geometry](docs/EXACT_SPECTRAL_GEOMETRY.md), [Analysis methods](docs/ANALYSIS_METHODS.md), and [QA report](QA_REPORT.md) |
+| Technical audit | [Exact spectral geometry](docs/EXACT_SPECTRAL_GEOMETRY.md), [Analysis methods](docs/ANALYSIS_METHODS.md), and [Release QA](docs/RELEASE_QA.md) |
 | Reproduction | [Reproducibility](docs/REPRODUCIBILITY.md) |
 | AI or automated research assistant | [AI context](AI_CONTEXT.md) and [public claims JSON](metadata/public_claims.json) |
 | Historical record | `legacy/` and the `paper-2024-original` branch |
