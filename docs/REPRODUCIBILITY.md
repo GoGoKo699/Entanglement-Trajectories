@@ -92,7 +92,7 @@ The current source of truth is:
 - `metadata/paper_correction_ledger.csv` — location-specific audit of the 2024 paper;
 - `src/entanglement_trajectories/models.py` — model parameters, run IDs, and deterministic seed policy.
 
-The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata are preserved inside `legacy/historical_sources.zip`. The original root scripts remain recoverable from the `paper-2024-original` branch and Git history; the current root stubs prevent accidental execution.
+The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata are preserved inside `legacy/historical_sources.zip`. The original root scripts remain recoverable from the `paper-2024-original` branch and Git history. They have been removed from the corrected `main` branch so that historical filenames cannot be mistaken for the supported implementation.
 
 ## Numerical conventions
 
@@ -104,10 +104,10 @@ The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata ar
 - Majorization tests state their numerical tolerance explicitly.
 - Pure-state logarithmic negativity, equivalent here to the Rényi-$1/2$ sector, is especially sensitive to tiny numerical Schmidt tails near product states; its regression tolerance is therefore recorded separately.
 
-## Integrity records
+## Release identity
 
-`metadata/release_manifest.json` records the final repository inventory. `SHA256SUMS.txt` records file hashes. `QA_REPORT.md` states the exact checks performed before packaging.
+The tagged Git commit identifies the exact repository source tree. [`RELEASE_QA.md`](RELEASE_QA.md) records the scientific, computational, and hosted-release checks. The repository validator also checks the structure and CRC integrity of the included data and provenance archives.
 
-## Compact browser-upload package
+## Compact repository
 
-The release is deliberately kept at or below GitHub's 100-file browser-upload limit, and every file is below 25 MiB. Selected spectra and public-analysis inputs are bundled under `data/`; supported workflows extract them automatically into the ignored `outputs/` directory. The provenance archive under `legacy/` is not used by current analyses.
+Selected spectra and public-analysis inputs are bundled under `data/`; supported workflows extract them automatically into the ignored `outputs/` directory. The provenance archive under `legacy/` is retained for historical reconstruction and is not used by current analyses.

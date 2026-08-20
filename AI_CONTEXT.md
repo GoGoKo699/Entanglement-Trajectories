@@ -119,4 +119,4 @@ Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* 8, 1282 (202
 
 ## Repository release status
 
-Public repository edition: `1.0.0` (2026-08-20). Canonical repository name: `GoGoKo699/Entanglement-Trajectories`. The repository clarification is public-ready; the narrow journal corrigendum is recommended and drafted but not yet submitted.
+Public repository edition: `1.0.0` (2026-08-20). Canonical repository name: `GoGoKo699/Entanglement-Trajectories`. The repository clarification is public-ready. A narrow formal journal corrigendum remains recommended, but none has yet been submitted.

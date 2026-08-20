@@ -192,8 +192,8 @@ scripts/                         reproducible simulations, figures, and validati
 data/                            canonical trajectories and compact spectrum/figure-input archives
 figures/public/                  five GitHub-facing figures and the social preview
 docs/                            scientific explanation, methods, limitations, and FAQ
-paper/                           author clarification and narrow corrigendum draft
-metadata/                        claims, definitions, metrics, figures, corrections, and manifest
+paper/                           public author clarification for the published article
+metadata/                        claims, definitions, metrics, figures, corrections, and discovery records
 legacy/                          provenance archive and historical-branch instructions
 ```
 
@@ -223,4 +223,4 @@ The complete public nonclaim list is maintained in [AI_CONTEXT.md](AI_CONTEXT.md
 
 ## Repository-edition status
 
-Version `1.0.0` is the corrected public repository edition. It freezes the exact mathematical layer, the repaired follow-up computation, the quantitative metric-robustness result, the paper-correction record, and the human/AI discovery layer. The narrow journal corrigendum is recommended and drafted, but has not yet been submitted.
+Version `1.0.0` is the corrected public repository edition. It freezes the exact mathematical layer, the repaired follow-up computation, the quantitative metric-robustness result, the paper-correction record, and the human/AI discovery layer. A narrow formal journal corrigendum remains recommended, but none has yet been submitted.

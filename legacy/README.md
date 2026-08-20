@@ -56,7 +56,7 @@ Historical code documents what was previously implemented. It does not override 
 
 The new-code and corrected-content licenses do not automatically relicense archived historical material.
 
-* Current source code: BSD 3-Clause.
-* New documentation, public figures, metadata, and curated data: CC BY 4.0.
-* The published journal article remains governed by its publisher’s license.
-* Archived files retain their previous legal status unless an individual file states otherwise.
+- Current source code: BSD 3-Clause.
+- New documentation, public figures, metadata, and curated data: CC BY 4.0.
+- The published journal article remains governed by its publisher’s license.
+- Archived files retain their previous legal status unless an individual file states otherwise.

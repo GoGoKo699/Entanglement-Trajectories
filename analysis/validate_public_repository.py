@@ -3,11 +3,9 @@
 from __future__ import annotations
 
 import csv
-import hashlib
 import json
 from pathlib import Path
 import re
-import sys
 import zipfile
 
 import yaml
@@ -28,8 +26,6 @@ REQUIRED = [
     "llms.txt",
     "llms-full.txt",
     "VERSION",
-    "SHA256SUMS.txt",
-    "metadata/release_manifest.json",
     "metadata/public_claims.json",
     "metadata/definitions.json",
     "metadata/discovery_terms.json",
@@ -59,8 +55,8 @@ PUBLIC_FIGURES = [
     "figure_05_model_morphology_and_limits.png",
 ]
 
+
 TRANSIENT_PARTS = {"outputs", "__pycache__", ".pytest_cache", "build", "dist"}
-SELF_REFERENTIAL = {"metadata/release_manifest.json", "SHA256SUMS.txt"}
 
 
 def relative(path: Path) -> str:
@@ -77,12 +73,6 @@ def repository_files() -> list[Path]:
     )
 
 
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def markdown_links(path: Path) -> list[str]:
@@ -90,77 +80,8 @@ def markdown_links(path: Path) -> list[str]:
     return re.findall(r"(?<!!)\[[^\]]*\]\(([^)]+)\)", text)
 
 
-def all_strings(value):
-    if isinstance(value, str):
-        yield value
-    elif isinstance(value, dict):
-        for item in value.values():
-            yield from all_strings(item)
-    elif isinstance(value, list):
-        for item in value:
-            yield from all_strings(item)
 
 
-def validate_manifest(files: list[Path], errors: list[str]) -> None:
-    path = ROOT / "metadata/release_manifest.json"
-    try:
-        obj = json.loads(path.read_text(encoding="utf-8"))
-    except Exception as exc:
-        errors.append(f"cannot parse release manifest: {exc}")
-        return
-
-    actual_paths = {relative(path) for path in files}
-    expected_tracked = actual_paths - SELF_REFERENTIAL
-    entries = obj.get("files", [])
-    entry_paths = {entry.get("path") for entry in entries}
-
-    if obj.get("repository_file_count") != len(files):
-        errors.append("release manifest repository_file_count mismatch")
-    if obj.get("tracked_file_count") != len(entries):
-        errors.append("release manifest tracked_file_count mismatch")
-    if set(obj.get("self_referential_exclusions", [])) != SELF_REFERENTIAL:
-        errors.append("release manifest self-referential exclusions mismatch")
-    if entry_paths != expected_tracked:
-        missing = sorted(expected_tracked - entry_paths)
-        extra = sorted(entry_paths - expected_tracked)
-        errors.append(f"release manifest path coverage mismatch; missing={missing}, extra={extra}")
-        return
-
-    by_path = {entry["path"]: entry for entry in entries}
-    for rel in sorted(expected_tracked):
-        file_path = ROOT / rel
-        entry = by_path[rel]
-        if entry.get("size_bytes") != file_path.stat().st_size:
-            errors.append(f"manifest size mismatch: {rel}")
-        if entry.get("sha256") != sha256(file_path):
-            errors.append(f"manifest hash mismatch: {rel}")
-
-
-def validate_sha_file(files: list[Path], errors: list[str]) -> None:
-    path = ROOT / "SHA256SUMS.txt"
-    records: dict[str, str] = {}
-    try:
-        for raw in path.read_text(encoding="utf-8").splitlines():
-            if not raw.strip():
-                continue
-            digest, rel = raw.split("  ", 1)
-            records[rel] = digest
-    except Exception as exc:
-        errors.append(f"cannot parse SHA256SUMS.txt: {exc}")
-        return
-
-    expected = {relative(file_path) for file_path in files if relative(file_path) != "SHA256SUMS.txt"}
-    if set(records) != expected:
-        errors.append(
-            "SHA256SUMS path coverage mismatch; "
-            f"missing={sorted(expected-set(records))}, extra={sorted(set(records)-expected)}"
-        )
-        return
-    for rel, digest in records.items():
-        if not re.fullmatch(r"[0-9a-f]{64}", digest):
-            errors.append(f"invalid SHA-256 digest format: {rel}")
-        elif digest != sha256(ROOT / rel):
-            errors.append(f"SHA256SUMS hash mismatch: {rel}")
 
 
 def main() -> None:
@@ -325,10 +246,7 @@ def main() -> None:
     except Exception as exc:
         errors.append(f"cannot open social preview: {exc}")
 
-    if (ROOT / "metadata/release_manifest.json").is_file():
-        validate_manifest(files, errors)
-    if (ROOT / "SHA256SUMS.txt").is_file():
-        validate_sha_file(files, errors)
+
 
     if errors:
         print("PUBLIC VALIDATION: FAIL")
