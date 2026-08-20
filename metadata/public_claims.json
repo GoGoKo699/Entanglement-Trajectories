@@ -1,0 +1,293 @@
+{
+  "schema_version": "1.0.0",
+  "repository_version": "1.0.0",
+  "updated_on": "2026-08-20",
+  "canonical_claim": "For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested quantum-chaos families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.",
+  "claims": [
+    {
+      "id": "PUB-DEF-001",
+      "status": "definition",
+      "statement": "For a declared bipartition of a pure state, the Schmidt-spectrum path is the ordered reduced-density-matrix spectrum as a function of time.",
+      "scope": "fixed-cut bipartite pure-state dynamics",
+      "source_paths": [
+        "SCIENTIFIC_POSITION.md",
+        "docs/SCIENTIFIC_OVERVIEW.md"
+      ],
+      "preferred_terms": [
+        "Schmidt-spectrum path",
+        "reduced-density-matrix eigenvalue dynamics"
+      ]
+    },
+    {
+      "id": "PUB-DEF-002",
+      "status": "definition",
+      "statement": "The entanglement-trajectory atlas is the family of time-ordered projections obtained by applying declared spectrum functionals to one Schmidt-spectrum path.",
+      "scope": "declared metric family and bipartition",
+      "source_paths": [
+        "README.md",
+        "AI_CONTEXT.md"
+      ]
+    },
+    {
+      "id": "PUB-EXACT-001",
+      "status": "exact",
+      "statement": "At fixed largest Schmidt value, the concentrated spectrum majorizes every compatible spectrum and every compatible spectrum majorizes the equal-tail spectrum.",
+      "scope": "finite-dimensional ordered probability spectra with fixed maximum entry",
+      "source_paths": [
+        "docs/EXACT_SPECTRAL_GEOMETRY.md",
+        "src/entanglement_trajectories/boundaries.py",
+        "tests/test_repository.py"
+      ]
+    },
+    {
+      "id": "PUB-EXACT-002",
+      "status": "exact",
+      "statement": "The majorization extremizers give exact finite-dimensional fixed-largest-eigenvalue envelopes for the declared Schur-concave metric families.",
+      "scope": "metric families and domains listed in metadata/metric_registry.json",
+      "source_paths": [
+        "docs/EXACT_SPECTRAL_GEOMETRY.md",
+        "metadata/metric_registry.json"
+      ]
+    },
+    {
+      "id": "PUB-EXACT-003",
+      "status": "exact",
+      "statement": "Majorization-compatible spectrum pairs are ordered consistently by every Schur-concave entropy in the declared family.",
+      "scope": "nonnegative Renyi orders and equivalent Schur-concave quantities under their stated conventions",
+      "source_paths": [
+        "docs/MAJORIZATION_AND_METRIC_DISAGREEMENT.md",
+        "src/entanglement_trajectories/spectra.py"
+      ]
+    },
+    {
+      "id": "PUB-EXACT-004",
+      "status": "exact",
+      "statement": "For bipartite pure states, logarithmic negativity equals the Renyi-one-half entropy.",
+      "scope": "bipartite pure states",
+      "source_paths": [
+        "docs/METRIC_TAXONOMY.md",
+        "metadata/metric_registry.json"
+      ]
+    },
+    {
+      "id": "PUB-EXACT-005",
+      "status": "exact",
+      "statement": "Linear entropy, purity, Renyi-two entropy, participation ratio, I-concurrence, and I-tangle contain overlapping or strictly transformed information and must not be counted as independent metric families.",
+      "scope": "definitions and normalizations in the metric registry",
+      "source_paths": [
+        "docs/METRIC_TAXONOMY.md",
+        "metadata/metric_registry.json"
+      ]
+    },
+    {
+      "id": "PUB-EMP-001",
+      "status": "empirical",
+      "statement": "The exact-boundary-normalized common metric mode explains 90.2628 percent of total standardized variance.",
+      "value": 0.9026282298671149,
+      "uncertainty": {
+        "cluster_bootstrap_ci95": [
+          0.8574156931787958,
+          0.9379151738860936
+        ]
+      },
+      "scope": "three vertical metric classes, 96 included trajectories, four model families, six sizes",
+      "source_paths": [
+        "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json",
+        "data/public_analysis_inputs.zip::common_metric_modes.json"
+      ],
+      "prohibited_overstatement": "Do not call this exact metric equivalence or a universal invariant."
+    },
+    {
+      "id": "PUB-EMP-002",
+      "status": "empirical",
+      "statement": "The median trajectory-level common-mode fraction is 94.7514 percent.",
+      "value": 0.9475141487435563,
+      "scope": "96 included trajectories",
+      "source_paths": [
+        "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
+      ]
+    },
+    {
+      "id": "PUB-EMP-003",
+      "status": "empirical",
+      "statement": "Boundary-normalized within-trajectory rank agreement ranges from 0.6922 to 0.9473 across the three tested metric pairs.",
+      "values": {
+        "von_neumann_vs_log_negativity": 0.9473411195443137,
+        "von_neumann_vs_order_two_class": 0.7593112466770355,
+        "order_two_class_vs_log_negativity": 0.6922451746677301
+      },
+      "scope": "cluster means over the 16 model-condition runs",
+      "source_paths": [
+        "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
+      ]
+    },
+    {
+      "id": "PUB-EMP-004",
+      "status": "empirical",
+      "statement": "Metric competition occurs on 808 of 5760 consecutive scalar steps, or 14.0278 percent.",
+      "value": 0.14027777777777778,
+      "counts": {
+        "metric_competition": 808,
+        "all_steps": 5760
+      },
+      "scope": "all included scalar trajectories and the three tested vertical metric classes",
+      "source_paths": [
+        "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
+      ]
+    },
+    {
+      "id": "PUB-EMP-005",
+      "status": "empirical_with_exact_mechanism",
+      "statement": "All 50 metric-competition events in the selected complete-spectrum audit occur among majorization-incomparable transitions, with zero outside that sector.",
+      "counts": {
+        "competition": 50,
+        "incomparable": 280,
+        "compatible_increase": 111,
+        "compatible_decrease": 9,
+        "competition_outside_incomparable": 0
+      },
+      "scope": "five selected n=20 runs and 400 consecutive spectrum transitions",
+      "source_paths": [
+        "data/public_analysis_inputs.zip::majorization_transition_audit.csv",
+        "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
+      ],
+      "prohibited_overstatement": "Incomparability permits disagreement but does not force it."
+    },
+    {
+      "id": "PUB-EMP-006",
+      "status": "empirical",
+      "statement": "Metric competition is model dependent in the supplied data.",
+      "values": {
+        "qca": 0.04513888888888889,
+        "kicked_ising": 0.09930555555555555,
+        "quantum_baker": 0.17152777777777778,
+        "random_field_xxz": 0.24513888888888888
+      },
+      "scope": "included scalar trajectories",
+      "source_paths": [
+        "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
+      ]
+    },
+    {
+      "id": "PUB-EMP-007",
+      "status": "empirical",
+      "statement": "Exact vertical turn counts agree across all three tested metrics on only 2 of 96 trajectories.",
+      "value": 0.020833333333333332,
+      "counts": {
+        "agreement": 2,
+        "trajectories": 96
+      },
+      "scope": "sampling and turn-count convention documented in docs/ANALYSIS_METHODS.md",
+      "source_paths": [
+        "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json",
+        "docs/ANALYSIS_METHODS.md"
+      ],
+      "implication": "Fine projected path structure is not invariant."
+    },
+    {
+      "id": "PUB-EMP-008",
+      "status": "empirical",
+      "statement": "Model-centroid same-metric classification with held-out size reaches 0.9167 accuracy, while individual same-metric size-and-condition holdout reaches 0.3681.",
+      "values": {
+        "model_centroid_leave_size": 0.9166666666666666,
+        "individual_double_holdout": 0.3680555555555555,
+        "chance": 0.25
+      },
+      "scope": "nearest-centroid stress tests documented in docs/ANALYSIS_METHODS.md",
+      "source_paths": [
+        "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json",
+        "docs/FINGERPRINT_GENERALIZATION_LIMITS.md"
+      ]
+    },
+    {
+      "id": "PUB-LIM-001",
+      "status": "limitation",
+      "statement": "The project has not proved a formal topological invariant.",
+      "scope": "all public interpretation",
+      "source_paths": [
+        "docs/OPERATIONAL_TOPOLOGICAL_INVARIANT.md",
+        "docs/LIMITATIONS.md"
+      ],
+      "preferred_wording": "empirical metric-robust trajectory class"
+    },
+    {
+      "id": "PUB-LIM-002",
+      "status": "limitation",
+      "statement": "The current evidence does not establish a universal individual-run fingerprint.",
+      "scope": "classification claims",
+      "source_paths": [
+        "docs/FINGERPRINT_GENERALIZATION_LIMITS.md"
+      ]
+    },
+    {
+      "id": "PUB-LIM-003",
+      "status": "limitation",
+      "statement": "The central claim does not cover every entanglement notion, mixed-state entanglement, or genuine multipartite invariants.",
+      "scope": "fixed-cut pure-state construction",
+      "source_paths": [
+        "docs/LIMITATIONS.md",
+        "AI_CONTEXT.md"
+      ]
+    },
+    {
+      "id": "PUB-COR-001",
+      "status": "correction",
+      "statement": "The published three-curve region is an approximate outer arena rather than the exact tight boundary.",
+      "replacement": "Use the exact majorization envelopes.",
+      "source_paths": [
+        "CORRECTIONS.md",
+        "metadata/paper_correction_ledger.csv"
+      ]
+    },
+    {
+      "id": "PUB-COR-002",
+      "status": "correction",
+      "statement": "The published Page expression is asymptotic rather than the exact finite-dimensional complex-Haar mean.",
+      "replacement": "Use the harmonic-number formula documented in the correction layer.",
+      "source_paths": [
+        "CORRECTIONS.md",
+        "docs/EXACT_SPECTRAL_GEOMETRY.md"
+      ]
+    },
+    {
+      "id": "PUB-COR-003",
+      "status": "correction",
+      "statement": "The deterministic mean component of the noncentral Wishart construction is rank one.",
+      "replacement": "It has one nonzero eigenvalue and all remaining eigenvalues zero.",
+      "source_paths": [
+        "CORRECTIONS.md",
+        "paper/AUTHOR_CLARIFICATION_2026.md"
+      ]
+    },
+    {
+      "id": "PUB-COR-004",
+      "status": "correction",
+      "statement": "A global quantum Fourier transform does not generally preserve the Schmidt spectrum.",
+      "replacement": "Describe the paper overlap as state-family-specific numerical behavior and retain the explicit counterexample.",
+      "source_paths": [
+        "CORRECTIONS.md",
+        "paper/AUTHOR_CLARIFICATION_2026.md"
+      ]
+    },
+    {
+      "id": "PUB-COR-005",
+      "status": "correction",
+      "statement": "Random-matrix constructions provide conditional references, not the exact feasible boundary or a universal attractor.",
+      "source_paths": [
+        "docs/RMT_REFERENCE_LAYER.md",
+        "CORRECTIONS.md"
+      ]
+    }
+  ],
+  "required_nonclaims": [
+    "All entanglement metrics always agree.",
+    "A formal topological invariant has been proved.",
+    "Every entanglement notion is a function of one fixed Schmidt spectrum.",
+    "Random matrix theory supplies the exact boundary.",
+    "All tested dynamics converge to a random-matrix attractor.",
+    "A QFT generally preserves entanglement.",
+    "Entropy magnitude alone certifies simulation cost, computational usefulness, or quantum advantage.",
+    "The current atlas is a universal individual-run classifier.",
+    "All named metrics in the package are independent."
+  ]
+}

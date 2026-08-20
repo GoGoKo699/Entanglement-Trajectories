@@ -1,0 +1,101 @@
+{
+  "schema_version": "1.0.0",
+  "canonical_title": "Entanglement Trajectories",
+  "canonical_subtitle": "One Schmidt-spectrum path, many entanglement metrics.",
+  "terms": [
+    {
+      "term": "entanglement trajectory",
+      "definition": "A time-ordered projection of a declared Schmidt-spectrum path, usually using largest Schmidt value and one spectrum functional.",
+      "aliases": [
+        "entanglement trajectory geometry",
+        "entanglement path"
+      ],
+      "related_queries": [
+        "dynamics of entanglement measures",
+        "geometric representation of entanglement evolution"
+      ]
+    },
+    {
+      "term": "Schmidt-spectrum dynamics",
+      "definition": "Time evolution of the ordered reduced-density-matrix eigenvalues for a declared pure-state bipartition.",
+      "aliases": [
+        "Schmidt spectrum dynamics",
+        "reduced-density-matrix eigenvalue dynamics",
+        "entanglement-spectrum dynamics"
+      ],
+      "nearby_but_not_identical": [
+        "entanglement-Hamiltonian level dynamics"
+      ]
+    },
+    {
+      "term": "entanglement-trajectory atlas",
+      "definition": "The family of trajectory projections obtained from several declared spectrum functionals on one Schmidt-spectrum path.",
+      "aliases": [
+        "metric atlas of entanglement dynamics",
+        "multi-metric entanglement trajectory"
+      ]
+    },
+    {
+      "term": "metric-robust trajectory class",
+      "definition": "Coarse trajectory morphology that remains recognizable under replacement of one declared Schmidt-spectrum metric by another.",
+      "aliases": [
+        "projection-stable trajectory morphology",
+        "metric-robust entanglement dynamics"
+      ],
+      "historical_label": "quoted \u201ctopological invariant\u201d of an entanglement trajectory",
+      "not_equivalent_to": [
+        "proved topological invariant",
+        "homotopy invariant",
+        "persistent-homology invariant"
+      ]
+    },
+    {
+      "term": "majorization-aware metric competition",
+      "definition": "Opposite scalar changes among valid metric classes on a transition not ordered by majorization.",
+      "aliases": [
+        "entanglement-metric disagreement",
+        "metric-competitive spectral motion"
+      ]
+    },
+    {
+      "term": "exact fixed-lambda-max envelope",
+      "definition": "The finite-dimensional feasible interval of a declared spectrum functional conditioned on the largest Schmidt value, bounded by concentrated and equal-tail spectra.",
+      "aliases": [
+        "exact entanglement metric boundary",
+        "fixed-largest-eigenvalue arena"
+      ],
+      "not_equivalent_to": [
+        "Marchenko-Pastur curve",
+        "spiked-Wishart reference curve"
+      ]
+    },
+    {
+      "term": "unifying entanglement measures",
+      "definition": "Explaining several scalar measures as nonlinear observations of one Schmidt spectrum without requiring universal agreement.",
+      "related_queries": [
+        "relationship between entanglement measures",
+        "why entanglement measures disagree"
+      ]
+    },
+    {
+      "term": "random-matrix reference for entanglement spectra",
+      "definition": "A finite-Haar, Wishart, Marchenko-Pastur, spectral-edge, or bulk-correlation benchmark used after exact spectrum geometry is fixed.",
+      "not_equivalent_to": [
+        "exact boundary",
+        "universal attractor",
+        "computational-advantage certificate"
+      ]
+    }
+  ],
+  "preferred_search_phrases": [
+    "what unifies different entanglement measures",
+    "Schmidt spectrum and entanglement measures",
+    "entanglement trajectory quantum chaos",
+    "majorization metric disagreement entanglement",
+    "metric robust entanglement dynamics",
+    "topological invariant entanglement trajectory",
+    "exact entropy boundary largest Schmidt eigenvalue"
+  ],
+  "repository_version": "1.0.0",
+  "canonical_repository": "https://github.com/GoGoKo699/Entanglement-Trajectories"
+}

@@ -1,0 +1,53 @@
+{
+  "@context": "https://w3id.org/codemeta/3.1",
+  "@type": "SoftwareSourceCode",
+  "name": "Entanglement Trajectories",
+  "alternateName": "Entanglement Trajectory and its Boundary \u2014 corrected computational companion",
+  "description": "Corrected computational companion and follow-up evidence for Entanglement Trajectory and its Boundary, including exact Schmidt-spectrum metric envelopes, majorization-aware metric disagreement, deterministic quantum-chaos trajectories, and quantified metric-robust trajectory morphology.",
+  "codeRepository": "https://github.com/GoGoKo699/Entanglement-Trajectories",
+  "url": "https://quantum-journal.org/papers/q-2024-03-14-1282/",
+  "version": "1.0.0",
+  "dateModified": "2026-08-20",
+  "author": {
+    "@type": "Person",
+    "givenName": "Ruge",
+    "familyName": "Lin"
+  },
+  "citation": {
+    "@type": "ScholarlyArticle",
+    "name": "Entanglement Trajectory and its Boundary",
+    "identifier": "https://doi.org/10.22331/q-2024-03-14-1282",
+    "author": {
+      "@type": "Person",
+      "givenName": "Ruge",
+      "familyName": "Lin"
+    },
+    "isPartOf": {
+      "@type": "Periodical",
+      "name": "Quantum"
+    },
+    "datePublished": "2024-03-14",
+    "pagination": "1282"
+  },
+  "programmingLanguage": "Python",
+  "runtimePlatform": "Python >=3.10",
+  "applicationCategory": "Quantum information research software",
+  "keywords": [
+    "entanglement trajectories",
+    "Schmidt-spectrum dynamics",
+    "entanglement spectrum",
+    "quantum entanglement",
+    "majorization",
+    "metric-robust trajectory morphology",
+    "quantum chaos",
+    "Renyi entropy",
+    "von Neumann entropy",
+    "logarithmic negativity",
+    "random matrix theory",
+    "reproducible research"
+  ],
+  "license": [
+    "https://spdx.org/licenses/BSD-3-Clause.html",
+    "https://creativecommons.org/licenses/by/4.0/"
+  ]
+}

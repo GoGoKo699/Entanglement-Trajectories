@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the published article and identify this repository as the corrected computational companion."
+title: "Entanglement Trajectories: corrected code and follow-up evidence for Entanglement Trajectory and its Boundary"
+type: software
+authors:
+  - family-names: Lin
+    given-names: Ruge
+version: 1.0.0
+date-released: 2026-08-20
+license: BSD-3-Clause
+repository-code: "https://github.com/GoGoKo699/Entanglement-Trajectories"
+url: "https://quantum-journal.org/papers/q-2024-03-14-1282/"
+abstract: >-
+  Corrected computational companion and follow-up evidence package for the
+  entanglement-trajectory representation. The repository provides exact
+  Schmidt-spectrum metric envelopes, majorization-aware metric comparisons,
+  deterministic quantum-chaos trajectories, random-matrix reference
+  diagnostics, and quantified metric-robust trajectory morphology.
+keywords:
+  - quantum entanglement
+  - Schmidt spectrum
+  - entanglement trajectory
+  - entanglement spectrum
+  - majorization
+  - quantum chaos
+  - Renyi entropy
+  - logarithmic negativity
+  - random matrix theory
+  - reproducible research
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Lin
+      given-names: Ruge
+  title: "Entanglement Trajectory and its Boundary"
+  journal: Quantum
+  volume: "8"
+  start: "1282"
+  year: 2024
+  month: 3
+  doi: "10.22331/q-2024-03-14-1282"
+  url: "https://quantum-journal.org/papers/q-2024-03-14-1282/"

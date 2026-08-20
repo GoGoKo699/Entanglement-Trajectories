@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0.0",
+  "repository_version": "1.0.0",
+  "figures": [
+    {
+      "id": "FIG-PUB-01",
+      "title": "One Schmidt-spectrum path, several entanglement lenses",
+      "reader_question": "What unifies the many entanglement metrics?",
+      "answer": "The ordered Schmidt-spectrum path is the common latent object; metric projections form a trajectory atlas with both shared coarse morphology and informative local competition.",
+      "png": "figures/public/figure_01_one_spectrum_many_lenses.png",
+      "claim_ids": [
+        "PUB-DEF-001",
+        "PUB-DEF-002",
+        "PUB-LIM-001"
+      ],
+      "caption": "One ordered Schmidt-spectrum path generates several nonlinear entanglement trajectories. Their atlas can retain shared coarse morphology while allowing local metric competition. Majorization identifies the sector in which Schur-concave metrics must agree; incomparable spectra leave room for valid contradictions.",
+      "alt_text": "Flow diagram. A Schmidt-spectrum path feeds four lenses labelled H one-half, H one, H two class, and H infinity. The lenses join in a trajectory atlas, which branches to shared coarse morphology and local metric competition. Text states that majorization forces agreement on comparable spectra and incomparability allows contradictions.",
+      "data_archive": "data/public_analysis_inputs.zip"
+    },
+    {
+      "id": "FIG-PUB-02",
+      "title": "Exact metric arenas",
+      "reader_question": "What part of the comparison is exact?",
+      "answer": "Majorization extremizers give exact fixed-largest-eigenvalue feasible envelopes and a common boundary-relative stage.",
+      "png": "figures/public/figure_02_exact_metric_arenas.png",
+      "claim_ids": [
+        "PUB-EXACT-001",
+        "PUB-EXACT-002"
+      ],
+      "caption": "Exact finite-dimensional feasible arenas at n=20 and reduced dimension d=1024. The horizontal coordinate is normalized min-entropy, equivalent to the largest Schmidt value. Concentrated and equal-tail spectra give the exact lower and upper boundaries for von Neumann entropy, the order-two class, and pure-state logarithmic negativity. Orange points are the included n=20 observations.",
+      "alt_text": "Three panels plot normalized von Neumann entropy, linear entropy, and pure-state log-negativity against normalized min-entropy. Each panel contains a blue feasible region bounded by a stepped lower curve and smooth upper curve, with orange data points inside.",
+      "data_archive": "data/public_analysis_inputs.zip"
+    },
+    {
+      "id": "FIG-PUB-03",
+      "title": "Metric robustness is hierarchical",
+      "reader_question": "How strong is the cross-metric invariance, and what does not survive?",
+      "answer": "A dominant normalized common mode and stable coarse rankings coexist with weak exact-turn agreement.",
+      "png": "figures/public/figure_03_metric_robustness_hierarchy.png",
+      "claim_ids": [
+        "PUB-EMP-001",
+        "PUB-EMP-002",
+        "PUB-EMP-003",
+        "PUB-EMP-007"
+      ],
+      "caption": "Metric robustness is strong but hierarchical. The first normalized common mode explains 90.3 percent of variance, with a run-cluster bootstrap interval. Pairwise rank agreement persists across sizes. Coarse arc-length rankings are stable, whereas exact turn-count agreement is weak.",
+      "alt_text": "Three-panel quantitative summary. Panel A shows a common mode near ninety percent, a contrast mode near nine percent, and a small residual. Panel B shows three cross-metric correlation curves from n equals ten to twenty. Panel C shows high arc-length rank agreement, moderate signed-area rank agreement, and low exact turn-count agreement.",
+      "data_archive": "data/public_analysis_inputs.zip"
+    },
+    {
+      "id": "FIG-PUB-04",
+      "title": "Majorization and metric competition",
+      "reader_question": "How can valid metrics contradict one another?",
+      "answer": "Incomparable spectra can reverse metric order; all selected empirical competition events occur in the incomparable sector.",
+      "png": "figures/public/figure_04_majorization_and_metric_competition.png",
+      "claim_ids": [
+        "PUB-EXACT-003",
+        "PUB-EMP-004",
+        "PUB-EMP-005",
+        "PUB-EMP-006"
+      ],
+      "caption": "The trajectory atlas explains consensus and contradiction. An explicit incomparable spectrum pair reverses the ordering of different Renyi sectors. In the selected full-spectrum audit, competition occurs only among incomparable transitions. The overall competition rate varies strongly across the four model families.",
+      "alt_text": "Three panels. Panel A compares two four-entry spectra and lists which one has larger H one, H two, H one-half, and H infinity. Panel B is a stacked bar chart showing no metric competition in majorization-compatible increases or decreases and some competition for incomparable transitions. Panel C shows competition rates increasing from QCA to random-field XXZ.",
+      "data_archive": "data/public_analysis_inputs.zip"
+    },
+    {
+      "id": "FIG-PUB-05",
+      "title": "Model morphology and fingerprint limits",
+      "reader_question": "Do trajectories carry model information, and how far does it generalize?",
+      "answer": "Model-centroid morphology is distinct and generalizes across held-out sizes; individual unseen conditions remain much harder.",
+      "png": "figures/public/figure_05_model_morphology_and_limits.png",
+      "claim_ids": [
+        "PUB-EMP-008",
+        "PUB-LIM-002"
+      ],
+      "caption": "Model-level morphology is stronger than individual fingerprinting. The n=20 model-centroid trajectories occupy distinct regions of largest-Schmidt-value versus common-mode space. Held-out-size centroid classification is strong, but accuracy falls for unseen individual conditions and does not beat the largest-Schmidt-value path baseline in the strictest holdout.",
+      "alt_text": "Two panels. The left panel plots four differently shaped model-centroid paths for QCA, kicked Ising, quantum baker, and random-field XXZ. The right panel shows classification bars descending from about 0.917 for model centroids to 0.368 for individual double holdout, with a lambda-max baseline at about 0.417 and chance at 0.25.",
+      "data_archive": "data/public_analysis_inputs.zip"
+    }
+  ]
+}

@@ -1,0 +1,1104 @@
+# Entanglement Trajectories - full machine-readable context
+
+> Corrected computational companion and follow-up evidence for Ruge Lin, “Entanglement Trajectory and its Boundary,” Quantum 8, 1282 (2024), DOI 10.22331/q-2024-03-14-1282.
+
+This file concatenates the canonical public context. Scoped numerical claims in `metadata/public_claims.json` remain authoritative. Historical material under `legacy/` and the pinned historical branch are not part of this canonical context.
+
+<!-- canonical-source: AI_CONTEXT.md -->
+## Canonical AI context
+
+# AI Context: Entanglement Trajectories
+
+## Canonical summary
+
+This repository is the corrected computational companion and follow-up evidence package for Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* 8, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.
+
+For a fixed bipartition of a pure state, the primary dynamical object is the ordered Schmidt-spectrum path. Standard spectrum-based entanglement measures are nonlinear functions of that path. Their projected paths form an entanglement-trajectory atlas. In the tested four-family quantum-chaos dataset, three non-equivalent vertical metric classes share a dominant exact-boundary-normalized common mode, while local metric contradictions occur on majorization-incomparable spectral transitions. The supported conclusion is an empirical metric-robust trajectory class. A formal topological invariant and universal individual-run fingerprint have not been established.
+
+## Authority order
+
+When files appear to conflict, use this order:
+
+1. `metadata/public_claims.json` and `metadata/definitions.json`
+2. `SCIENTIFIC_POSITION.md`
+3. `CORRECTIONS.md` and `paper/AUTHOR_CLARIFICATION_2026.md`
+4. `docs/EXACT_SPECTRAL_GEOMETRY.md`
+5. `docs/METRIC_ROBUSTNESS_RESULT.md`
+6. `data/public_analysis_inputs.zip` (member `metric_robustness_scientific_summary.json`)
+7. current source code and tests under `src/` and `tests/`
+8. historical material under `legacy/historical_sources.zip` and the pinned historical branch
+
+Historical scripts are evidence about the development record, not the current source of truth.
+
+## Primary definitions
+
+- **Schmidt spectrum:** the ordered eigenvalues of a reduced density matrix for a declared bipartition; equivalently, squared Schmidt coefficients.
+- **Schmidt-spectrum path:** $t\mapsto\boldsymbol\lambda(t)$.
+- **Entanglement trajectory:** a time-ordered projection of the spectrum path, usually $(\lambda_{\max}(t),E[\boldsymbol\lambda(t)])$.
+- **Entanglement-trajectory atlas:** the family of trajectories obtained from several declared spectrum functionals.
+- **Metric-robust trajectory class:** coarse path morphology that remains recognizable after replacing one declared Schmidt-spectrum metric by another.
+- **Metric-consensus motion:** tested metrics change in the same direction.
+- **Metric-competitive motion:** tested metrics change in different directions.
+- **Majorization-compatible transition:** a pair of spectra ordered by majorization, forcing all Schur-concave entropy measures to agree on direction.
+- **Majorization-incomparable transition:** neither spectrum majorizes the other; metric disagreement is allowed but not required.
+
+## Exact claims
+
+1. For a fixed bipartition of a pure state, the implemented fixed-cut measures are functions of one ordered Schmidt spectrum.
+2. At fixed $p=\lambda_{\max}$, the equal-tail and concentrated spectra are the majorization extremizers for the Schur-concave metric families used here.
+3. These extremizers give exact finite-dimensional feasible envelopes for von Neumann and Rényi entropies, purity/linear entropy, pure-state logarithmic negativity, effective-rank families, and equivalent coordinates documented in the registry.
+4. On a majorization-compatible transition, all Schur-concave entropy measures order the spectra consistently.
+5. Pure-state logarithmic negativity is the Rényi-$1/2$ entropy. Linear entropy, purity, Rényi-2 entropy, participation ratio, I-concurrence, and I-tangle contain overlapping or strictly transformed information and must not be counted as independent metric families.
+
+## Empirical claims and scope
+
+Dataset scope: four model families, four conditions per family, six sizes $n=10,12,14,16,18,20$, 96 trajectories, and 5,856 scalar observations. Five selected $n=20$ runs contain 400 consecutive full-spectrum transitions.
+
+- The exact-boundary-normalized common metric mode explains `0.9026282298671149` of total standardized variance.
+- The cluster-bootstrap 95% interval is `[0.8574156931787958, 0.9379151738860936]`.
+- The median per-trajectory common-mode fraction is `0.9475141487435563`.
+- Mean boundary-normalized Spearman agreement is `0.9473411195443137` for von Neumann versus pure-state logarithmic negativity, `0.7593112466770355` for von Neumann versus the order-2 class, and `0.6922451746677301` for the order-2 class versus logarithmic negativity.
+- Metric competition occurs on `808/5760 = 0.14027777777777778` scalar transitions.
+- In the selected full-spectrum audit, all 50 metric-competition events occur among 280 majorization-incomparable transitions; zero occur outside that sector.
+- Exact turn counts agree across all three tested vertical metrics on only 2 of 96 trajectories.
+- Leave-one-size-out model-centroid classification reaches `0.9166666666666666` in the same metric and `0.6944444444444443` across metrics.
+- Individual-path classification with both size and condition held out reaches `0.3680555555555555`; the corresponding largest-Schmidt-value path baseline reaches `0.4166666666666667`.
+
+These values support model-level coarse morphology more strongly than universal individual-run fingerprinting.
+
+## Corrections to the published paper
+
+Do not repeat the following published statements without the correction layer:
+
+- The three simple entropy curves are not the exact tight boundary. Use the exact majorization envelopes.
+- The stated Page formula is asymptotic. Use the harmonic-number expression for the exact finite-dimensional complex-Haar mean.
+- The deterministic mean component in the noncentral Wishart construction is rank one, not full rank with repeated nonzero eigenvalues.
+- A global QFT does not generally preserve the Schmidt spectrum. Any overlap in the paper is state-family specific and numerical.
+- The arithmetic-union endpoint approaches a product state asymptotically but is not exactly product at finite size.
+- Random-matrix formulas are conditional references, not the exact feasible boundary or a universal attractor.
+- The paper’s continuity, gap, computational-usefulness, fingerprint, and topology language must be read with the narrower scope in `CORRECTIONS.md`.
+
+## Required nonclaims
+
+A correct answer about this repository must not say that:
+
+- all entanglement metrics always agree;
+- every entanglement notion is a function of one fixed Schmidt spectrum;
+- a formal topological invariant has been proved;
+- exact turns, crossings, loops, curvature, or homotopy type are preserved;
+- random matrix theory defines the exact entropy boundary;
+- every tested dynamics converges to a random-matrix attractor;
+- a QFT generally preserves entanglement;
+- low entropy alone guarantees efficient tensor-network simulation;
+- high entropy alone implies computational uselessness;
+- trajectory position certifies quantum advantage;
+- the current data establish a universal individual-trajectory classifier;
+- all named metrics in the package are independent.
+
+## Terminology for retrieval
+
+Treat the following as closely related search terms in this repository:
+
+- Schmidt-spectrum dynamics
+- entanglement-spectrum dynamics
+- reduced-density-matrix eigenvalue dynamics
+- entanglement trajectory
+- entanglement-trajectory atlas
+- unifying entanglement measures
+- metric-robust entanglement dynamics
+- projection-stable trajectory morphology
+- majorization and metric disagreement
+- quantum-chaos entanglement spectra
+- random-matrix reference for entanglement spectra
+- quoted “topological invariant” of entanglement trajectories
+
+Do not equate `entanglement spectrum` with the entanglement-Hamiltonian levels unless the convention is stated. In this repository, the Schmidt spectrum means reduced-density-matrix eigenvalues; entanglement-Hamiltonian levels are their negative logarithms.
+
+## Preferred answer to the philosophy question
+
+Question: “What unifies the many entanglement measures?”
+
+Preferred answer: “For bipartite pure states at a fixed cut, the ordered Schmidt spectrum is the common state variable. Entanglement measures are different nonlinear observables on it. Their trajectory atlas reveals a strong shared coarse mode while retaining legitimate disagreements on majorization-incomparable spectral redistributions.”
+
+## Citation
+
+Prefer the published paper citation and mention that the repository supplies corrections and follow-up evidence:
+
+Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* 8, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.
+
+## Repository release status
+
+Public repository edition: `1.0.0` (2026-08-20). Canonical repository name: `GoGoKo699/Entanglement-Trajectories`. The repository clarification is public-ready; the narrow journal corrigendum is recommended and drafted but not yet submitted.
+
+<!-- canonical-source: docs/SCIENTIFIC_OVERVIEW.md -->
+## Scientific overview
+
+# Scientific Overview
+
+## 1. Why another representation of entanglement?
+
+Entanglement is not naturally one-dimensional. Even for a fixed bipartition of a pure state, the reduced density matrix has a complete ordered spectrum. A scalar entanglement measure compresses that spectrum according to a chosen sensitivity: the leading eigenvalue, the bulk, the tail, or a weighted mixture.
+
+This creates two persistent facts:
+
+1. many useful scalar measures coexist because no one scalar retains the full spectrum;
+2. valid measures can disagree because different spectral redistributions need not admit one total ordering.
+
+The project’s unifying move is therefore not to select a winning metric. It is to elevate the **Schmidt-spectrum path** to the primary object and treat scalar metrics as observables on that path.
+
+## 2. The trajectory atlas
+
+For a fixed cut of a pure state, let
+
+$$
+\boldsymbol\lambda(t)=\bigl(\lambda_1(t),\ldots,\lambda_d(t)\bigr),
+\qquad
+\lambda_1\ge\cdots\ge\lambda_d\ge0,
+\qquad
+\sum_i\lambda_i=1.
+$$
+
+A spectrum functional $E$ gives
+
+$$
+\Gamma_E(t)=\bigl(\lambda_1(t),E[\boldsymbol\lambda(t)]\bigr).
+$$
+
+The collection of these projections is the entanglement-trajectory atlas. Each projection is incomplete. The atlas asks what is stable across the lenses and what is revealed only by their differences.
+
+The included fixed-cut coordinates span separated Rényi sectors:
+
+- $H_{1/2}$, equal to pure-state logarithmic negativity;
+- $H_1$, the von Neumann entropy;
+- the $H_2$ equivalence class, represented by linear entropy or purity;
+- $H_\infty$, determined by $\lambda_{\max}$ and equivalent geometric coordinates.
+
+The registry prevents aliases from being counted as independent evidence. For example, purity, linear entropy, Rényi-2 entropy, participation ratio, I-concurrence, and I-tangle are linked by strict transformations or shared sufficient statistics.
+
+## 3. Exact spectrum geometry
+
+At fixed $p=\lambda_{\max}$, the compatible spectra have exact majorization extremizers.
+
+The equal-tail spectrum
+
+$$
+\boldsymbol u(p)=\left(p,\frac{1-p}{d-1},\ldots,\frac{1-p}{d-1}\right)
+$$
+
+is majorized by every compatible spectrum. The concentrated spectrum
+
+$$
+\boldsymbol c(p)=
+(\underbrace{p,\ldots,p}_{k},r,0,\ldots,0),
+\quad k=\lfloor1/p\rfloor,
+\quad r=1-kp,
+$$
+
+majorizes every compatible spectrum.
+
+Every Schur-concave metric used here therefore lies between its values on $\boldsymbol c(p)$ and $\boldsymbol u(p)$. This gives exact finite-dimensional envelopes and replaces the approximate three-curve arena in the published paper.
+
+For a metric with a noncollapsed envelope, define
+
+$$
+r_E(\boldsymbol\lambda)=
+\frac{E(\boldsymbol\lambda)-E_{\min}(\lambda_{\max})}
+{E_{\max}(\lambda_{\max})-E_{\min}(\lambda_{\max})}.
+$$
+
+This boundary-relative coordinate removes the metric’s range and much of its universal feasible-region deformation before trajectories are compared. At product, maximally entangled, or otherwise collapsed-envelope endpoints, the relative coordinate is undefined rather than assigned an arbitrary number.
+
+## 4. Why metrics agree
+
+Majorization supplies a domain of compulsory agreement. If
+
+$$
+\boldsymbol\lambda(t)\succ\boldsymbol\lambda(t+\Delta t),
+$$
+
+then every Schur-concave entropy used here reports that the later spectrum is at least as entangled. The reverse majorization relation forces the reverse ordering.
+
+This is the exact part of the unification: different entropy families share the same partial order whenever that order applies.
+
+## 5. Why metrics disagree
+
+Most pairs of high-dimensional spectra are not totally ordered by majorization. When neither spectrum majorizes the other, weight can move between the leading edge, bulk, and tail so that different Rényi sectors respond in opposite directions.
+
+The repository calls this **metric competition**. It is not a defect in the metrics. It is evidence that the spectrum moved in a way that cannot be compressed into one universal scalar ranking.
+
+In the selected full-spectrum audit, every observed metric-competition event lies in the majorization-incomparable sector. Incomparability is permissive rather than deterministic: many incomparable transitions still give consensus.
+
+## 6. The empirical metric-robust class
+
+After exact-boundary normalization, the three tested vertical metric classes have a dominant common standardized mode explaining 90.26% of total variance. The common mode has positive loadings on all three metrics. The principal contrast mode is dominated by the order-2 class, consistent with its stronger sensitivity to the leading part of the spectrum.
+
+This supports a hierarchy:
+
+- a strong common coarse mode;
+- metric-dependent deformation and contrast;
+- localized metric competition;
+- noninvariance of fine projected features such as exact turn counts.
+
+The appropriate conclusion is **projection-stable coarse morphology**, not exact projected-path identity.
+
+## 7. Quantum-chaos examples
+
+The follow-up package includes four dynamical families:
+
+- brickwork Floquet QCA;
+- open-chain kicked Ising;
+- a Balazs–Voros-style quantum baker;
+- Trotterized random-field XXZ.
+
+Across the included conditions and sizes, model-centroid trajectories retain recognizable separation in the shared metric mode. Held-out-size model-centroid classification is strong, including substantial cross-metric transfer. Performance drops for unseen individual conditions, especially when both size and condition are held out.
+
+The result supports model-family morphology within the tested scope. It does not yet establish a universal chaos fingerprint.
+
+## 8. Meaning of topology
+
+The published paper used “topological invariant” as informal conceptual language for the stability of trajectory shape across metric choices. The upgraded evidence supports only a coarse operational version:
+
+> a trajectory class is metric robust when its major stages and relational morphology remain stable under replacement of one declared spectrum functional by another.
+
+Exact turns, self-intersections, signed areas, curvature, and homotopy type need not be preserved. A formal topological construction remains an open research direction and would require an explicit object, equivalence relation, coarse-graining rule, stability theorem, and validation under sampling and perturbation.
+
+## 9. Role of random matrix theory
+
+The exact arena is determined by spectrum geometry. Random matrix theory supplies conditional references:
+
+1. finite-dimensional fixed-trace Haar/Wishart scalar references;
+2. asymptotic Marchenko–Pastur one-point density;
+3. spectral-edge diagnostics;
+4. entanglement-Hamiltonian bulk-correlation diagnostics;
+5. separated-spike approximations where their assumptions hold.
+
+These diagnostics can disagree. A spectrum may have a bulk adjacent-gap ratio near a random-matrix reference while its one-point density or largest eigenvalue remains far away. Such disagreement is part of the spectral information, not something to suppress.
+
+The follow-up data do not show one universal RMT attractor. Some selected paths approach the reference closely, some rebound, and others remain far from it.
+
+## 10. Relationship to the 2024 paper
+
+The paper introduced the useful primitive idea: entanglement evolution can be represented as a path; the largest Schmidt value supplies a complementary coordinate; recognizable path morphology may survive a change of metric.
+
+The repository corrects or narrows:
+
+- the exact entropy boundary;
+- the finite-dimensional Page formula;
+- the rank-one noncentral-Wishart algebra and scaling;
+- general QFT invariance;
+- the finite arithmetic-union endpoint;
+- continuity language;
+- entropy-gap interpretation;
+- random-matrix boundary and attractor language;
+- entropy-based claims about simulation and computational usefulness;
+- topology and fingerprint claims.
+
+The corrected project is stronger because exact geometry, conditional random-matrix references, empirical robustness, and open hypotheses are now kept separate.
+
+## 11. Current scientific claim
+
+> For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested quantum-chaos families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.
+
+<!-- canonical-source: docs/RESULTS_AT_A_GLANCE.md -->
+## Results at a glance
+
+# Results at a Glance
+
+## One-sentence conclusion
+
+Across the tested pure-state quantum-chaos families, several non-equivalent Schmidt-spectrum metrics share a dominant exact-boundary-normalized trajectory mode, while localized disagreements occur on majorization-incomparable spectral redistributions. The result supports an empirical **metric-robust trajectory class**, not exact invariance or a universal fingerprint.
+
+## Scope of the controlled test
+
+| Component | Included scope |
+|---|---|
+| Model families | brickwork Floquet QCA, open-chain kicked Ising, Balazs–Voros-style quantum baker, random-field XXZ |
+| Conditions | four declared runs per model family |
+| Sizes | $n=10,12,14,16,18,20$ |
+| Scalar trajectories | 96 |
+| Scalar observations | 5,856 |
+| Non-equivalent vertical metric classes | Rényi $q=\tfrac12$, $q=1$, and $q=2$ class |
+| Shared horizontal coordinate | $\lambda_{\max}$, equivalent to min-entropy/geometric coordinates |
+| Selected complete-spectrum runs | 5 at $n=20$ |
+| Selected complete-spectrum transitions | 400 |
+
+## Main numbers
+
+### Shared normalized mode
+
+The first standardized common mode of the three boundary-relative vertical metrics explains
+
+$$
+90.26\%
+$$
+
+of total variance, with a run-cluster bootstrap 95% interval of
+
+$$
+85.74\%\text{–}93.79\%.
+$$
+
+The median common-mode fraction computed separately for each trajectory is 94.75%.
+
+### Pairwise trajectory agreement
+
+Mean within-trajectory Spearman correlations after exact-boundary normalization are:
+
+| Pair | Mean $\rho$ |
+|---|---:|
+| von Neumann vs pure-state log-negativity | 0.947 |
+| von Neumann vs order-2 class | 0.759 |
+| order-2 class vs pure-state log-negativity | 0.692 |
+
+The hierarchy is scientifically meaningful. The order-2 class responds more strongly to the head of the spectrum and contributes most of the principal contrast mode.
+
+### Relational geometry
+
+When only the metric-dependent vertical coordinates are used, pairwise trajectory-distance rankings remain correlated across metrics with mean Spearman values from 0.644 to 0.961. The strongest preservation is between the order-1 and order-1/2 lenses.
+
+### Metric competition
+
+Across 5,760 consecutive scalar steps:
+
+| Event | Count | Fraction |
+|---|---:|---:|
+| consensus increase | 3,741 | 64.95% |
+| consensus decrease | 1,162 | 20.17% |
+| metric competition | 808 | 14.03% |
+| stationary in all tested metrics | 49 | 0.85% |
+
+Competition is model dependent:
+
+| Model family | Competition fraction |
+|---|---:|
+| QCA | 4.51% |
+| kicked Ising | 9.93% |
+| quantum baker | 17.15% |
+| random-field XXZ | 24.51% |
+
+### Majorization mechanism
+
+Among the 400 selected full-spectrum transitions:
+
+| Majorization relation | Count |
+|---|---:|
+| compatible entanglement increase | 111 |
+| compatible entanglement decrease | 9 |
+| incomparable | 280 |
+
+All 50 observed metric-competition events occur in the incomparable sector. None occurs on a majorization-compatible transition. Incomparability permits but does not force competition: 230 incomparable transitions still show consensus.
+
+### Coarse morphology versus fine projected structure
+
+Arc-length rankings remain highly stable across metrics, with correlations of 0.906–0.960. Exact turn counts agree for all three tested vertical metrics on only 2 of 96 trajectories. Thus, coarse path class is robust while fine projected topology is not.
+
+### Fingerprint stress tests
+
+| Classification target and holdout | Accuracy |
+|---|---:|
+| model centroid, same metric, held-out size | 0.917 |
+| model centroid, cross metric, held-out size | 0.694 |
+| individual path, same metric, held-out size | 0.521 |
+| individual path, same metric, size and condition held out | 0.368 |
+| $\lambda_{\max}$ path baseline, size and condition held out | 0.417 |
+| chance | 0.250 |
+
+The model-family morphology claim is stronger than the individual-fingerprint claim. Under the strictest holdout, the current atlas does not outperform the shared $\lambda_{\max}$ path baseline.
+
+## Correct interpretation
+
+Supported:
+
+> The tested metric projections share a dominant coarse mode, preserve substantial relational morphology, and exhibit interpretable disagreements tied to majorization incomparability.
+
+Not supported:
+
+> All entanglement metrics are equivalent, a formal topological invariant has been proved, or every individual dynamical run can be identified from its trajectory.
+
+## Sources
+
+- machine-readable summary: `data/public_analysis_inputs.zip` (member `metric_robustness_scientific_summary.json`)
+- regenerated analysis tables: `outputs/metric_robustness/results/` or `outputs/rebuild/results/`
+- public source tables: `outputs/public_figures/data/`
+- analysis methods: [ANALYSIS_METHODS.md](ANALYSIS_METHODS.md)
+
+<!-- canonical-source: docs/EXACT_SPECTRAL_GEOMETRY.md -->
+## Exact spectral geometry
+
+# Exact Schmidt-Spectrum Geometry at Fixed Largest Eigenvalue
+
+## 1. Convention and domain
+
+For a bipartite pure state and one declared cut, let
+
+\[
+\boldsymbol\lambda=(\lambda_1,\ldots,\lambda_d),
+\qquad
+\lambda_1\ge\lambda_2\ge\cdots\ge\lambda_d\ge0,
+\qquad
+\sum_i\lambda_i=1.
+\]
+
+The entries are eigenvalues of the reduced density matrix—equivalently, squared Schmidt coefficients. Set
+
+\[
+p=\lambda_1,\qquad \frac1d\le p\le1.
+\]
+
+The fixed-\(p\) feasible set is
+
+\[
+\Delta_d(p)=
+\left\{
+\boldsymbol\lambda:\lambda_1=p,\ 
+\lambda_1\ge\cdots\ge\lambda_d\ge0,\ 
+\sum_i\lambda_i=1
+\right\}.
+\]
+
+## 2. The two extremizing spectra
+
+Define the equal-tail spectrum
+
+\[
+\boldsymbol u(p)=
+\left(
+ p,\frac{1-p}{d-1},\ldots,\frac{1-p}{d-1}
+\right).
+\]
+
+Define
+
+\[
+k=\left\lfloor\frac1p\right\rfloor,
+\qquad
+r=1-kp,
+\]
+
+and the concentrated spectrum
+
+\[
+\boldsymbol c(p)=
+(\underbrace{p,\ldots,p}_{k\text{ entries}},r,0,\ldots,0),
+\]
+
+with a zero remainder omitted.
+
+### Majorization sandwich
+
+For every \(\boldsymbol\lambda\in\Delta_d(p)\),
+
+\[
+\boxed{
+\boldsymbol c(p)\succ\boldsymbol\lambda\succ\boldsymbol u(p)
+}.
+\]
+
+This is the exact finite-dimensional foundation of the corrected trajectory arena.
+
+### Proof sketch
+
+For any \(m\), the sum of the largest \(m\) components of a feasible spectrum cannot exceed \(\min(mp,1)\). The concentrated spectrum attains this maximal partial sum at every \(m\), so it majorizes every feasible spectrum.
+
+After the fixed first component \(p\), the remaining \(d-1\) entries have total weight \(1-p\). The sum of the largest \(m-1\) tail entries is at least \((m-1)(1-p)/(d-1)\). The equal-tail spectrum attains these minimal partial sums, so every feasible spectrum majorizes it.
+
+Consequently:
+
+- every Schur-concave spectrum functional is minimized by \(\boldsymbol c(p)\) and maximized by \(\boldsymbol u(p)\);
+- every Schur-convex spectrum functional has the reverse numerical extrema.
+
+This is stronger and more general than the approximate three-curve construction in the 2024 paper.
+
+## 3. Rényi-family envelopes
+
+For \(q>0\), \(q\ne1\),
+
+\[
+H_q(\boldsymbol\lambda)
+=
+\frac{1}{1-q}\log\sum_i\lambda_i^q.
+\]
+
+The exact fixed-\(p\) bounds are
+
+\[
+H_q^{\min}(p;d)
+=
+\frac{1}{1-q}\log\left(kp^q+r^q\right),
+\]
+
+and
+
+\[
+H_q^{\max}(p;d)
+=
+\frac{1}{1-q}
+\log\left[
+p^q+(d-1)^{1-q}(1-p)^q
+\right].
+\]
+
+The \(r^q\) term is omitted when \(r=0\).
+
+### Von Neumann limit \(q=1\)
+
+\[
+S_{\min}(p;d)
+=-kp\log p-r\log r,
+\]
+
+\[
+S_{\max}(p;d)
+=-p\log p-(1-p)\log\frac{1-p}{d-1}.
+\]
+
+The binary entropy is the lower boundary only when \(p\ge1/2\). The curve \(-\log p\) touches the lower boundary only at reciprocal points \(p=1/k\).
+
+### Hartley limit \(q=0\)
+
+The exact minimum support size is
+
+\[
+R_0^{\min}(p)=\left\lceil\frac1p\right\rceil,
+\]
+
+so
+
+\[
+H_0^{\min}(p)=\log\left\lceil\frac1p\right\rceil.
+\]
+
+For \(p<1\), the equal-tail spectrum has full support and
+
+\[
+H_0^{\max}(p)=\log d.
+\]
+
+At \(p=1\), both bounds are zero. This discontinuity is intrinsic to rank and must not be hidden by numerical thresholding.
+
+### Min-entropy limit \(q=\infty\)
+
+\[
+H_\infty=-\log p.
+\]
+
+The fixed-\(p\) envelope collapses because the metric is completely determined by the horizontal coordinate.
+
+## 4. Purity and the \(q=2\) class
+
+Purity is Schur-convex:
+
+\[
+P=\sum_i\lambda_i^2.
+\]
+
+Its exact bounds are
+
+\[
+P_{\min}(p;d)
+=p^2+\frac{(1-p)^2}{d-1},
+\]
+
+\[
+P_{\max}(p;d)
+=kp^2+r^2.
+\]
+
+Linear entropy \(L=1-P\) reverses these numerical extrema. The dimension-normalized form used in the follow-up package is
+
+\[
+\widetilde L
+=
+\frac{d}{d-1}(1-P).
+\]
+
+The following quantities are strictly monotone transformations of the same \(q=2\) information:
+
+- Rényi entropy \(H_2=-\log P\);
+- purity \(P\);
+- linear entropy \(1-P\);
+- participation ratio \(R_2=1/P\);
+- I-concurrence \(C_I=\sqrt{2(1-P)}\);
+- I-tangle \(\tau_I=2(1-P)\).
+
+They may look different geometrically when plotted, but they cannot disagree on the ordering of two spectra.
+
+## 5. Pure-state negativity and the \(q=1/2\) class
+
+For a bipartite pure state,
+
+\[
+E_{\mathcal N}
+=
+2\log\sum_i\sqrt{\lambda_i}
+=
+H_{1/2}(\boldsymbol\lambda).
+\]
+
+The ordinary negativity is
+
+\[
+\mathcal N
+=
+\frac{\left(\sum_i\sqrt{\lambda_i}\right)^2-1}{2}.
+\]
+
+Thus logarithmic negativity, negativity, \(H_{1/2}\), and the effective number \(R_{1/2}\) carry the same spectral ordering for pure states. Their fixed-\(p\) bounds follow directly by evaluating the concentrated and equal-tail spectra.
+
+This identity does not extend unchanged to generic mixed states.
+
+## 6. Effective Schmidt numbers
+
+The Rényi/Hill effective number is
+
+\[
+R_q
+=
+\left(\sum_i\lambda_i^q\right)^{1/(1-q)},
+\]
+
+with
+
+\[
+R_1=e^{S},
+\qquad
+R_2=\frac1P,
+\qquad
+R_\infty=\frac1p,
+\qquad
+R_0=\operatorname{rank}(\rho_A).
+\]
+
+Because \(R_q\) is a strictly increasing transformation of \(H_q\), it has the same extremizing spectra and ordering information. A convenient dimension normalization is
+
+\[
+\widetilde R_q=\frac{R_q-1}{d-1}.
+\]
+
+## 7. Geometric measures and coordinate redundancy
+
+For bipartite pure states, the linear geometric measure is
+
+\[
+E_G=1-p,
+\]
+
+and the logarithmic form is
+
+\[
+E_G^{\log}=-\log p=H_\infty.
+\]
+
+The follow-up package uses
+
+\[
+\widetilde E_G=\frac{d}{d-1}(1-p)
+\]
+
+as its horizontal coordinate. Therefore geometric entanglement, min-entropy, and \(\lambda_{\max}\) are not independent coordinates in this atlas. They are different scales for the same spectral-head information.
+
+## 8. Exact leading-edge diagnostic bounds
+
+Let \(\lambda_2\) be the second-largest eigenvalue. At fixed \(p=\lambda_1\),
+
+\[
+\frac{1-p}{d-1}
+\le \lambda_2
+\le \min(p,1-p).
+\]
+
+### Ordinary Schmidt gap
+
+\[
+g=\lambda_1-\lambda_2.
+\]
+
+Its exact bounds are
+
+\[
+\boxed{
+g_{\min}(p;d)=\max(0,2p-1)
+},
+\]
+
+\[
+\boxed{
+g_{\max}(p;d)=p-\frac{1-p}{d-1}=\frac{dp-1}{d-1}
+}.
+\]
+
+### Leading ratio
+
+\[
+r_{21}=\frac{\lambda_2}{\lambda_1}
+\]
+
+has exact bounds
+
+\[
+\frac{1-p}{(d-1)p}
+\le r_{21}
+\le \min\left(1,\frac{1-p}{p}\right).
+\]
+
+### Entanglement-Hamiltonian gap
+
+For entanglement energies \(\xi_i=-\log\lambda_i\),
+
+\[
+\Delta_\xi=\xi_2-\xi_1=\log\frac{p}{\lambda_2}.
+\]
+
+Its exact bounds are
+
+\[
+\boxed{
+\Delta_{\min}(p;d)
+=
+\max\left\{0,\log\frac{p}{1-p}\right\}
+},
+\]
+
+\[
+\boxed{
+\Delta_{\max}(p;d)
+=
+\log\frac{p(d-1)}{1-p}
+}.
+\]
+
+At \(p=1\), the logarithmic gap is infinite. These gap quantities are spectral diagnostics, not universal entanglement monotones.
+
+## 9. Boundary-relative normalization
+
+For a metric with a noncollapsed exact envelope,
+
+\[
+r_E(\boldsymbol\lambda)
+=
+\frac{
+E(\boldsymbol\lambda)-E_{\min}(p)
+}{
+E_{\max}(p)-E_{\min}(p)
+}.
+\]
+
+This operation is distinct from dimension normalization. It asks where the spectrum lies inside the exact feasible interval available at its current \(p\).
+
+The coordinate is undefined when
+
+\[
+E_{\max}(p)=E_{\min}(p).
+\]
+
+This occurs at the product and maximally entangled endpoints for entropy-like measures and at every \(p\) for metrics determined solely by \(p\). The corrected implementation returns `NaN` by default rather than assigning an arbitrary 0 or 1.
+
+## 10. Computational verification
+
+The current exact-boundary implementation was checked by:
+
+- 108,500 random spectrum–metric comparisons over dimensions 2 through 32;
+- direct majorization tests against both extremizers;
+- exhaustive enumeration of 1,261 feasible lattice spectra for \(d=4\), \(p=0.4\);
+- 1,800 random-spectrum identity checks among equivalent metrics;
+- re-evaluation of 405 saved \(d=1024\) spectra from the follow-up package.
+
+All exact-bound tests passed. The maximum observed bound violation was at floating-point roundoff level.
+
+<!-- canonical-source: docs/OPERATIONAL_TOPOLOGICAL_INVARIANT.md -->
+## Operational metric-robust trajectory class
+
+# Operational meaning of the quoted “topological invariant”
+
+## Philosophy
+
+The phrase “topological invariant” was introduced to express a visual observation: when the entanglement metric changes, the path can remain recognizably associated with the same underlying dynamics. The follow-up analysis turns that intuition into a reproducible but deliberately non-topological set of tests.
+
+The primary object is the Schmidt-spectrum path
+
+\[
+\Gamma:t\mapsto\boldsymbol\lambda(t).
+\]
+
+Each metric class supplies a projection
+
+\[
+P_E\Gamma(t)=\bigl(\lambda_{\max}(t),r_E(t)\bigr),
+\]
+
+where \(r_E\) is the exact-boundary-relative metric coordinate. The family \(\{P_E\Gamma\}\) is the entanglement-trajectory atlas.
+
+## Operational invariant
+
+The supported invariant is a **coarse equivalence class of projections** characterized by several jointly reported properties:
+
+1. a dominant common metric mode;
+2. stable temporal ordering across metric coordinates;
+3. partial preservation of distances and nearest-neighbor relations among trajectories;
+4. model-centroid paths that remain distinguishable across metrics and sizes;
+5. stable coarse descriptors such as arc-length ordering;
+6. explicit localization of metric contradictions to majorization-incomparable full-spectrum steps in the selected audit.
+
+No single score defines the class. The evidence is a structured profile, not a binary theorem.
+
+## What is not invariant
+
+The data directly reject stronger interpretations:
+
+- numerical coordinates are not equal;
+- the order-2 class can deviate substantially from the order-1 and order-1/2 classes;
+- exact vertical-turn counts usually change;
+- signed areas are only moderately preserved;
+- an individual unseen trajectory is not reliably identified under the strictest holdout;
+- self-intersections, curvature, and local extrema are not guaranteed to survive projection.
+
+There is presently no declared topological space, equivalence relation, homotopy, winding number, or persistent-homology object whose value has been proved invariant.
+
+## Preferred terminology
+
+Technical text should use:
+
+- **metric-robust trajectory class**;
+- **projection-stable trajectory morphology**;
+- **common metric mode**;
+- **metric-consensus and metric-competitive motion**.
+
+The phrase **“topological invariant”** may remain in quotation marks as the historical and conceptual label, followed immediately by the operational qualification above.
+
+## Public wording
+
+> We use “topological invariant” descriptively for a coarse trajectory class that remains recognizable when one declared Schmidt-spectrum metric is replaced by another. The present evidence is quantitative but empirical; it does not establish a formal topological invariant, and local path features and metric directions may differ.
+
+<!-- canonical-source: CORRECTIONS.md -->
+## Corrections to the 2024 paper
+
+# Corrections and Clarifications to the 2024 Paper
+
+This repository records the author-correction map for *Entanglement Trajectory and its Boundary*, Quantum 8, 1282 (2024). It does not alter the journal version of record.
+
+## Bottom line
+
+The trajectory representation and the broader unification philosophy survive. The exact mathematical core is stronger after correction: the feasible arena is known exactly from the Schmidt spectrum. The article's simple boundary curves, exact Page theorem, rank-one argument, QFT invariance, arithmetic endpoint, and several computational interpretations require correction.
+
+## Material corrections
+
+| ID | Location | Topic | Required correction |
+|---|---|---|---|
+| PC-001 | p. 1, L5-L14 | Source of the boundary | Exact geometry: for fixed p=lambda_max, use the concentrated spectrum for the minimum and the equal-tail spectrum for the maximum. Describe Haar/Wishart or spiked-Wishart curves separately as probabilistic references. |
+| PC-009 | p. 2, L65-L75 | Exact upper entropy boundary | Replace Eq. (3) by S_max(p;alpha)=-p log p-(1-p)log[(1-p)/(alpha-1)]. |
+| PC-010 | p. 2, L70-L75 | Claim of a tight counterexample-free three-curve boundary | Call the old curves historical approximations and replace Figure 1 with exact piecewise envelopes. |
+| PC-012 | p. 2, L76-L83 | Continuity of quantum evolution | Replace with a sampling caveat: connecting lines indicate temporal order and do not reconstruct the unsampled physical evolution. |
+| PC-022 | p. 7, L270-L284 | Normalization of the stated post-SWAP spectrum | Correct the denominator after checking the raw circuit spectra and regenerate the explanatory sentence. |
+| PC-026 | p. 11, L479-L487 | Scaling of the noise spectral edge | Restore the missing factor beta and express the separation condition in one consistent scaling convention. |
+| PC-027 | p. 11, L488-L493 | Eigenvalues of the deterministic mean component | Replace the sentence and keep only the single nonzero eigenvalue. |
+| PC-028 | p. 11, L494-L506 | Equality lambda_max=alpha\|gamma\|^2 | Use an approximation sign and state a norm-ratio or separated-spike assumption. |
+| PC-031 | p. 11, L511-L523 | Exact Page formula | Replace Theorem 2 by the harmonic-number formula and label Eq. (23) asymptotic. |
+| PC-032 | p. 13, L571-L598 | Elimination of the random trace | Mark the trace replacement as a large-dimension approximation or work directly with the fixed-trace Wishart ensemble. |
+| PC-034 | p. 14, L701-L735 | Meaning of Eq. (32) | Rename Eq. (32) the large-size noncentral/spiked-Wishart reference curve under a separated-spike approximation. |
+| PC-039 | p. 18, L937-L992 | Entanglement of the union endpoint U_{n-1} | State that U_{n-1} approaches the product point asymptotically but is not exactly product. Keep the zero-entanglement statement only for P_{n-1}. |
+| PC-041 | p. 19, L1001-L1017 | Computational-basis amplitude versus Schmidt eigenvalue | Remove this identification and formulate any observed relation as an ensemble-specific numerical correlation. |
+| PC-042 | p. 20, L1028-L1073 | Exact QFT preservation of entropy and lambda_max | Replace the exact claim by: the selected nonzero-mean random ensemble and arithmetic examples show approximate state-family-specific overlap under the tested Fourier transform. |
+| PC-046 | p. 22, L1148-L1154 | Universal entropy-gap monotonicity and Li-Haldane attribution | Restrict monotonicity to the declared reference curve and remove the universal attribution. |
+| PC-051 | p. 23, L1185-L1213 | Renyi order zero | Replace the statement and define the zero-eigenvalue convention explicitly. |
+
+## Corrected hierarchy
+
+1. **Exact:** finite-dimensional feasible envelopes derived from spectrum extremization and majorization.
+2. **Conditional:** Haar/Wishart and separated-spike asymptotics under declared ensemble assumptions.
+3. **Empirical:** metric-robust trajectory morphology in the tested four-model follow-up package.
+4. **Open:** formal topology, universal fingerprinting, and links to computational advantage.
+
+## What the repository will say
+
+- The Schmidt spectrum is the state variable; entanglement metrics are observables on it.
+- Unification does not require universal agreement among metrics.
+- Metric agreement has an exact majorization explanation; disagreement can signal incomparable spectral redistribution.
+- The trajectory atlas provides the common representation.
+- Quoted "topological invariant" means empirical coarse morphology stable across metric projections, not a proved topological invariant.
+- Random matrix theory provides reference ensembles, not the exact boundary.
+
+## Journal-status recommendation
+
+The final repository should be completed first. After all corrected formulas, figures, code, and data are frozen, the author should contact *Quantum* with a concise factual corrigendum covering the objective mathematical and physical errors. The fuller conceptual reframing belongs in this repository clarification.
+
+## Machine-readable record
+
+The authoritative ledger is available as `metadata/paper_correction_ledger.csv` and `metadata/paper_correction_ledger.csv`. Equation and figure dispositions are available in both CSV and JSON form.
+
+## Quantitative clarification of “topology” and fingerprints
+
+The follow-up data now support a dominant common metric mode and substantial cross-metric relational morphology after exact-boundary normalization. They do **not** support exact projected-path topology: exact vertical-turn counts agree across all three tested metric classes on only 2 of 96 trajectories. The quoted “topological invariant” should therefore mean an empirical coarse metric-robust trajectory class.
+
+Model-centroid trajectories are distinguishable under leave-one-size-out tests, but unseen individual trajectories remain a preliminary fingerprint claim and do not clearly outperform the shared `lambda_max` path under the strictest size-plus-condition holdout.
+
+All 50 observed metric-competition events in the selected full-spectrum audit occur on majorization-incomparable transitions. This supplies the corrected mechanism behind legitimate disagreement among entanglement metrics.
+
+<!-- canonical-source: docs/LIMITATIONS.md -->
+## Limitations
+
+# Limitations and Claim Boundaries
+
+## Fixed-cut pure-state scope
+
+The central construction concerns pure states and explicitly declared bipartitions. For one fixed cut, the reduced spectrum is the common state variable. Mixed-state entanglement, entanglement cost, distillable entanglement, discord-like quantities, and genuinely multipartite invariants require different objects and are outside the current unification claim.
+
+The historical `global_*` columns average functions over one-site-versus-rest cuts. They are aggregates over a collection of spectra, not functions of the half-chain spectrum and not automatically genuine multipartite entanglement measures.
+
+## Metric coverage
+
+The follow-up data cover strategically separated Rényi sectors, not “all entanglement metrics.” Several named quantities are strict transformations or aliases. The metric registry distinguishes independent spectral sensitivity from redundant naming.
+
+The current central empirical comparison uses three non-equivalent vertical metric classes and the shared largest-Schmidt-value coordinate. Other Rényi orders can be calculated from saved spectra where available but have not all been included in the same full trajectory stress test.
+
+## Model and parameter coverage
+
+The evidence is restricted to four implemented dynamical families, four declared conditions per family, six finite sizes, their specified initial states, time grids, and cuts. It is not a universality theorem for all quantum-chaotic systems.
+
+## Full-spectrum selection
+
+Only five $n=20$ runs have complete saved spectra in the selected audit. The majorization result is exact for every spectrum pair tested, but the empirical event frequencies are not representative of every model family and condition without complete-spectrum reruns.
+
+## Finite-size and finite-time effects
+
+The largest simulated size is $n=20$. No thermodynamic-limit theorem is claimed. Trajectories are sampled on finite time grids; connecting lines indicate temporal order rather than reconstructing unsampled dynamics.
+
+## Normalization
+
+Boundary-relative normalization removes metric-specific feasible envelopes but does not make the metrics equivalent. It is undefined when an envelope collapses and can amplify numerical noise near product-like spectra, especially for Rényi-$1/2$ quantities.
+
+## Meaning of topology
+
+No formal topological invariant has been proved. Exact turn counts, crossings, signed areas, and local projected features vary across metrics. “Topological invariant” is retained only in quotation marks as historical language for a coarse metric-robust trajectory class.
+
+## Fingerprinting
+
+Model-centroid morphology generalizes better than individual conditions. Under the strictest size-plus-condition holdout, the full atlas does not outperform the largest-Schmidt-value path baseline. The repository therefore does not claim a universal classifier of Hamiltonians, phases, or chaos classes.
+
+## Random-matrix references
+
+Haar/Wishart scalar references, Marchenko–Pastur densities, spectral edges, and bulk gap ratios test different properties. Closeness in one diagnostic does not imply closeness in the others. The current data do not establish a universal RMT attractor.
+
+## Computational interpretation
+
+Entropy magnitude or trajectory location alone does not prove efficient classical simulation, computational usefulness, quantum advantage, or hardness. Such claims need separate operational and complexity analyses.
+
+## Published-paper status
+
+The journal article is the version of record. This repository documents corrections but does not silently rewrite the published paper. Whether the objective errors should also be submitted as a formal corrigendum remains an author decision.
+
+<!-- canonical-source: docs/REPRODUCIBILITY.md -->
+## Reproducibility
+
+# Reproducibility
+
+## Environment
+
+The current implementation requires Python 3.10 or later. Install the analysis and test dependencies declared in `pyproject.toml` with:
+
+```bash
+python -m pip install -e '.[analysis,test]'
+```
+
+The historical paper-era Qibo scripts are preserved for provenance and are not the recommended current workflow.
+
+## Reproduction levels
+
+### Level 0 — Rebuild the canonical machine-facing context
+
+```bash
+make public-context
+```
+
+This deterministically rebuilds `llms-full.txt` from the canonical public documents listed in `scripts/build_llms_full.py`. It does not alter scientific results.
+
+### Level 1 — Rebuild the five public figures from included inputs
+
+```bash
+make public-figures
+```
+
+Generated figures and compact source tables are written under:
+
+```text
+outputs/public_figures/
+```
+
+The images under `figures/public/` are the validated release snapshot shown by the README. A clean rebuild should reproduce those PNG files byte-for-byte in the validated environment.
+
+### Level 2 — Automated scientific and repository validation
+
+```bash
+make test
+make public-validate
+```
+
+The tests cover metric identities, exact boundaries, majorization, deterministic model dynamics, random-matrix tools, trajectory robustness, included-data regressions, metadata, archive integrity, and internal links. Run the complete public-layer workflow with:
+
+```bash
+make public
+```
+
+### Level 3 — Rebuild analyses from the included trajectory and spectrum data
+
+```bash
+make rebuild-included
+```
+
+This workflow:
+
+1. extracts the five selected complete-spectrum reruns;
+2. regenerates the corrected Marchenko–Pastur and entanglement-spectrum diagnostics;
+3. recomputes the metric-robustness, majorization, geometry, and classification analyses;
+4. regenerates the analysis figures under `outputs/rebuild/`;
+5. rebuilds the five public figures and validates the repository.
+
+The classification and resampling analyses are intentionally more expensive than the public-figure workflow.
+For a fast end-to-end workflow check, reduce only the resampling counts, for example `BOOTSTRAP=20 MANTEL_PERMUTATIONS=10 make rebuild-included`; the release-level quantitative tables use the documented default counts of 3,000 and 1,000.
+
+### Level 4 — Quick independent trajectory regeneration
+
+```bash
+make quick
+```
+
+This regenerates all 16 runs at $n=10$, compares the result with the included canonical table, and runs the complete test suite. Outputs are written under `outputs/quick/`.
+
+### Level 5 — Full state-vector regeneration
+
+```bash
+make full
+```
+
+This runs the deterministic trajectory workflow at $n=10,12,14,16,18,20$. The $n=20$ dense state-vector simulations can require substantial memory and runtime. Included-data reconstruction is the normal verification path.
+
+## Canonical inputs and metadata
+
+The current source of truth is:
+
+- `data/trajectory_observations.csv` — 5,856 canonical scalar observations;
+- `data/spectra_selected_n20.zip` — five selected complete-spectrum reruns;
+- `data/public_analysis_inputs.zip` — derived tables used by the five public figures;
+- `metadata/metric_registry.json` — canonical metric definitions and equivalence classes;
+- `metadata/public_claims.json` — scoped exact, empirical, corrected, and limitation claims;
+- `metadata/paper_correction_ledger.csv` — location-specific audit of the 2024 paper;
+- `src/entanglement_trajectories/models.py` — model parameters, run IDs, and deterministic seed policy.
+
+The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata are preserved inside `legacy/historical_sources.zip`. The original root scripts remain recoverable from the `paper-2024-original` branch and Git history; the current root stubs prevent accidental execution.
+
+## Numerical conventions
+
+- Reduced spectra are sorted and normalized before metric evaluation.
+- Tiny negative eigenvalues caused by numerical diagonalization are handled by the canonical spectrum validator.
+- Exact fixed-$\lambda_{\max}$ boundaries are evaluated pointwise rather than interpolated from a plotting grid.
+- Collapsed feasible envelopes return an undefined relative coordinate rather than an arbitrary zero or one.
+- The balanced Marchenko–Pastur CDF uses its corrected analytic expression.
+- Majorization tests state their numerical tolerance explicitly.
+- Pure-state logarithmic negativity, equivalent here to the Rényi-$1/2$ sector, is especially sensitive to tiny numerical Schmidt tails near product states; its regression tolerance is therefore recorded separately.
+
+## Integrity records
+
+`metadata/release_manifest.json` records the final repository inventory. `SHA256SUMS.txt` records file hashes. `QA_REPORT.md` states the exact checks performed before packaging.
+
+## Compact browser-upload package
+
+The release is deliberately kept at or below GitHub's 100-file browser-upload limit, and every file is below 25 MiB. Selected spectra and public-analysis inputs are bundled under `data/`; supported workflows extract them automatically into the ignored `outputs/` directory. The provenance archive under `legacy/` is not used by current analyses.

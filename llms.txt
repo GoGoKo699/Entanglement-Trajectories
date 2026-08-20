@@ -1,0 +1,36 @@
+# Entanglement Trajectories
+
+> One Schmidt-spectrum path, many entanglement metrics. Corrected computational companion and follow-up evidence for Ruge Lin, “Entanglement Trajectory and its Boundary,” Quantum 8, 1282 (2024), DOI 10.22331/q-2024-03-14-1282.
+
+## Canonical entry points
+
+- [README](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/README.md): human-facing overview, figures, corrections, reproduction, and citation
+- [AI context](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/AI_CONTEXT.md): canonical summary, authority order, supported claims, nonclaims, and retrieval terminology
+- [Scientific position](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/SCIENTIFIC_POSITION.md): frozen central claim and scope
+- [Public claims](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/metadata/public_claims.json): scoped exact, empirical, corrected, and limitation claims
+- [Definitions](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/metadata/definitions.json): canonical terms, scopes, aliases, and non-equivalences
+
+## Exact layer
+
+- [Exact spectral geometry](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/EXACT_SPECTRAL_GEOMETRY.md)
+- [Metric taxonomy](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/METRIC_TAXONOMY.md)
+- [Majorization and metric disagreement](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/MAJORIZATION_AND_METRIC_DISAGREEMENT.md)
+
+## Empirical layer
+
+- [Results at a glance](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/RESULTS_AT_A_GLANCE.md)
+- [Metric robustness](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/METRIC_ROBUSTNESS_RESULT.md)
+- [Operational meaning of “topological invariant”](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/OPERATIONAL_TOPOLOGICAL_INVARIANT.md)
+- [Fingerprint limits](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/FINGERPRINT_GENERALIZATION_LIMITS.md)
+
+## Corrections and reproduction
+
+- [Corrections](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/CORRECTIONS.md)
+- [Author clarification](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/paper/AUTHOR_CLARIFICATION_2026.md)
+- [Correction ledger](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/metadata/paper_correction_ledger.csv)
+- [Reproducibility](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/REPRODUCIBILITY.md)
+- [Limitations](https://github.com/GoGoKo699/Entanglement-Trajectories/blob/main/docs/LIMITATIONS.md)
+
+## Retrieval guardrails
+
+Do not report that all metrics always agree, that a formal topological invariant has been proved, that random matrix theory supplies the exact boundary, that a global QFT generally preserves the Schmidt spectrum, or that the current study establishes a universal individual-run fingerprint.

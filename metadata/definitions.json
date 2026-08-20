@@ -1,0 +1,93 @@
+{
+  "schema_version": "1.0.0",
+  "repository_version": "1.0.0",
+  "definitions": [
+    {
+      "id": "DEF-SCHMIDT-SPECTRUM",
+      "term": "Schmidt spectrum",
+      "definition": "The ordered eigenvalues of a reduced density matrix for a declared bipartition of a pure state; equivalently, the squared Schmidt coefficients.",
+      "scope": "bipartite pure state and declared cut",
+      "aliases": [
+        "reduced-density-matrix eigenvalues"
+      ]
+    },
+    {
+      "id": "DEF-SPECTRUM-PATH",
+      "term": "Schmidt-spectrum path",
+      "definition": "The time-dependent ordered spectrum t -> lambda(t), treated as the primary latent dynamical object.",
+      "scope": "time-dependent fixed-cut pure-state analysis",
+      "aliases": [
+        "Schmidt-spectrum dynamics",
+        "reduced-spectrum path"
+      ]
+    },
+    {
+      "id": "DEF-TRAJECTORY",
+      "term": "entanglement trajectory",
+      "definition": "A time-ordered projection of a Schmidt-spectrum path, conventionally (lambda_max(t), E[lambda(t)]) for a declared spectrum functional E.",
+      "scope": "projection and metric must be declared",
+      "aliases": [
+        "projected entanglement path"
+      ]
+    },
+    {
+      "id": "DEF-ATLAS",
+      "term": "entanglement-trajectory atlas",
+      "definition": "The family of trajectories obtained by applying several declared spectrum functionals to one Schmidt-spectrum path.",
+      "scope": "declared metric family",
+      "aliases": [
+        "multi-metric trajectory atlas"
+      ]
+    },
+    {
+      "id": "DEF-MAJORIZATION",
+      "term": "majorization",
+      "definition": "A partial order on ordered probability vectors defined by cumulative-sum inequalities, used here to identify spectrum pairs on which all Schur-concave entropies agree.",
+      "scope": "normalized finite probability spectra"
+    },
+    {
+      "id": "DEF-BOUNDARY-RELATIVE",
+      "term": "boundary-relative coordinate",
+      "definition": "The position of a metric value between its exact fixed-largest-eigenvalue minimum and maximum. It is undefined when the feasible envelope collapses.",
+      "scope": "metrics with exact noncollapsed fixed-lambda_max envelopes"
+    },
+    {
+      "id": "DEF-METRIC-CONSENSUS",
+      "term": "metric-consensus motion",
+      "definition": "A transition on which the tested metric classes report the same direction of change.",
+      "scope": "declared metric set and numerical tolerance"
+    },
+    {
+      "id": "DEF-METRIC-COMPETITION",
+      "term": "metric-competitive motion",
+      "definition": "A transition on which the tested metric classes report different directions of change, indicating a spectral redistribution not captured by one total scalar ordering.",
+      "scope": "declared metric set and numerical tolerance",
+      "aliases": [
+        "metric competition",
+        "entanglement-metric disagreement"
+      ]
+    },
+    {
+      "id": "DEF-METRIC-ROBUST-CLASS",
+      "term": "metric-robust trajectory class",
+      "definition": "Coarse trajectory morphology that remains recognizable under replacement of one declared Schmidt-spectrum metric by another.",
+      "scope": "empirical, declared models, metrics, cuts, and sampling",
+      "aliases": [
+        "projection-stable trajectory morphology"
+      ],
+      "not_equivalent_to": [
+        "formal topological invariant"
+      ]
+    },
+    {
+      "id": "DEF-RMT-REFERENCE",
+      "term": "random-matrix reference",
+      "definition": "A Haar/Wishart, Marchenko-Pastur, spectral-edge, bulk-correlation, or separated-spike benchmark used inside the exact feasible arena.",
+      "scope": "declared ensemble and scaling assumptions",
+      "not_equivalent_to": [
+        "exact boundary",
+        "universal attractor"
+      ]
+    }
+  ]
+}
