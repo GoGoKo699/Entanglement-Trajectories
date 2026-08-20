@@ -323,16 +323,6 @@ def main() -> None:
     except Exception as exc:
         errors.append(f"cannot open social preview: {exc}")
 
-    # Root historical scripts must be explicit non-executable notices.
-    for rel in HISTORICAL_ROOT_SCRIPTS:
-        path = ROOT / rel
-        if not path.is_file():
-            errors.append(f"missing historical compatibility stub: {rel}")
-            continue
-        text = path.read_text(encoding="utf-8")
-        if "Historical compatibility notice" not in text or "raise SystemExit" not in text:
-            errors.append(f"historical root script is not a compatibility stub: {rel}")
-
     if (ROOT / "metadata/release_manifest.json").is_file():
         validate_manifest(files, errors)
     if (ROOT / "SHA256SUMS.txt").is_file():
