@@ -56,7 +56,7 @@ PUBLIC_FIGURES = [
 ]
 
 
-TRANSIENT_PARTS = {"outputs", "__pycache__", ".pytest_cache", "build", "dist"}
+TRANSIENT_PARTS = {".git", "outputs", "__pycache__", ".pytest_cache", "build", "dist"}
 
 
 def relative(path: Path) -> str:

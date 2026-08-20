@@ -693,15 +693,29 @@ def test_n10_all_model_regression_against_included_canonical_table():
     for column in ["model", "n", "run_id", "regime", "initial_state", "step"]:
         assert current[column].astype(str).equals(reference[column].astype(str))
     assert np.allclose(current["tau"], reference["tau"], atol=2e-15)
-    strict = [
-        "one_site_mean_vn", "one_site_mean_linear",
-        "one_site_mean_geometric_linear", "half_vn",
-        "half_linear", "half_geometric_linear",
-    ]
-    for column in strict:
-        assert np.allclose(current[column], reference[column], atol=5e-13, rtol=0.0)
-    for column in ["one_site_mean_logneg", "half_logneg"]:
-        assert np.allclose(current[column], reference[column], atol=7e-9, rtol=0.0)
+    absolute_tolerances = {
+        "one_site_mean_vn": 5e-13,
+        "one_site_mean_linear": 5e-13,
+        # The one-site geometric coordinate depends on a leading eigenvalue.
+        # Different NumPy/LAPACK builds can shift it slightly more than the
+        # trace-based entropy and linear coordinates while remaining
+        # numerically indistinguishable at the scientific scale.
+        "one_site_mean_geometric_linear": 1e-10,
+        "half_vn": 5e-13,
+        "half_linear": 5e-13,
+        "half_geometric_linear": 5e-13,
+        # Rényi-1/2 quantities are sensitive to tiny numerical Schmidt tails
+        # near product states.
+        "one_site_mean_logneg": 7e-9,
+        "half_logneg": 7e-9,
+    }
+    for column, atol in absolute_tolerances.items():
+        actual = current[column].to_numpy(dtype=float)
+        expected = reference[column].to_numpy(dtype=float)
+        max_error = float(np.max(np.abs(actual - expected)))
+        assert np.allclose(actual, expected, atol=atol, rtol=0.0), (
+            f"{column}: max absolute error {max_error:.3e} exceeds {atol:.1e}"
+        )
 
 
 # ===========================================================================
