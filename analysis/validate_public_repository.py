@@ -21,9 +21,7 @@ REQUIRED = [
     "AI_CONTEXT.md",
     "SCIENTIFIC_POSITION.md",
     "CORRECTIONS.md",
-    "QA_REPORT.md",
-    "UPLOAD_INSTRUCTIONS.md",
-    "GITHUB_SETTINGS.md",
+    "docs/RELEASE_QA.md",
     "LICENSE",
     "CITATION.cff",
     "codemeta.json",
@@ -44,7 +42,6 @@ REQUIRED = [
     "legacy/historical_sources.zip",
     "docs/PUBLIC_FIGURE_STORY.md",
     "paper/AUTHOR_CLARIFICATION_2026.md",
-    "paper/JOURNAL_CORRIGENDUM_CORE.md",
     ".github/workflows/qa.yml",
 ]
 
@@ -289,7 +286,7 @@ def main() -> None:
         ROOT / "README.md", ROOT / "START_HERE.md", ROOT / "AI_CONTEXT.md",
         ROOT / "CORRECTIONS.md", ROOT / "SCIENTIFIC_POSITION.md",
         ROOT / "UPLOAD_INSTRUCTIONS.md", ROOT / "GITHUB_SETTINGS.md",
-        ROOT / "QA_REPORT.md",
+        ROOT / "docs/RELEASE_QA.md",
     ] + sorted((ROOT / "docs").glob("*.md")) + sorted((ROOT / "paper").glob("*.md"))
     for path in markdown:
         for link in markdown_links(path):
