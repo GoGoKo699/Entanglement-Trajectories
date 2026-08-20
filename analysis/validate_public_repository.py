@@ -276,9 +276,11 @@ def main() -> None:
 
     # Relative Markdown links in the canonical public layer.
     markdown = [
-        ROOT / "README.md", ROOT / "START_HERE.md", ROOT / "AI_CONTEXT.md",
-        ROOT / "CORRECTIONS.md", ROOT / "SCIENTIFIC_POSITION.md",
-        ROOT / "UPLOAD_INSTRUCTIONS.md", ROOT / "GITHUB_SETTINGS.md",
+        ROOT / "README.md",
+        ROOT / "START_HERE.md",
+        ROOT / "AI_CONTEXT.md",
+        ROOT / "CORRECTIONS.md",
+        ROOT / "SCIENTIFIC_POSITION.md",
         ROOT / "docs/RELEASE_QA.md",
     ] + sorted((ROOT / "docs").glob("*.md")) + sorted((ROOT / "paper").glob("*.md"))
     for path in markdown:
