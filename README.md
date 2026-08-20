@@ -11,7 +11,7 @@ This repository is the corrected computational companion and follow-up evidence 
 
 > Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* **8**, 1282 (2024). DOI: `10.22331/q-2024-03-14-1282`.
 
-The journal article introduced a primitive version of the idea. This repository preserves that insight, corrects the paper’s mathematical and interpretive flaws, and tests the upgraded claim across four quantum-chaos families, six system sizes, and several non-equivalent functions of the Schmidt spectrum.
+The journal article introduced an initial version of the idea. This repository preserves that insight, provides explicit mathematical corrections and scope clarifications, and tests the upgraded claim across four quantum-chaos families, six system sizes, and several non-equivalent functions of the Schmidt spectrum.
 
 > **Central result.** For a fixed bipartition of a pure state, standard spectrum-based entanglement measures are nonlinear projections of one ordered Schmidt-spectrum path. Across the tested models, the normalized projections share a dominant common mode and preserve substantial coarse morphology, while local disagreements expose spectral redistributions that no single scalar measure can order completely.
 
