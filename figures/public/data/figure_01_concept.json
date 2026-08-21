@@ -1,0 +1,15 @@
+{
+  "primary_object": "ordered Schmidt-spectrum path Gamma: t -> lambda(t)",
+  "metric_lenses": [
+    "Renyi-1/2 / pure-state logarithmic negativity",
+    "Renyi-1 / von Neumann entropy",
+    "Renyi-2 class / purity and linear entropy",
+    "Renyi-infinity / largest Schmidt value"
+  ],
+  "unifying_outputs": [
+    "shared coarse morphology",
+    "informative local metric competition"
+  ],
+  "exact_mechanism": "majorization-compatible transitions impose consensus for Schur-concave metrics",
+  "scope": "fixed-cut bipartite pure-state dynamics"
+}

@@ -1,25 +1,29 @@
-# Licensing
+BSD 3-Clause License
 
-Copyright (c) 2026 Ruge Lin.
+Copyright (c) 2026, Ruge Lin
+All rights reserved.
 
-## Source code
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
 
-New source code in `src/`, `scripts/`, `analysis/`, `tests/`, and `.github/` is licensed under the **BSD 3-Clause License** (`BSD-3-Clause`). The canonical license text is maintained by the Open Source Initiative:
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
 
-https://opensource.org/license/bsd-3-clause
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
 
-SPDX-License-Identifier: BSD-3-Clause
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
 
-## Documentation, figures, and curated data
-
-New documentation, public figures, metadata, and curated data in this corrected repository edition are licensed under the **Creative Commons Attribution 4.0 International License** (`CC-BY-4.0`):
-
-https://creativecommons.org/licenses/by/4.0/legalcode
-
-SPDX-License-Identifier: CC-BY-4.0
-
-Attribution should identify Ruge Lin, this repository, and the published article `Entanglement Trajectory and its Boundary`, Quantum 8, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.
-
-## Exclusions
-
-The published journal article remains governed by its publisher's license. Material under `legacy/` and the historical root-script versions preserved in Git history retain their original legal status and are not relicensed by this file unless an archived file states otherwise. Third-party names, trademarks, and cited works are not covered by this license grant.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

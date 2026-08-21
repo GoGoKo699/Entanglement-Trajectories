@@ -14,8 +14,9 @@ abstract: >-
   Corrected computational companion and follow-up evidence package for the
   entanglement-trajectory representation. The repository provides exact
   Schmidt-spectrum metric envelopes, majorization-aware metric comparisons,
-  deterministic quantum-chaos trajectories, random-matrix reference
-  diagnostics, and quantified metric-robust trajectory morphology.
+  deterministic dynamical-family trajectories motivated by scrambling and
+  spectral-complexity studies, random-matrix reference diagnostics, and
+  quantified metric-robust trajectory morphology.
 keywords:
   - quantum entanglement
   - Schmidt spectrum

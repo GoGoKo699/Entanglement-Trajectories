@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "repository_version": "1.0.0",
   "updated_on": "2026-08-20",
-  "canonical_claim": "For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested quantum-chaos families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.",
+  "canonical_claim": "For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested dynamical families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.",
   "claims": [
     {
       "id": "PUB-DEF-001",
@@ -80,15 +80,30 @@
       ]
     },
     {
+      "id": "PUB-EXACT-006",
+      "status": "exact",
+      "statement": "Hartley entropy uses exact represented support: H0=log rank. At fixed largest Schmidt value p, the minimum rank is ceil(1/p), and the maximum is d for p<1 and one for p=1.",
+      "scope": "finite-dimensional validated spectra; thresholded numerical rank is excluded from this claim",
+      "source_paths": [
+        "docs/EXACT_SPECTRAL_GEOMETRY.md",
+        "src/entanglement_trajectories/metrics.py",
+        "src/entanglement_trajectories/boundaries.py",
+        "tests/test_repository.py"
+      ],
+      "prohibited_overstatement": "Do not identify a threshold-dependent numerical rank with exact Hartley entropy."
+    },
+    {
       "id": "PUB-EMP-001",
       "status": "empirical",
       "statement": "The exact-boundary-normalized common metric mode explains 90.2628 percent of total standardized variance.",
       "value": 0.9026282298671149,
       "uncertainty": {
-        "cluster_bootstrap_ci95": [
-          0.8574156931787958,
-          0.9379151738860936
-        ]
+        "model_stratified_design_cluster_ci95": [
+          0.8626128030927239,
+          0.9341235189039404
+        ],
+        "bootstrap_iterations": 3000,
+        "interpretation": "Sensitivity interval over the 16 designed model-condition clusters, stratified by model; not a population interval over independently sampled disorder or initial-state ensembles."
       },
       "scope": "three vertical metric classes, 96 included trajectories, four model families, six sizes",
       "source_paths": [
@@ -124,7 +139,7 @@
     {
       "id": "PUB-EMP-004",
       "status": "empirical",
-      "statement": "Metric competition occurs on 808 of 5760 consecutive scalar steps, or 14.0278 percent.",
+      "statement": "Metric competition occurs on 808 of 5,760 consecutive scalar steps in the designed trajectory table.",
       "value": 0.14027777777777778,
       "counts": {
         "metric_competition": 808,
@@ -187,10 +202,17 @@
     {
       "id": "PUB-EMP-008",
       "status": "empirical",
-      "statement": "Model-centroid same-metric classification with held-out size reaches 0.9167 accuracy, while individual same-metric size-and-condition holdout reaches 0.3681.",
+      "statement": "Gap-aware model-centroid full-path classification with held-out size reaches 0.875 same-metric accuracy and 0.6736 cross-metric accuracy; vertical-only transfer is weaker, and individual size-plus-condition holdout remains preliminary.",
       "values": {
-        "model_centroid_leave_size": 0.9166666666666666,
-        "individual_double_holdout": 0.3680555555555555,
+        "centroid_leave_size_full_same_metric": 0.875,
+        "centroid_leave_size_full_cross_metric": 0.6736111111111112,
+        "centroid_leave_size_vertical_same_metric": 0.763888888888889,
+        "centroid_leave_size_vertical_cross_metric": 0.375,
+        "individual_double_holdout_full_same_metric": 0.3298611111111111,
+        "individual_double_holdout_full_cross_metric": 0.35763888888888884,
+        "individual_double_holdout_vertical_same_metric": 0.3090277777777778,
+        "individual_double_holdout_vertical_cross_metric": 0.2760416666666667,
+        "lambda_max_double_holdout_path": 0.4166666666666667,
         "chance": 0.25
       },
       "scope": "nearest-centroid stress tests documented in docs/ANALYSIS_METHODS.md",
@@ -198,6 +220,31 @@
         "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json",
         "docs/FINGERPRINT_GENERALIZATION_LIMITS.md"
       ]
+    },
+    {
+      "id": "PUB-EMP-009",
+      "status": "empirical_sensitivity",
+      "statement": "The dominant boundary-normalized common mode persists under equal-trajectory weighting, within-trajectory standardization, first-difference analysis, leave-one-model-out analysis, and separate-size fits.",
+      "values": {
+        "canonical_row_weighted_levels": 0.9026282298671149,
+        "equal_trajectory_weight_levels": 0.9122725829861223,
+        "within_trajectory_standardized_levels": 0.9186047151124757,
+        "first_differences": 0.8621596758546111,
+        "leave_one_model_out_range": [
+          0.8812099435106237,
+          0.9111329318344129
+        ],
+        "separate_size_range": [
+          0.891161137409187,
+          0.9514192209596687
+        ]
+      },
+      "scope": "Sensitivity analyses of the same deterministic designed dataset; not independent experimental replication.",
+      "source_paths": [
+        "metadata/common_mode_sensitivity.json",
+        "docs/METRIC_ROBUSTNESS_RESULT.md"
+      ],
+      "prohibited_overstatement": "Do not describe these reformulations as independent datasets or population replication."
     },
     {
       "id": "PUB-LIM-001",
@@ -277,6 +324,36 @@
         "docs/RMT_REFERENCE_LAYER.md",
         "CORRECTIONS.md"
       ]
+    },
+    {
+      "id": "PUB-LIM-XXZ-001",
+      "status": "limitation",
+      "statement": "The released random-field XXZ rows are fixed one-substep symmetric product-formula circuits, not convergence-controlled continuous-time XXZ Hamiltonian trajectories.",
+      "scope": "All released XXZ rows; convergence audit at n=10,12,14.",
+      "source_paths": [
+        "docs/XXZ_PRODUCT_FORMULA_CONVERGENCE.md",
+        "data/xxz_convergence_n10_n12_n14.zip::xxz_convergence_summary.json"
+      ]
+    },
+    {
+      "id": "PUB-LIM-DESIGN-001",
+      "status": "limitation",
+      "statement": "The trajectory table is a deterministic designed dataset with four conditions per model, not an independent ensemble of population draws.",
+      "scope": "All bootstrap and classification statements.",
+      "source_paths": [
+        "docs/ANALYSIS_METHODS.md",
+        "docs/LIMITATIONS.md"
+      ]
+    },
+    {
+      "id": "PUB-LIM-SPECTRA-001",
+      "status": "limitation",
+      "statement": "The 400-transition majorization audit uses five selected n=20 runs and is a mechanism check, not a model-wide frequency estimate.",
+      "scope": "Selected full-spectrum audit only.",
+      "source_paths": [
+        "docs/LIMITATIONS.md",
+        "data/spectra_selected_n20.zip"
+      ]
     }
   ],
   "required_nonclaims": [
@@ -288,6 +365,7 @@
     "A QFT generally preserves entanglement.",
     "Entropy magnitude alone certifies simulation cost, computational usefulness, or quantum advantage.",
     "The current atlas is a universal individual-run classifier.",
-    "All named metrics in the package are independent."
+    "All named metrics in the package are independent.",
+    "A threshold-dependent numerical Schmidt rank is not the exact Hartley entropy."
   ]
 }

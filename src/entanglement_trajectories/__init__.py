@@ -2,7 +2,7 @@
 
 The package treats the ordered reduced-density-matrix spectrum as the primary
 object.  Entanglement metrics are observables on that spectrum; the follow-up
-quantum-chaos study supplies deterministic paths through this common space.
+dynamical study supplies deterministic paths through this common space.
 """
 from .aggregates import mean_cut_metric, meyer_wallach_q
 from .boundaries import (
@@ -27,6 +27,7 @@ from .metrics import (
     entanglement_hamiltonian_gap,
     geometric_entanglement_linear,
     geometric_entanglement_log,
+    hartley_entropy,
     i_concurrence,
     i_tangle,
     linear_entropy,
@@ -34,9 +35,11 @@ from .metrics import (
     metric_value,
     min_entropy,
     negativity_pure,
+    numerical_schmidt_rank,
     purity,
     renyi_entropy,
     schmidt_gap,
+    schmidt_rank,
     schmidt_ratio,
     von_neumann_entropy,
 )
@@ -80,6 +83,7 @@ from .spectra import (
     majorizes,
     normalize_spectrum,
     random_capped_spectrum,
+    schmidt_rank_bounds_fixed_lmax,
     validate_largest_value,
 )
 
@@ -111,6 +115,7 @@ __all__ = [
     "equal_tail_spectrum",
     "geometric_entanglement_linear",
     "geometric_entanglement_log",
+    "hartley_entropy",
     "haar_reference_targets",
     "half_chain_spectrum",
     "i_concurrence",
@@ -130,14 +135,17 @@ __all__ = [
     "min_entropy",
     "mp_ks_distance_from_spectrum",
     "negativity_pure",
+    "numerical_schmidt_rank",
     "normalize_spectrum",
     "purity",
     "random_capped_spectrum",
     "read_trajectory_csv",
+    "schmidt_rank_bounds_fixed_lmax",
     "relative_boundary_height",
     "renyi_entropy",
     "run_by_id",
     "schmidt_gap",
+    "schmidt_rank",
     "schmidt_ratio",
     "simulate_frame",
     "single_qubit_spectra",

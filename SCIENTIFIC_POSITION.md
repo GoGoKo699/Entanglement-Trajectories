@@ -23,7 +23,7 @@ The family of these projections is the **entanglement-trajectory atlas**.
 
 ## Central claim for the upgraded repository
 
-Standard bipartite pure-state entanglement measures are nonlinear projections of a common Schmidt-spectrum path. Across the tested pure-state chaos families, three non-equivalent metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization. The preservation is hierarchical rather than exact, and local metric contradictions reveal internal spectral redistribution that no single scalar measure captures.
+Standard bipartite pure-state entanglement measures are nonlinear projections of a common Schmidt-spectrum path. Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, three non-equivalent metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization. The preservation is hierarchical rather than exact, and local metric contradictions reveal internal spectral redistribution that no single scalar measure captures.
 
 This claim has three distinct parts:
 
@@ -38,7 +38,7 @@ The current follow-up data provide the following scoped support:
 - the exact-boundary-normalized common metric mode explains 90.26% of total variance;
 - the median separate-trajectory common-mode fraction is 94.75%;
 - within-trajectory boundary-coordinate rank agreement ranges from 0.692 to 0.947 across the three independent metric pairs;
-- vertical-only trajectory-space distance rankings are preserved with mean correlations from 0.644 to 0.961;
+- vertical-only trajectory-space distance rankings are preserved with mean correlations from 0.643 to 0.961;
 - metric competition occurs on 14.03% of scalar transitions and is strongly model dependent;
 - all 50 metric-competition events in the selected full-spectrum audit occur on majorization-incomparable transitions;
 - model-centroid morphology generalizes more strongly than unseen individual paths;

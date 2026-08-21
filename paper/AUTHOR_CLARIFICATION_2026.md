@@ -75,7 +75,7 @@ The 2024 examples suggested recognizable path morphology. In the follow-up packa
 
 ## Corrected central statement
 
-> Standard bipartite pure-state entanglement metrics are nonlinear projections of a common Schmidt-spectrum path. Across the quantum-chaos families tested in the follow-up package, exact-boundary-normalized trajectory projections preserve substantial model-specific morphology under changes of metric, while localized metric disagreements retain information about spectral redistribution that no single scalar measure captures.
+> Standard bipartite pure-state entanglement metrics are nonlinear projections of a common Schmidt-spectrum path. Across four dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity in the follow-up package, exact-boundary-normalized trajectory projections preserve substantial model-specific morphology under changes of metric, while localized metric disagreements retain information about spectral redistribution that no single scalar measure captures.
 
 ## Detailed audit
 

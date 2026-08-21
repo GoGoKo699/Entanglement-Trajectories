@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """Build the public-facing figure sequence for the corrected repository.
 
-The script uses only included data and the canonical exact-boundary layer.
-It writes PNG/PDF figures and the compact source tables used by each panel.
+The fast default mode reads the frozen compact analysis-input archive. The
+end-to-end mode, selected with ``--analysis-input-dir``, reads freshly
+recomputed robustness outputs directly. Both modes use the canonical
+trajectory table and exact-boundary layer, and both write a machine-readable
+input-provenance record beside the figure source tables.
 """
 from __future__ import annotations
 
+import argparse
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -27,14 +32,25 @@ from entanglement_trajectories.metrics import metric_value  # noqa: E402
 import tempfile
 import zipfile
 
-OUT = ROOT / "outputs" / "public_figures"
+DEFAULT_INPUT_ARCHIVE = ROOT / "data" / "public_analysis_inputs.zip"
+DEFAULT_TRAJECTORY_INPUT = ROOT / "data" / "trajectory_observations.csv"
+DEFAULT_OUTPUT_DIR = ROOT / "outputs" / "public_figures"
+REQUIRED_ANALYSIS_INPUTS = (
+    "common_metric_modes.json",
+    "common_mode_timeseries.csv",
+    "fine_descriptor_robustness_summary.csv",
+    "majorization_transition_audit.csv",
+    "metric_pair_robustness_by_size.csv",
+    "metric_robustness_scientific_summary.json",
+)
+
+# Configured by ``main``. Keeping these as module-level paths avoids threading
+# the same provenance objects through every plotting helper.
+OUT = DEFAULT_OUTPUT_DIR
 DATA = OUT / "data"
-OUT.mkdir(parents=True, exist_ok=True)
-DATA.mkdir(parents=True, exist_ok=True)
-_INPUT_TEMP = tempfile.TemporaryDirectory(prefix="entanglement_public_inputs_")
-INPUT_ROOT = Path(_INPUT_TEMP.name)
-with zipfile.ZipFile(ROOT / "data" / "public_analysis_inputs.zip") as _zf:
-    _zf.extractall(INPUT_ROOT)
+INPUT_ROOT = ROOT
+TRAJECTORY_INPUT = DEFAULT_TRAJECTORY_INPUT
+_INPUT_TEMP: tempfile.TemporaryDirectory[str] | None = None
 
 # Cold palette with a restrained warm contrast for competition/limitations.
 NAVY = "#24557A"
@@ -62,7 +78,7 @@ MODEL_LABELS = {
     "qca": "Brickwork Floquet QCA",
     "kicked_ising": "Open-chain kicked Ising",
     "quantum_baker": "Balazs-Voros-style quantum baker",
-    "random_field_xxz": "Random-field XXZ (Trotterized)",
+    "random_field_xxz": "Random-field XXZ product-formula circuit",
 }
 METRIC_LABELS = {
     "half_vn": r"$q=1$",
@@ -74,6 +90,140 @@ PAIR_COLORS = {
     ("half_vn", "half_linear"): INDIGO,
     ("half_linear", "half_logneg"): CYAN,
 }
+
+
+def _display_path(path: Path) -> str:
+    """Return a stable repository-relative path when possible."""
+    path = path.resolve()
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return str(path)
+
+
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _prepare_analysis_inputs(
+    *,
+    analysis_input_dir: Path | None,
+    input_archive: Path | None,
+) -> tuple[Path, tempfile.TemporaryDirectory[str] | None, dict[str, object]]:
+    """Resolve and validate the public-figure analysis inputs.
+
+    ``analysis_input_dir`` is the end-to-end mode: figures read freshly
+    recomputed outputs directly. When it is omitted, the compact release
+    archive is extracted for the fast snapshot-rebuild workflow.
+    """
+    if analysis_input_dir is not None and input_archive is not None:
+        raise ValueError("Use either --analysis-input-dir or --input-archive, not both.")
+
+    temporary: tempfile.TemporaryDirectory[str] | None = None
+    if analysis_input_dir is not None:
+        input_root = analysis_input_dir.resolve()
+        source_mode = "directory"
+        source_path = input_root
+    else:
+        archive = (DEFAULT_INPUT_ARCHIVE if input_archive is None else input_archive).resolve()
+        if not archive.is_file():
+            raise FileNotFoundError(f"Public-analysis input archive not found: {archive}")
+        temporary = tempfile.TemporaryDirectory(prefix="entanglement_public_inputs_")
+        input_root = Path(temporary.name)
+        with zipfile.ZipFile(archive) as handle:
+            bad = handle.testzip()
+            if bad is not None:
+                raise zipfile.BadZipFile(f"Bad member in {archive}: {bad}")
+            handle.extractall(input_root)
+        source_mode = "archive"
+        source_path = archive
+
+    if not input_root.is_dir():
+        raise NotADirectoryError(f"Public-analysis input directory not found: {input_root}")
+    missing = [name for name in REQUIRED_ANALYSIS_INPUTS if not (input_root / name).is_file()]
+    if missing:
+        raise FileNotFoundError(
+            "Missing required public-figure analysis inputs in "
+            f"{input_root}: {', '.join(missing)}"
+        )
+
+    records = []
+    for name in REQUIRED_ANALYSIS_INPUTS:
+        path = input_root / name
+        records.append(
+            {
+                "name": name,
+                "size_bytes": int(path.stat().st_size),
+                "sha256": _sha256(path),
+            }
+        )
+    provenance: dict[str, object] = {
+        "analysis_source_mode": source_mode,
+        "analysis_source": _display_path(source_path),
+        "analysis_files": records,
+    }
+    if source_mode == "archive":
+        provenance["analysis_archive_sha256"] = _sha256(source_path)
+    return input_root, temporary, provenance
+
+
+def _trajectory_frame(path: Path) -> pd.DataFrame:
+    """Load the canonical trajectory table and derive normalized min-entropy."""
+    frame = pd.read_csv(path)
+    required = {
+        "model",
+        "n",
+        "run_id",
+        "step",
+        "tau",
+        "half_vn",
+        "half_linear",
+        "half_logneg",
+        "half_lambda_max",
+    }
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"Trajectory input lacks required columns: {missing}")
+    n = frame["n"].to_numpy(dtype=float)
+    if np.any(n <= 0.0) or np.any(np.mod(n, 2.0) != 0.0):
+        raise ValueError("The public fixed-cut figures require positive even system sizes.")
+    largest = frame["half_lambda_max"].to_numpy(dtype=float)
+    if np.any(~np.isfinite(largest)) or np.any(largest <= 0.0) or np.any(largest > 1.0 + 1e-12):
+        raise ValueError("half_lambda_max must lie in (0,1].")
+    frame = frame.copy()
+    frame["half_min_entropy"] = -np.log2(largest) / (n / 2.0)
+    return frame
+
+
+def _write_provenance(
+    *,
+    source: dict[str, object],
+    figures: list[str],
+) -> None:
+    trajectory = TRAJECTORY_INPUT.resolve()
+    record = {
+        "schema_version": "public-figure-input-provenance-1.0",
+        "generated_by": "scripts/build_public_figures.py",
+        **source,
+        "trajectory_input": {
+            "path": _display_path(trajectory),
+            "size_bytes": int(trajectory.stat().st_size),
+            "sha256": _sha256(trajectory),
+        },
+        "output_directory": _display_path(OUT),
+        "figures_requested": figures,
+        "principle": (
+            "When --analysis-input-dir is used, public figures consume the freshly "
+            "recomputed result tables in that directory; the frozen archive is not read."
+        ),
+    }
+    (DATA / "public_figure_input_provenance.json").write_text(
+        json.dumps(record, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def _style() -> None:
@@ -216,7 +366,7 @@ def build_figure_01() -> None:
     ax.text(
         0.5,
         0.025,
-        "Exact layer: fixed-$\\lambda_{\\max}$ feasible envelopes   |   Empirical layer: robustness across four chaos families and six sizes",
+        "Exact layer: fixed-$\\lambda_{\\max}$ feasible envelopes   |   Empirical layer: robustness across four dynamical families and six sizes",
         ha="center",
         va="bottom",
         fontsize=11,
@@ -280,8 +430,10 @@ def build_figure_02() -> None:
         ("linear_entropy", "half_linear", r"linear entropy / $H_2$ class"),
         ("log_negativity_pure", "half_logneg", r"pure-state log-negativity $H_{1/2}$"),
     ]
-    df = pd.read_csv(INPUT_ROOT / "reference_enriched_timeseries.csv")
+    df = _trajectory_frame(TRAJECTORY_INPUT)
     df = df[df["n"] == 20].copy()
+    if df.empty:
+        raise ValueError("Trajectory input contains no n=20 observations for Figure 2.")
 
     fig, axes = plt.subplots(1, 3, figsize=(15.2, 4.8), sharex=True, sharey=True)
     boundary_rows = []
@@ -337,7 +489,7 @@ def build_figure_03() -> None:
     ax.text(
         0.98,
         0.96,
-        f"common-mode cluster-bootstrap 95% CI:\n{100*ci[0]:.1f}%–{100*ci[1]:.1f}%",
+        f"model-stratified design-cluster 95% interval:\n{100*ci[0]:.1f}%–{100*ci[1]:.1f}%",
         transform=ax.transAxes,
         fontsize=8.8,
         color=SLATE,
@@ -366,8 +518,8 @@ def build_figure_03() -> None:
     pair_labels = []
     xloc = np.arange(len(fine))
     width = 0.24
-    ax.bar(xloc - width, fine["arc_length_rank_spearman"], width, label="arc-length rank", color=NAVY)
-    ax.bar(xloc, fine["signed_area_rank_spearman"], width, label="signed-area rank", color=INDIGO)
+    ax.bar(xloc - width, fine["full_arc_length_rank_spearman"], width, label="full-path arc length", color=NAVY)
+    ax.bar(xloc, fine["vertical_total_variation_rank_spearman"], width, label="vertical total variation", color=INDIGO)
     ax.bar(xloc + width, fine["exact_turn_count_agreement"], width, label="exact turn-count agreement", color=AMBER)
     for _, row in fine.iterrows():
         pair_labels.append(f"{METRIC_LABELS[row['metric_a']]}\nvs\n{METRIC_LABELS[row['metric_b']]}")
@@ -503,57 +655,128 @@ def build_figure_05() -> None:
 
     ax = axes[1]
     cls = summary["classification_stress_tests"]
-    values = [
+    groups = ["model centroid\nheld-out size", "individual path\ndouble holdout"]
+    full_same = [
         cls["centroid_leave_size_full"]["same_metric_mean_accuracy"],
-        cls["centroid_leave_size_full"]["cross_metric_mean_accuracy"],
-        cls["individual_leave_size_full"]["same_metric_mean_accuracy"],
         cls["individual_double_holdout_full"]["same_metric_mean_accuracy"],
+    ]
+    full_cross = [
+        cls["centroid_leave_size_full"]["cross_metric_mean_accuracy"],
+        cls["individual_double_holdout_full"]["cross_metric_mean_accuracy"],
+    ]
+    vertical_same = [
+        cls["centroid_leave_size_vertical"]["same_metric_mean_accuracy"],
+        cls["individual_double_holdout_vertical"]["same_metric_mean_accuracy"],
+    ]
+    vertical_cross = [
+        cls["centroid_leave_size_vertical"]["cross_metric_mean_accuracy"],
+        cls["individual_double_holdout_vertical"]["cross_metric_mean_accuracy"],
+    ]
+    x_only = [
+        [x["accuracy"] for x in cls["lambda_max_path_baselines"] if x["fold"] == "centroid_leave_size" and x["mode"] == "path"][0],
         [x["accuracy"] for x in cls["lambda_max_path_baselines"] if x["fold"] == "individual_double_holdout" and x["mode"] == "path"][0],
     ]
-    labels = ["model centroid\nsame metric", "model centroid\ncross metric", "individual path\nheld-out size", "individual path\ndouble holdout", r"$\lambda_{\max}$ path\ndouble holdout"]
-    colors = [NAVY, CYAN, INDIGO, CORAL, GREY]
-    bars = ax.bar(np.arange(len(values)), values, color=colors)
+    x = np.arange(len(groups))
+    width = 0.15
+    series = [
+        (full_same, -2*width, NAVY, "full path, same metric"),
+        (full_cross, -width, CYAN, "full path, cross metric"),
+        (vertical_same, 0.0, INDIGO, "vertical only, same metric"),
+        (vertical_cross, width, CORAL, "vertical only, cross metric"),
+        (x_only, 2*width, GREY, r"$\lambda_{\max}$ only"),
+    ]
+    rows = []
+    for values, offset, color, label in series:
+        bars = ax.bar(x + offset, values, width, color=color, label=label)
+        for group, value in zip(groups, values):
+            rows.append({"test_group": group.replace("\n", " "), "representation": label, "accuracy": value, "chance": cls["chance_accuracy"]})
     ax.axhline(cls["chance_accuracy"], color=DARK, linestyle="--", lw=1.2, label="chance")
-    for bar, value in zip(bars, values):
-        ax.text(bar.get_x() + bar.get_width() / 2, value + 0.022, f"{value:.3f}", ha="center", va="bottom", fontsize=9.5)
-    ax.set_xticks(np.arange(len(values)), labels, rotation=15, ha="right")
+    ax.set_xticks(x, groups)
     ax.set_ylim(0, 1.03)
     ax.set_ylabel("nearest-centroid model accuracy")
-    ax.set_title("B. Model-level morphology is stronger than individual fingerprinting")
-    ax.legend(frameon=False, loc="upper right")
+    ax.set_title(r"B. Shared $\lambda_{\max}$ and metric-dependent information are separated")
+    ax.legend(frameon=False, fontsize=7.7, ncol=2, loc="upper right")
+
 
     fig.suptitle("Trajectory morphology carries model information, with explicit generalization limits", fontsize=17, y=1.03, color=DARK)
     fig.tight_layout()
     _save(fig, "figure_05_model_morphology_and_limits")
 
     cent.to_csv(DATA / "figure_05_common_mode_model_centroids_n20.csv", index=False)
-    pd.DataFrame({"test": labels, "accuracy": values, "chance": cls["chance_accuracy"]}).to_csv(DATA / "figure_05_classification_summary.csv", index=False)
+    pd.DataFrame(rows).to_csv(DATA / "figure_05_classification_summary.csv", index=False)
 
-
-def copy_supplemental() -> None:
-    supplemental = OUT / "supplemental"
-    supplemental.mkdir(exist_ok=True)
-    copies = [
-        ROOT / "figures" / "spectrum_reference" / "figure_spectrum_04_endpoint_scorecard_n20.png",
-        ROOT / "figures" / "spectrum_reference" / "figure_spectrum_04_endpoint_scorecard_n20.pdf",
-        ROOT / "figures" / "rmt_reference" / "figure_reference_01_distance_n20.png",
-        ROOT / "figures" / "rmt_reference" / "figure_reference_01_distance_n20.pdf",
-    ]
-    for source in copies:
-        if source.exists():
-            target = supplemental / source.name
-            target.write_bytes(source.read_bytes())
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument(
+        "--analysis-input-dir",
+        type=Path,
+        help=(
+            "Directory containing freshly recomputed metric-robustness outputs. "
+            "This is the end-to-end provenance mode."
+        ),
+    )
+    group.add_argument(
+        "--input-archive",
+        type=Path,
+        help=(
+            "Frozen compact public-analysis archive. If neither input option is "
+            "given, data/public_analysis_inputs.zip is used."
+        ),
+    )
+    parser.add_argument(
+        "--trajectory-input",
+        type=Path,
+        default=DEFAULT_TRAJECTORY_INPUT,
+        help="Canonical trajectory table used for the exact-arena observations.",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=DEFAULT_OUTPUT_DIR,
+        help="Directory receiving the generated figures and source tables.",
+    )
+    parser.add_argument(
+        "--figures",
+        nargs="+",
+        choices=("01", "02", "03", "04", "05", "social"),
+        default=("01", "social", "02", "03", "04", "05"),
+        help="Optional subset used by focused tests and reviews.",
+    )
+    args = parser.parse_args()
+
+    global OUT, DATA, INPUT_ROOT, TRAJECTORY_INPUT, _INPUT_TEMP
+    OUT = args.output_dir.resolve()
+    DATA = OUT / "data"
+    TRAJECTORY_INPUT = args.trajectory_input.resolve()
+    if not TRAJECTORY_INPUT.is_file():
+        raise FileNotFoundError(f"Trajectory input not found: {TRAJECTORY_INPUT}")
+    OUT.mkdir(parents=True, exist_ok=True)
+    DATA.mkdir(parents=True, exist_ok=True)
+    INPUT_ROOT, _INPUT_TEMP, provenance = _prepare_analysis_inputs(
+        analysis_input_dir=args.analysis_input_dir,
+        input_archive=args.input_archive,
+    )
+
+    builders = {
+        "01": build_figure_01,
+        "social": build_social_preview,
+        "02": build_figure_02,
+        "03": build_figure_03,
+        "04": build_figure_04,
+        "05": build_figure_05,
+    }
+    requested = list(dict.fromkeys(args.figures))
     _style()
-    build_figure_01()
-    build_social_preview()
-    build_figure_02()
-    build_figure_03()
-    build_figure_04()
-    build_figure_05()
-    print(f"Wrote public figures to {OUT}")
+    for key in requested:
+        builders[key]()
+    _write_provenance(source=provenance, figures=requested)
+    print(
+        f"Wrote public figures to {OUT} "
+        f"from {provenance['analysis_source_mode']} input {provenance['analysis_source']}"
+    )
 
 
 if __name__ == "__main__":

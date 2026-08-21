@@ -6,7 +6,7 @@ The project asks what unifies the many scalar measures of bipartite pure-state e
 
 The answer is the ordered Schmidt-spectrum path. Von Neumann entropy, Rényi entropies, purity, pure-state logarithmic negativity, min-entropy, geometric coordinates, and related quantities are different nonlinear observations of this path. Their projected paths form an **entanglement-trajectory atlas**.
 
-Across the four tested quantum-chaos families, the normalized trajectories share a strong common mode while retaining localized, mathematically permitted disagreements. This supports a **metric-robust trajectory class**, not a formal topological invariant.
+Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, the normalized trajectories share a strong common mode while retaining localized, mathematically permitted disagreements. This supports a **metric-robust trajectory class**, not a formal topological invariant.
 
 Start with [Figure 1 and the README](README.md).
 
@@ -27,6 +27,8 @@ Read, in order:
 4. [Majorization dynamics](docs/MAJORIZATION_AND_METRIC_DISAGREEMENT.md)
 5. [Analysis methods](docs/ANALYSIS_METHODS.md)
 6. [Fingerprint generalization limits](docs/FINGERPRINT_GENERALIZATION_LIMITS.md)
+7. [Peer-review release audit](docs/PEER_REVIEW_RELEASE_AUDIT.md)
+8. [Canonical release environment](docs/RELEASE_ENVIRONMENT.md)
 
 ## Reproduction path
 
@@ -36,6 +38,7 @@ make public-context
 make public-figures
 make test
 make public-validate
+make peer-review-check
 make rebuild-included
 ```
 

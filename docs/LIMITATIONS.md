@@ -47,3 +47,13 @@ Entropy magnitude or trajectory location alone does not prove efficient classica
 ## Published-paper status
 
 The journal article is the version of record. This repository documents corrections but does not silently rewrite the published paper. Whether the objective errors should also be submitted as a formal corrigendum remains an author decision.
+
+## Designed conditions and selected-spectrum audit
+
+The 96 trajectories are a deterministic designed collection with four declared conditions per dynamical family. Bootstrap intervals quantify sensitivity to those conditions; they are not population confidence intervals over independent disorder, initial-state, or parameter draws.
+
+The full-spectrum majorization audit uses five selected $n=20$ runs and 400 transitions. It is a mechanism check showing where metric contradictions occur in the selected spectra, not a model-wide estimate of event frequencies. The selection omits the quantum-baker family and the non-Clifford QCA conditions.
+
+## XXZ product-formula interpretation
+
+The released random-field XXZ rows use one symmetric product-formula substep per recorded update. The dedicated convergence study finds large one-versus-refined trajectory differences but less than a $10^{-3}$ change in the global common-mode fraction. These rows are therefore interpreted as fixed product-formula circuits, not convergence-controlled continuous-time XXZ Hamiltonian trajectories.

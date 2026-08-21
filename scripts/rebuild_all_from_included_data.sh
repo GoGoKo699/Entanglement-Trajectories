@@ -39,5 +39,9 @@ python analysis/analyze_metric_robustness.py \
   --bootstrap "$BOOTSTRAP" \
   --mantel-permutations "$MANTEL_PERMUTATIONS"
 
-python scripts/build_public_figures.py
+python scripts/build_public_figures.py \
+  --analysis-input-dir outputs/rebuild/results \
+  --trajectory-input data/trajectory_observations.csv \
+  --output-dir outputs/rebuild/public_figures
+
 python analysis/validate_public_repository.py

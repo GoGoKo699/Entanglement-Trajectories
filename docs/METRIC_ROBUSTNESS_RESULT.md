@@ -2,7 +2,7 @@
 
 ## Result in one sentence
 
-Across the tested pure-state quantum-chaos families, three non-equivalent Schmidt-spectrum metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization, but the preservation is hierarchical rather than exact.
+Across the tested pure-state dynamical families, three non-equivalent Schmidt-spectrum metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization, but the preservation is hierarchical rather than exact.
 
 ## 1. A dominant common metric mode
 
@@ -18,10 +18,10 @@ of their total variance. After every metric is placed in its exact fixed-\(\lamb
 90.26\%,
 \]
 
-with a model-condition cluster-bootstrap 95% interval of approximately
+with a model-stratified design-cluster 95% sensitivity interval of approximately
 
 \[
-[85.74\%,93.79\%].
+[86.26\%,93.41\%].
 \]
 
 Its three positive loadings are approximately
@@ -33,6 +33,19 @@ Its three positive loadings are approximately
 for Rényi orders \(1,2,1/2\), respectively. The leading contrast mode explains 9.31% and is dominated by the order-2 class, with loading approximately \(-0.837\). This gives the desired structure: a strong shared mode plus a real, interpretable metric contrast.
 
 Separate fits to the 96 trajectories give a median common-mode fraction of 94.75%, with interquartile range 91.55%-96.50%. The minimum is 53.71%, occurring in a special QCA trajectory. The shared mode is therefore broad, not universal on every individual path.
+
+### Weighting and representation sensitivity
+
+The common-mode conclusion is not specific to one row-weighting convention. Independent sensitivity calculations give:
+
+| Construction | First-mode variance fraction |
+|---|---:|
+| canonical row-weighted boundary levels | 0.9026 |
+| equal total weight per trajectory | 0.9123 |
+| standardize within each trajectory before pooling | 0.9186 |
+| consecutive first differences | 0.8622 |
+
+Leaving out one dynamical family at a time gives fractions from 0.8812 to 0.9111; separate size-by-size fits range from 0.8912 to 0.9514. These are sensitivity analyses of the designed dataset, not independent replications. The machine-readable values are in `metadata/common_mode_sensitivity.json`.
 
 ## 2. Within-trajectory agreement survives exact normalization
 
@@ -84,13 +97,13 @@ The unification is therefore not numerical equivalence. It is a common dynamical
 
 ## 5. Coarse structure persists; fine structure does not
 
-Across metric pairs, the rank correlations of trajectory arc length are 0.906-0.960. Signed-area rankings are less stable, at 0.505-0.799. Exact vertical-turn counts agree for only 7.3%-20.8% of metric pairs, and all three metrics have identical turn counts on only 2 of 96 trajectories.
+Across metric pairs, the rank correlations of full-path arc length are 0.910-0.960. Vertical-only total-variation rankings are less stable, at 0.473-0.882, and origin-closed signed-area rankings range from 0.498 to 0.799. Exact vertical-turn counts agree for only 7.3%-20.8% of metric pairs, and all three metrics have identical turn counts on only 2 of 96 trajectories.
 
 This is direct evidence against treating every projected path as formally topologically identical. The supported object is coarse morphology, not exact local path structure.
 
 ## Strongest defensible claim
 
-> Across the tested pure-state chaos families, three non-equivalent Schmidt-spectrum metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization. The preservation is hierarchical rather than exact, and local metric contradictions carry additional information. This supports an empirical metric-robust trajectory class, not a formal topological invariant.
+> Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, three non-equivalent Schmidt-spectrum metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization. The preservation is hierarchical rather than exact, and local metric contradictions carry additional information. This supports an empirical metric-robust trajectory class, not a formal topological invariant.
 
 ## Scope
 

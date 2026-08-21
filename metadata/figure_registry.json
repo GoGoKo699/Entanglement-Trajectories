@@ -43,8 +43,8 @@
         "PUB-EMP-003",
         "PUB-EMP-007"
       ],
-      "caption": "Metric robustness is strong but hierarchical. The first normalized common mode explains 90.3 percent of variance, with a run-cluster bootstrap interval. Pairwise rank agreement persists across sizes. Coarse arc-length rankings are stable, whereas exact turn-count agreement is weak.",
-      "alt_text": "Three-panel quantitative summary. Panel A shows a common mode near ninety percent, a contrast mode near nine percent, and a small residual. Panel B shows three cross-metric correlation curves from n equals ten to twenty. Panel C shows high arc-length rank agreement, moderate signed-area rank agreement, and low exact turn-count agreement.",
+      "caption": "Metric robustness is strong but hierarchical. The first normalized common mode explains 90.3 percent of variance, with a model-stratified design-cluster sensitivity interval. Pairwise rank agreement persists across sizes. Full-path arc-length and vertical-variation rankings are stable, whereas exact turn-count agreement is weak.",
+      "alt_text": "Three-panel quantitative summary. Panel A shows a common mode near ninety percent, a contrast mode near nine percent, and a small residual. Panel B shows three cross-metric correlation curves from n equals ten to twenty. Panel C shows high full-path arc-length rank agreement, metric-pair-dependent vertical-variation agreement, and low exact turn-count agreement.",
       "data_archive": "data/public_analysis_inputs.zip"
     },
     {
@@ -73,8 +73,8 @@
         "PUB-EMP-008",
         "PUB-LIM-002"
       ],
-      "caption": "Model-level morphology is stronger than individual fingerprinting. The n=20 model-centroid trajectories occupy distinct regions of largest-Schmidt-value versus common-mode space. Held-out-size centroid classification is strong, but accuracy falls for unseen individual conditions and does not beat the largest-Schmidt-value path baseline in the strictest holdout.",
-      "alt_text": "Two panels. The left panel plots four differently shaped model-centroid paths for QCA, kicked Ising, quantum baker, and random-field XXZ. The right panel shows classification bars descending from about 0.917 for model centroids to 0.368 for individual double holdout, with a lambda-max baseline at about 0.417 and chance at 0.25.",
+      "caption": "Model-level morphology is stronger than individual fingerprinting. The n=20 model-centroid trajectories occupy distinct regions of largest-Schmidt-value versus common-mode space. The classification panel separates the contribution of the shared horizontal coordinate from vertical metric information and shows the sharp drop under unseen individual conditions.",
+      "alt_text": "Two panels. The left panel plots four model-centroid paths. The right panel separates full-path, vertical-only, and lambda-max-only held-out classification: model-centroid full-path accuracy is about 0.875 same metric and 0.674 cross metric, while individual double-holdout performance is near 0.33 to 0.36 and does not beat the lambda-max baseline.",
       "data_archive": "data/public_analysis_inputs.zip"
     }
   ]

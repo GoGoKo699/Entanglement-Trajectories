@@ -26,7 +26,7 @@ The five public figures are organized as a reader question chain. Each figure ha
 
 **Question:** Is the shared shape merely visual, and is every detail preserved?
 
-**Answer:** A dominant normalized common mode explains 90.26% of variance, and pairwise agreement persists across sizes. Coarse arc-length ordering is stable, while exact turn-count agreement is weak. Robustness is hierarchical, not exact.
+**Answer:** A dominant normalized common mode explains 90.26% of variance, and pairwise agreement persists across sizes. Full-path arc-length ordering is strong, vertical-only total-variation ordering is weaker but substantial for some metric pairs, and exact turn-count agreement is weak. Robustness is hierarchical, not exact.
 
 **File:** `figures/public/figure_03_metric_robustness_hierarchy.png`
 
@@ -46,20 +46,11 @@ The five public figures are organized as a reader question chain. Each figure ha
 
 **Question:** Does the shared mode retain model-specific morphology, and how far does fingerprinting generalize?
 
-**Answer:** Model-centroid paths remain separated and classify held-out sizes well. Individual-run accuracy falls sharply under unseen size-and-condition holdout and does not beat the largest-Schmidt-value path baseline in that strict test.
+**Answer:** Model-centroid full paths remain separated across held-out sizes, but vertical-only cross-metric transfer is substantially weaker. Individual-run accuracy falls sharply under unseen size-and-condition holdout and does not beat the largest-Schmidt-value path baseline in that strict test.
 
 **File:** `figures/public/figure_05_model_morphology_and_limits.png`
 
 **Claim boundary:** supports model-level morphology within the tested scope. It does not establish a universal individual-run fingerprint.
-
-## Supplemental random-matrix figures
-
-The public supplemental directory contains two compact diagnostics:
-
-- `figures/public/supplemental/figure_reference_01_distance_n20.*`
-- `figures/public/supplemental/figure_spectrum_04_endpoint_scorecard_n20.*`
-
-They are secondary because random matrix theory is a reference layer, not the exact foundation or the central unification result.
 
 ## Plot provenance
 
@@ -69,4 +60,4 @@ Run:
 make public-figures
 ```
 
-The builder is `scripts/build_public_figures.py`. Each plot has a compact CSV or JSON source table under `outputs/public_figures/data/`.
+The builder is `scripts/build_public_figures.py`. Each plot has a compact CSV or JSON source table under `outputs/public_figures/data/`. The end-to-end rebuild passes freshly recomputed analysis tables explicitly to the builder.

@@ -203,15 +203,15 @@
       "upper_extremizer": "equal_tail",
       "implementation": "metrics.renyi_entropy",
       "dataset_columns": [],
-      "scope_notes": "",
-      "numerical_notes": "Finite q uses log-sum-exp; negative q is intentionally excluded."
+      "scope_notes": "At q=0, support means strict positivity in the represented spectrum; thresholded numerical rank is a separate diagnostic.",
+      "numerical_notes": "Finite q uses log-sum-exp; negative q is intentionally excluded. No support threshold is applied at q=0."
     },
     {
       "metric_id": "hartley_entropy",
       "aliases": [
         "h0"
       ],
-      "display_name": "Hartley / max-rank entropy",
+      "display_name": "Hartley entropy / log exact Schmidt rank",
       "symbol": "H_0",
       "family": "R\u00e9nyi entropy",
       "parameter": "q=0",
@@ -232,10 +232,10 @@
       "fixed_p_boundary": "exact: concentrated lower, equal-tail upper",
       "lower_extremizer": "concentrated",
       "upper_extremizer": "equal_tail",
-      "implementation": "metrics.renyi_entropy(q=0)",
+      "implementation": "metrics.hartley_entropy",
       "dataset_columns": [],
-      "scope_notes": "Numerical rank depends on an explicitly declared support tolerance.",
-      "numerical_notes": "The fixed-p upper boundary jumps at p=1 because arbitrarily small positive tail weights change H0."
+      "scope_notes": "Exact support counts every strictly positive represented eigenvalue. It is not a tolerance-based numerical rank.",
+      "numerical_notes": "Tiny positive entries count exactly. For floating-point rank estimation use numerical_schmidt_rank and report its threshold."
     },
     {
       "metric_id": "renyi_half",
@@ -563,8 +563,8 @@
       "upper_extremizer": "equal_tail",
       "implementation": "metrics.effective_rank",
       "dataset_columns": [],
-      "scope_notes": "",
-      "numerical_notes": ""
+      "scope_notes": "At q=0 this is the exact Schmidt rank of the represented spectrum; thresholded rank is separate.",
+      "numerical_notes": "No support threshold is applied at q=0."
     },
     {
       "metric_id": "participation_ratio",
@@ -604,7 +604,7 @@
       "aliases": [
         "rank"
       ],
-      "display_name": "Schmidt rank",
+      "display_name": "Exact Schmidt rank",
       "symbol": "R_0",
       "family": "support",
       "parameter": "",
@@ -621,14 +621,44 @@
       "equivalent_to": [
         "hartley_entropy"
       ],
-      "independent_view": "support-sensitive; numerically tolerance-dependent",
+      "independent_view": "exact support-sensitive endpoint",
       "fixed_p_boundary": "exact: concentrated lower, equal-tail upper",
       "lower_extremizer": "concentrated",
       "upper_extremizer": "equal_tail",
-      "implementation": "metrics.effective_rank(q=0)",
+      "implementation": "metrics.schmidt_rank",
       "dataset_columns": [],
-      "scope_notes": "",
-      "numerical_notes": "A support threshold must be recorded for floating-point spectra."
+      "scope_notes": "Counts every strictly positive represented eigenvalue; no numerical tolerance defines the support.",
+      "numerical_notes": "For noisy floating-point spectra, use numerical_schmidt_rank with a declared absolute or relative threshold."
+    },
+    {
+      "metric_id": "numerical_schmidt_rank",
+      "aliases": [
+        "numerical_rank",
+        "threshold_rank"
+      ],
+      "display_name": "Numerical Schmidt-rank diagnostic",
+      "symbol": "R_{\\varepsilon}",
+      "family": "spectral diagnostic",
+      "parameter": "threshold \u03b5>=0, absolute or relative to \u03bb_max",
+      "formula_latex": "R_{\\varepsilon}=\\#\\{i:\\lambda_i>\\varepsilon\\}",
+      "input_object": "one ordered reduced-density-matrix spectrum",
+      "raw_range": "[1,d] for a valid threshold below \u03bb_max",
+      "normalized_formula_latex": "(R_{\\varepsilon}-1)/(d-1)",
+      "normalized_range": "[0,1]",
+      "entanglement_direction": "threshold- and spectrum-dependent",
+      "schur_behavior": "not an exact Schur monotone",
+      "deterministic_majorization_order": "no exact claim",
+      "average_locc_status": "not asserted; this is a numerical diagnostic",
+      "equivalence_class": "numerical_support_diagnostic",
+      "equivalent_to": [],
+      "independent_view": "floating-point support estimate at a declared cutoff",
+      "fixed_p_boundary": "none: threshold-dependent and not an exact entanglement envelope",
+      "lower_extremizer": "not_applicable",
+      "upper_extremizer": "not_applicable",
+      "implementation": "metrics.numerical_schmidt_rank",
+      "dataset_columns": [],
+      "scope_notes": "The threshold and whether it is absolute or relative must be reported. Do not call this Hartley entropy.",
+      "numerical_notes": "At threshold zero it reduces to exact represented support; positive thresholds intentionally discard small weights."
     },
     {
       "metric_id": "schmidt_gap",

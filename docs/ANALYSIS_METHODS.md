@@ -10,7 +10,7 @@ The analysis is not designed to prove a formal topological invariant. It tests a
 
 ## Data scope
 
-The scalar trajectory table contains 5,856 observations from 96 trajectories:
+The scalar trajectory table is a deterministic designed study containing 5,856 observations from 96 trajectories. Its four conditions per family are controlled cases rather than independent population draws:
 
 - four dynamical families;
 - four conditions per family;
@@ -50,7 +50,7 @@ Two checks are reported:
 1. one global decomposition over all finite observations;
 2. separate decompositions for each of the 96 trajectories.
 
-A cluster bootstrap resamples the 16 model-condition units while keeping all six sizes of each unit together. This avoids treating every time sample as an independent experimental replicate.
+A model-stratified design-cluster bootstrap resamples the four declared conditions within each model while keeping all six sizes of a condition together. It is a sensitivity interval for this designed study, not a population confidence interval.
 
 ## Within-trajectory robustness
 
@@ -61,11 +61,11 @@ For each physical trajectory and each metric pair, the analysis reports:
 - boundary-coordinate root-mean-square separation;
 - boundary-coordinate mean absolute separation.
 
-The reported confidence intervals use the same 16 model-condition clusters.
+The reported sensitivity intervals use the same model-stratified design-cluster scheme over the 16 declared model-condition units.
 
 ## Relational trajectory geometry
 
-Every trajectory is interpolated on the common grid
+Every trajectory is interpolated on the common scaled-iteration grid
 
 \[
 \tau=0,0.1,\ldots,4.0.
@@ -137,3 +137,16 @@ python analysis/analyze_metric_robustness.py
 ```
 
 The default source tables are written under `outputs/metric_robustness/results/`; PDF and PNG figures are written under `outputs/metric_robustness/figures/`. The `make rebuild-included` workflow instead places them under `outputs/rebuild/`.
+
+## Gap-aware interpolation and path descriptors
+
+Boundary-relative coordinates are not interpolated across internal intervals where an exact feasible envelope collapses. Each contiguous finite segment is treated separately.
+
+The reported path descriptors are defined explicitly:
+
+- **full-path arc length:** the sum of Euclidean segment lengths in $(\lambda_{\max},r_E)$ over contiguous finite segments;
+- **vertical total variation:** the sum of $|\Delta r_E|$ over those segments;
+- **origin-closed signed area:** the line-integral sum $\tfrac12\sum_i(x_i y_{i+1}-x_{i+1}y_i)$ over observed open segments, without claiming a topological area invariant;
+- **vertical turn count:** sign changes of non-negligible $\Delta r_E$ within contiguous finite segments.
+
+The coordinate $\tau=\mathrm{step}/n$ is a scaled iteration coordinate used for alignment. It is not a common physical time across the four dynamical constructions.

@@ -17,7 +17,7 @@ Rényi order provides the most economical organizing axis.
 
 | Order or class | Sensitivity | Canonical representative | Follow-up representative |
 |---|---|---|---|
-| \(q=0\) | support/rank | Schmidt rank or \(H_0\) | not yet in the main CSV |
+| \(q=0\) | exact support/rank | exact Schmidt rank or \(H_0\) | not yet in the main CSV |
 | \(q=1/2\) | tail-sensitive | \(H_{1/2}\) | pure-state logarithmic negativity |
 | \(q=1\) | bulk-weighted | von Neumann entropy | normalized half-chain VN entropy |
 | \(q=2\) | head-weighted | purity or \(H_2\) | normalized linear entropy |
@@ -25,6 +25,26 @@ Rényi order provides the most economical organizing axis.
 | leading edge | first two eigenvalues | \(\lambda_2/\lambda_1\) or log gap | saved in spectrum-level extension, not main CSV |
 
 The follow-up package therefore does something more precise than “include almost every easy metric”: it samples four widely separated Rényi-order equivalence classes, from tail sensitivity through the spectral head. That is broad and strategically meaningful, but it is not literally exhaustive.
+
+## Exact support is not numerical rank
+
+For the represented spectrum,
+
+\[
+R_0=\#\{i:\lambda_i>0\},
+\qquad
+H_0=\log R_0.
+\]
+
+No tolerance enters these definitions. Consequently, a tiny positive floating-point eigenvalue contributes to the exact represented support. This is mathematically correct but may be physically uninformative when the spectrum comes from numerical diagonalization.
+
+The separate diagnostic
+
+\[
+R_{\varepsilon}=\#\{i:\lambda_i>\varepsilon\}
+\]
+
+answers a different question. Its threshold may be absolute or relative to \(\lambda_{\max}\), and it must always be stated. A thresholded rank is not counted as an additional entanglement metric and must not be called Hartley entropy.
 
 ## Exact equivalence classes
 

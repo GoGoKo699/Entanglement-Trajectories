@@ -18,7 +18,11 @@ SOURCES: tuple[tuple[str, str], ...] = (
     ("Exact spectral geometry", "docs/EXACT_SPECTRAL_GEOMETRY.md"),
     ("Operational metric-robust trajectory class", "docs/OPERATIONAL_TOPOLOGICAL_INVARIANT.md"),
     ("Corrections to the 2024 paper", "CORRECTIONS.md"),
+    ("Primary references", "REFERENCES.md"),
+    ("XXZ product-formula convergence", "docs/XXZ_PRODUCT_FORMULA_CONVERGENCE.md"),
     ("Limitations", "docs/LIMITATIONS.md"),
+    ("Peer-review release audit", "docs/PEER_REVIEW_RELEASE_AUDIT.md"),
+    ("Canonical release environment", "docs/RELEASE_ENVIRONMENT.md"),
     ("Reproducibility", "docs/REPRODUCIBILITY.md"),
 )
 

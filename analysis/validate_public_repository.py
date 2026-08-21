@@ -21,20 +21,37 @@ REQUIRED = [
     "CORRECTIONS.md",
     "docs/RELEASE_QA.md",
     "LICENSE",
+    "REFERENCES.md",
+    "LICENSE-CONTENT.md",
     "CITATION.cff",
     "codemeta.json",
     "llms.txt",
     "llms-full.txt",
     "VERSION",
+    ".python-version",
+    "requirements/release-build.txt",
+    "requirements/release-py311.txt",
+    "environment/release-py311.json",
+    "docs/RELEASE_ENVIRONMENT.md",
+    "docs/PEER_REVIEW_RELEASE_AUDIT.md",
+    "docs/PUBLIC_FIGURE_PROVENANCE.md",
+    "scripts/verify_release_environment.py",
+    "analysis/verify_peer_review_release.py",
     "metadata/public_claims.json",
+    "metadata/references.json",
     "metadata/definitions.json",
     "metadata/discovery_terms.json",
     "metadata/figure_registry.json",
     "metadata/metric_registry.json",
     "metadata/paper_correction_ledger.csv",
+    "metadata/common_mode_sensitivity.json",
+    "metadata/peer_review_issue_resolution.csv",
+    "metadata/peer_review_release_audit.json",
+    "figures/public/data/public_figure_input_provenance.json",
     "data/trajectory_observations.csv",
     "data/spectra_selected_n20.zip",
     "data/public_analysis_inputs.zip",
+    "data/xxz_convergence_n10_n12_n14.zip",
     "legacy/historical_sources.zip",
     "docs/PUBLIC_FIGURE_STORY.md",
     "paper/AUTHOR_CLARIFICATION_2026.md",
@@ -43,8 +60,9 @@ REQUIRED = [
 
 ARCHIVES = {
     "data/spectra_selected_n20.zip": 5,
-    "data/public_analysis_inputs.zip": 7,
+    "data/public_analysis_inputs.zip": 6,
     "legacy/historical_sources.zip": 7,
+    "data/xxz_convergence_n10_n12_n14.zip": 6,
 }
 
 PUBLIC_FIGURES = [
@@ -77,7 +95,7 @@ def repository_files() -> list[Path]:
 
 def markdown_links(path: Path) -> list[str]:
     text = path.read_text(encoding="utf-8")
-    return re.findall(r"(?<!!)\[[^\]]*\]\(([^)]+)\)", text)
+    return re.findall(r"!?\[[^\]]*\]\(([^)]+)\)", text)
 
 
 
@@ -92,15 +110,53 @@ def main() -> None:
             errors.append(f"missing required file: {rel}")
 
     files = repository_files()
-    if len(files) > 100:
-        errors.append(f"GitHub browser upload limit exceeded: {len(files)} files")
-    for path in files:
-        if path.stat().st_size > 25 * 1024 * 1024:
-            errors.append(f"browser-upload file exceeds 25 MiB: {relative(path)}")
 
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     if version != "1.0.0":
         errors.append(f"unexpected VERSION: {version}")
+
+
+    # Canonical release-environment metadata and exact lock consistency.
+    try:
+        release_environment = json.loads(
+            (ROOT / "environment/release-py311.json").read_text(encoding="utf-8")
+        )
+        python_version = (ROOT / ".python-version").read_text(encoding="utf-8").strip()
+        if release_environment["canonical_job"]["python_version"] != python_version:
+            errors.append("release environment Python version mismatch")
+
+        def exact_lock(relative: str) -> dict[str, str]:
+            rows: dict[str, str] = {}
+            for raw in (ROOT / relative).read_text(encoding="utf-8").splitlines():
+                line = raw.strip()
+                if not line or line.startswith("#"):
+                    continue
+                if line.count("==") != 1:
+                    errors.append(f"nonexact release requirement: {relative}: {line}")
+                    continue
+                name, version = line.split("==", 1)
+                key = re.sub(r"[-_.]+", "-", name.strip()).lower()
+                if key in rows:
+                    errors.append(f"duplicate release requirement: {relative}: {key}")
+                rows[key] = version.strip()
+            return rows
+
+        build_locked = exact_lock(release_environment["build_requirements_file"])
+        runtime_locked = exact_lock(release_environment["runtime_requirements_file"])
+        expected_build = {
+            re.sub(r"[-_.]+", "-", name).lower(): str(version)
+            for name, version in release_environment["build_packages"].items()
+        }
+        expected_runtime = {
+            re.sub(r"[-_.]+", "-", name).lower(): str(version)
+            for name, version in release_environment["packages"].items()
+        }
+        if build_locked != expected_build:
+            errors.append("release build lock differs from environment record")
+        if runtime_locked != expected_runtime:
+            errors.append("release runtime lock differs from environment record")
+    except Exception as exc:
+        errors.append(f"cannot validate canonical release environment: {exc}")
 
     # Parse all current JSON records.
     for path in files:
@@ -176,7 +232,7 @@ def main() -> None:
     try:
         registry = json.loads((ROOT / "metadata/metric_registry.json").read_text(encoding="utf-8"))
         metric_ids = [row["metric_id"] for row in registry["metrics"]]
-        if len(metric_ids) != len(set(metric_ids)) or len(metric_ids) != 26:
+        if len(metric_ids) != len(set(metric_ids)) or len(metric_ids) != 27:
             errors.append("metric registry count or uniqueness mismatch")
     except Exception as exc:
         errors.append(f"cannot validate metric registry: {exc}")

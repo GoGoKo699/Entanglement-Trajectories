@@ -149,6 +149,25 @@ H_0^{\max}(p)=\log d.
 
 At \(p=1\), both bounds are zero. This discontinuity is intrinsic to rank and must not be hidden by numerical thresholding.
 
+### Exact support versus numerical rank
+
+The Hartley entropy in this repository uses the mathematical support of the represented spectrum:
+
+\[
+\operatorname{rank}(\boldsymbol\lambda)
+=\#\{i:\lambda_i>0\}.
+\]
+
+Every strictly positive represented entry counts, irrespective of magnitude. A thresholded count
+
+\[
+R_{\varepsilon}=\#\{i:\lambda_i>\varepsilon\}
+\]
+
+is instead a **numerical Schmidt-rank diagnostic**. It can be useful for floating-point spectra, but it is threshold-dependent, is not the exact Rényi-\(0\) entropy, and must be reported together with \(\varepsilon\) and whether the threshold is absolute or relative to \(\lambda_{\max}\).
+
+The fixed-\(p\) Hartley and Schmidt-rank boundaries are evaluated analytically from the support formulas above. They are not inferred by applying a numerical threshold to the extremizing spectra. The numerical concentrated-spectrum constructor may suppress remainders below its declared spectrum tolerance when evaluating continuous metrics. The discontinuous support formulas do not use that convention and are evaluated analytically.
+
 ### Min-entropy limit \(q=\infty\)
 
 \[

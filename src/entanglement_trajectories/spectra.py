@@ -1,6 +1,7 @@
 """Schmidt-spectrum validation, extremizers, and majorization utilities."""
 from __future__ import annotations
 
+import math
 from typing import Literal
 
 import numpy as np
@@ -62,8 +63,46 @@ def validate_largest_value(p: float, d: int, *, atol: float = 1e-12) -> float:
     return float(np.clip(p, lower, 1.0))
 
 
+def _exact_reciprocal_decomposition(
+    p: float,
+    d: int,
+    *,
+    atol: float = 1e-12,
+) -> tuple[int, float]:
+    """Return the exact represented-float decomposition ``1 = k p + r``.
+
+    Only the canonical floating-point reciprocal ``1.0 / k`` is treated as an
+    exact reciprocal.  This helper is used for discontinuous support/rank
+    statements, where an arbitrarily small positive remainder matters.
+    """
+    p = validate_largest_value(p, d, atol=atol)
+    nearest = int(round(1.0 / p))
+    if 1 <= nearest <= d and p == 1.0 / nearest:
+        return nearest, 0.0
+    numerator, denominator = p.as_integer_ratio()
+    k = min(d, max(1, denominator // numerator))
+    remainder_numerator = denominator - k * numerator
+    if remainder_numerator < 0:
+        raise ArithmeticError(
+            f"Invalid exact reciprocal decomposition: p={p}, k={k}, "
+            f"remainder numerator={remainder_numerator}."
+        )
+    r = remainder_numerator / denominator
+    if r < 0.0 or r >= p:
+        raise ArithmeticError(
+            f"Invalid exact reciprocal decomposition: p={p}, k={k}, r={r}."
+        )
+    return int(k), float(r)
+
+
 def _reciprocal_decomposition(p: float, d: int, *, atol: float = 1e-12) -> tuple[int, float]:
-    """Return ``k=floor(1/p)`` and ``r=1-kp`` robustly near reciprocals."""
+    """Return a tolerance-stabilized decomposition for continuous metrics.
+
+    A remainder smaller than the declared spectrum tolerance is treated as
+    zero.  This avoids amplifying floating-point noise near reciprocal values
+    in continuous entropy boundaries.  Discontinuous support/rank statements
+    use :func:`_exact_reciprocal_decomposition` instead.
+    """
     p = validate_largest_value(p, d, atol=atol)
     inv = 1.0 / p
     nearest = int(round(inv))
@@ -76,6 +115,32 @@ def _reciprocal_decomposition(p: float, d: int, *, atol: float = 1e-12) -> tuple
     if r < -atol or r > p + atol:
         raise ArithmeticError(f"Invalid reciprocal decomposition: p={p}, k={k}, r={r}.")
     return k, float(np.clip(r, 0.0, p))
+
+
+def schmidt_rank_bounds_fixed_lmax(
+    p: float,
+    d: int,
+    *,
+    atol: float = 1e-12,
+) -> tuple[int, int]:
+    """Return exact minimum and maximum support sizes at fixed ``lambda_max``.
+
+    The minimum is ``ceil(1/p)`` and is attained by the concentrated spectrum.
+    For ``p < 1`` the equal-tail spectrum has full support, so the maximum is
+    ``d``; at ``p = 1`` both ranks are one.  No tolerance-based support cutoff
+    is used.
+    """
+    p = validate_largest_value(p, d, atol=atol)
+    d = int(d)
+    k, r = _exact_reciprocal_decomposition(p, d, atol=atol)
+    minimum = k + int(r > 0.0)
+    maximum = 1 if p == 1.0 else d
+    if not (1 <= minimum <= maximum <= d):
+        raise ArithmeticError(
+            f"Invalid fixed-lambda_max support bounds: p={p}, d={d}, "
+            f"minimum={minimum}, maximum={maximum}."
+        )
+    return int(minimum), int(maximum)
 
 
 def equal_tail_spectrum(p: float, d: int, *, atol: float = 1e-12) -> np.ndarray:

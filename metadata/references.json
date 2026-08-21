@@ -1,0 +1,93 @@
+{
+  "schema_version": "entanglement-trajectories-references-1.0",
+  "references": [
+    {
+      "id": "nielsen1999",
+      "authors": "M. A. Nielsen",
+      "title": "Conditions for a Class of Entanglement Transformations",
+      "venue": "Physical Review Letters 83, 436–439 (1999)",
+      "doi": "10.1103/PhysRevLett.83.436",
+      "url": "https://doi.org/10.1103/PhysRevLett.83.436"
+    },
+    {
+      "id": "page1993",
+      "authors": "D. N. Page",
+      "title": "Average Entropy of a Subsystem",
+      "venue": "Physical Review Letters 71, 1291–1294 (1993)",
+      "doi": "10.1103/PhysRevLett.71.1291",
+      "url": "https://doi.org/10.1103/PhysRevLett.71.1291"
+    },
+    {
+      "id": "sen1996",
+      "authors": "S. Sen",
+      "title": "Average Entropy of a Quantum Subsystem",
+      "venue": "Physical Review Letters 77, 1–3 (1996)",
+      "doi": "10.1103/PhysRevLett.77.1",
+      "url": "https://doi.org/10.1103/PhysRevLett.77.1"
+    },
+    {
+      "id": "wishart1928",
+      "authors": "J. Wishart",
+      "title": "The Generalised Product Moment Distribution in Samples from a Normal Multivariate Population",
+      "venue": "Biometrika 20A, 32–52 (1928)",
+      "doi": "10.1093/biomet/20A.1-2.32",
+      "url": "https://doi.org/10.1093/biomet/20A.1-2.32"
+    },
+    {
+      "id": "marchenko1967",
+      "authors": "V. A. Marchenko and L. A. Pastur",
+      "title": "Distribution of Eigenvalues for Some Sets of Random Matrices",
+      "venue": "Mathematics of the USSR-Sbornik 1, 457–483 (1967)",
+      "doi": "10.1070/SM1967v001n04ABEH001994",
+      "url": "https://doi.org/10.1070/SM1967v001n04ABEH001994"
+    },
+    {
+      "id": "bbp2005",
+      "authors": "J. Baik, G. Ben Arous, and S. Péché",
+      "title": "Phase Transition of the Largest Eigenvalue for Nonnull Complex Sample Covariance Matrices",
+      "venue": "Annals of Probability 33, 1643–1697 (2005)",
+      "doi": "10.1214/009117905000000233",
+      "url": "https://doi.org/10.1214/009117905000000233"
+    },
+    {
+      "id": "lihaldane2008",
+      "authors": "H. Li and F. D. M. Haldane",
+      "title": "Entanglement Spectrum as a Generalization of Entanglement Entropy",
+      "venue": "Physical Review Letters 101, 010504 (2008)",
+      "doi": "10.1103/PhysRevLett.101.010504",
+      "url": "https://doi.org/10.1103/PhysRevLett.101.010504"
+    },
+    {
+      "id": "hastings2007",
+      "authors": "M. B. Hastings",
+      "title": "An Area Law for One-Dimensional Quantum Systems",
+      "venue": "Journal of Statistical Mechanics P08024 (2007)",
+      "doi": "10.1088/1742-5468/2007/08/P08024",
+      "url": "https://doi.org/10.1088/1742-5468/2007/08/P08024"
+    },
+    {
+      "id": "schollwock2011",
+      "authors": "U. Schollwöck",
+      "title": "The Density-Matrix Renormalization Group in the Age of Matrix Product States",
+      "venue": "Annals of Physics 326, 96–192 (2011)",
+      "doi": "10.1016/j.aop.2010.09.012",
+      "url": "https://doi.org/10.1016/j.aop.2010.09.012"
+    },
+    {
+      "id": "gross2009",
+      "authors": "D. Gross, S. T. Flammia, and J. Eisert",
+      "title": "Most Quantum States Are Too Entangled To Be Useful as Computational Resources",
+      "venue": "Physical Review Letters 102, 190501 (2009)",
+      "doi": "10.1103/PhysRevLett.102.190501",
+      "url": "https://doi.org/10.1103/PhysRevLett.102.190501"
+    },
+    {
+      "id": "childs2021",
+      "authors": "A. M. Childs, Y. Su, M. C. Tran, N. Wiebe, and S. Zhu",
+      "title": "Theory of Trotter Error with Commutator Scaling",
+      "venue": "Physical Review X 11, 011020 (2021)",
+      "doi": "10.1103/PhysRevX.11.011020",
+      "url": "https://doi.org/10.1103/PhysRevX.11.011020"
+    }
+  ]
+}

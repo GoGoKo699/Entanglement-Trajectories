@@ -2,7 +2,7 @@
 
 ## One-sentence conclusion
 
-Across the tested pure-state quantum-chaos families, several non-equivalent Schmidt-spectrum metrics share a dominant exact-boundary-normalized trajectory mode, while localized disagreements occur on majorization-incomparable spectral redistributions. The result supports an empirical **metric-robust trajectory class**, not exact invariance or a universal fingerprint.
+Across the tested pure-state dynamical families, several non-equivalent Schmidt-spectrum metrics share a dominant exact-boundary-normalized trajectory mode, while localized disagreements occur on majorization-incomparable spectral redistributions. The result supports an empirical **metric-robust trajectory class**, not exact invariance or a universal fingerprint.
 
 ## Scope of the controlled test
 
@@ -28,13 +28,13 @@ $$
 90.26\%
 $$
 
-of total variance, with a run-cluster bootstrap 95% interval of
+of total variance, with a model-stratified design-cluster 95% sensitivity interval of
 
 $$
-85.74\%\text{–}93.79\%.
+86.26\%\text{–}93.41\%.
 $$
 
-The median common-mode fraction computed separately for each trajectory is 94.75%.
+The median common-mode fraction computed separately for each trajectory is 94.75%. Equal-trajectory weighting, within-trajectory standardization, and first-difference analyses give first-mode fractions of 0.912, 0.919, and 0.862, respectively, so the main conclusion is not tied to one level-based row weighting.
 
 ### Pairwise trajectory agreement
 
@@ -92,10 +92,10 @@ Arc-length rankings remain highly stable across metrics, with correlations of 0.
 
 | Classification target and holdout | Accuracy |
 |---|---:|
-| model centroid, same metric, held-out size | 0.917 |
-| model centroid, cross metric, held-out size | 0.694 |
+| model centroid, full path, same metric, held-out size | 0.875 |
+| model centroid, full path, cross metric, held-out size | 0.674 |
 | individual path, same metric, held-out size | 0.521 |
-| individual path, same metric, size and condition held out | 0.368 |
+| individual path, full path, same metric, size and condition held out | 0.330 |
 | $\lambda_{\max}$ path baseline, size and condition held out | 0.417 |
 | chance | 0.250 |
 

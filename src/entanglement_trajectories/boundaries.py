@@ -5,13 +5,19 @@ No interpolation is used.  Every bound is evaluated directly at the requested
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Literal
 
 import numpy as np
 
 from .metrics import metric_value
-from .spectra import concentrated_spectrum, equal_tail_spectrum, validate_largest_value
+from .spectra import (
+    concentrated_spectrum,
+    equal_tail_spectrum,
+    schmidt_rank_bounds_fixed_lmax,
+    validate_largest_value,
+)
 
 
 class DegenerateEnvelopeError(ValueError):
@@ -81,6 +87,51 @@ def _canonical(metric_id: str) -> str:
     return aliases.get(key, key)
 
 
+def _is_zero_order_metric(key: str, q: float | None) -> bool:
+    if key in {"hartley_entropy", "schmidt_rank"}:
+        return True
+    if key in {"renyi_entropy", "effective_rank"} and q is not None:
+        return float(q) == 0.0
+    return False
+
+
+def _exact_zero_order_bounds(
+    key: str,
+    p: float,
+    d: int,
+    *,
+    normalized: bool,
+    base: float,
+    atol: float,
+) -> tuple[float, float, str, str]:
+    rank_lower, rank_upper = schmidt_rank_bounds_fixed_lmax(p, d, atol=atol)
+    if key in {"hartley_entropy", "renyi_entropy"}:
+        base = float(base)
+        if not np.isfinite(base) or base <= 0.0 or abs(base - 1.0) < 1e-15:
+            raise ValueError("Logarithm base must be positive and different from one.")
+        if normalized:
+            if d <= 1:
+                lower = upper = 0.0
+            else:
+                denominator = math.log(float(d))
+                lower = math.log(float(rank_lower)) / denominator
+                upper = math.log(float(rank_upper)) / denominator
+        else:
+            denominator = math.log(base)
+            lower = math.log(float(rank_lower)) / denominator
+            upper = math.log(float(rank_upper)) / denominator
+    else:
+        if normalized:
+            if d <= 1:
+                lower = upper = 0.0
+            else:
+                lower = (rank_lower - 1.0) / (d - 1.0)
+                upper = (rank_upper - 1.0) / (d - 1.0)
+        else:
+            lower, upper = float(rank_lower), float(rank_upper)
+    return float(lower), float(upper), "concentrated", "equal_tail"
+
+
 def _scalar_bounds(
     metric_id: str,
     p: float,
@@ -93,6 +144,15 @@ def _scalar_bounds(
 ) -> tuple[float, float, str, str]:
     key = _canonical(metric_id)
     p = validate_largest_value(p, d, atol=atol)
+    if _is_zero_order_metric(key, q):
+        return _exact_zero_order_bounds(
+            key,
+            p,
+            d,
+            normalized=normalized,
+            base=base,
+            atol=atol,
+        )
     concentrated = concentrated_spectrum(p, d, atol=atol)
     equal_tail = equal_tail_spectrum(p, d, atol=atol)
     kwargs = dict(q=q, normalized=normalized, base=base, atol=atol)
@@ -146,7 +206,8 @@ def metric_bounds_fixed_lmax(
 
     The function accepts a scalar or an array of ``p`` values.  For entropy and
     effective-rank families, ``q`` is required only for the generic identifiers
-    ``renyi_entropy`` and ``effective_rank``.
+    ``renyi_entropy`` and ``effective_rank``.  Zero-order support boundaries are
+    evaluated analytically rather than inferred from a numerical threshold.
     """
     arr = np.asarray(p, dtype=np.float64)
     scalar = arr.ndim == 0

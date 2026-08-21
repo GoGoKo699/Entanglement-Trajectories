@@ -1,0 +1,4 @@
+metric_a,metric_b,full_arc_length_rank_spearman,vertical_total_variation_rank_spearman,origin_closed_area_rank_spearman,exact_turn_count_agreement
+half_vn,half_linear,0.9603906673901248,0.8824877916440587,0.7986842105263159,0.2083333333333333
+half_vn,half_logneg,0.9495930548019532,0.6781199131850243,0.5649213239283777,0.1458333333333333
+half_linear,half_logneg,0.909997287032013,0.473046663049376,0.4980195333695062,0.0729166666666666

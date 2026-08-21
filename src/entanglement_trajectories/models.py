@@ -22,7 +22,7 @@ MODEL_LABELS: dict[str, str] = {
     "qca": "Brickwork Floquet QCA",
     "kicked_ising": "Open-chain kicked Ising",
     "quantum_baker": "Balazs-Voros-style quantum baker",
-    "random_field_xxz": "Random-field XXZ (Trotterized)",
+    "random_field_xxz": "Random-field XXZ product-formula circuit",
 }
 
 
@@ -181,6 +181,7 @@ def xxz_runs() -> list[ModelRun]:
         "dt_record": 0.25,
         "trotter_substeps": 1,
         "trotter_order": "second_order_field_even_odd_even_field",
+        "simulation_interpretation": "fixed one-substep symmetric product-formula circuit",
         "boundary": "open",
     }
     return [

@@ -324,10 +324,12 @@ def resample_trajectory(
     coordinate: Literal["raw", "boundary"] = "boundary",
     grid: np.ndarray | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Interpolate ``lambda_max`` and one metric coordinate on a common time grid.
+    """Interpolate one trajectory without bridging undefined exact envelopes.
 
-    Boundary-relative coordinates remain NaN outside their finite domain.
-    This avoids assigning arbitrary values at collapsed feasible envelopes.
+    The largest-Schmidt-value coordinate is always interpolated on the common
+    grid. Boundary-relative metric coordinates are interpolated separately on
+    each contiguous finite run in the original samples, preserving internal
+    intervals where the exact envelope collapses.
     """
     if metric not in HALF_METRICS:
         raise KeyError(f"Unsupported half-chain metric: {metric!r}")
@@ -339,14 +341,19 @@ def resample_trajectory(
     x = np.interp(grid, tau, ordered["half_lambda_max"].to_numpy(dtype=float))
     column = BOUNDARY_HEIGHT_COLUMNS[metric] if coordinate == "boundary" else metric
     y_values = ordered[column].to_numpy(dtype=float)
-    finite = np.isfinite(y_values)
+    finite_indices = np.flatnonzero(np.isfinite(y_values))
     y = np.full(grid.size, np.nan, dtype=float)
-    if np.count_nonzero(finite) >= 2:
-        inside = (grid >= float(np.min(tau[finite]))) & (grid <= float(np.max(tau[finite])))
-        y[inside] = np.interp(grid[inside], tau[finite], y_values[finite])
-    elif np.count_nonzero(finite) == 1:
-        location = int(np.argmin(np.abs(grid - tau[finite][0])))
-        y[location] = float(y_values[finite][0])
+    if finite_indices.size:
+        split_at = np.flatnonzero(np.diff(finite_indices) > 1) + 1
+        for segment in np.split(finite_indices, split_at):
+            if segment.size >= 2:
+                segment_tau = tau[segment]
+                inside = (grid >= float(segment_tau[0])) & (grid <= float(segment_tau[-1]))
+                y[inside] = np.interp(grid[inside], segment_tau, y_values[segment])
+            else:
+                matches = np.flatnonzero(np.isclose(grid, tau[segment[0]], atol=1e-12, rtol=0.0))
+                if matches.size:
+                    y[matches] = float(y_values[segment[0]])
     return x, y
 
 
@@ -813,8 +820,9 @@ def cross_metric_classification(
 ):
     """Nearest-centroid cross-metric generalization under declared holdouts.
 
-    The routine is deliberately simple and transparent.  It is a descriptive
-    stress test, not a claim of an optimized classifier.
+    Every trajectory/metric representation is cached once. This leaves the
+    transparent classifier unchanged while making the full fold-by-metric
+    release analysis practical in continuous integration.
     """
     import pandas as pd
 
@@ -831,130 +839,104 @@ def cross_metric_classification(
     models = sorted({record["model"] for record in records})
     sizes = sorted({record["n"] for record in records})
     conditions = sorted({record["condition"] for record in records})
+
+    def record_key(record: dict) -> tuple[str, int, str]:
+        return record["model"], record["n"], record["run_id"]
+
+    feature_cache: dict[tuple[str, int, str, str], np.ndarray] = {}
+    for record in records:
+        key = record_key(record)
+        for metric in HALF_METRICS:
+            feature_cache[(*key, metric)] = _representation(
+                record["group"],
+                metric,
+                coordinate=coordinate,
+                mode=mode,
+                grid=grid,
+            )
+
+    def feature(record: dict, metric: str) -> np.ndarray:
+        return feature_cache[(*record_key(record), metric)]
+
+    def centroids(training: Sequence[dict], metric: str) -> dict[str, np.ndarray]:
+        output: dict[str, np.ndarray] = {}
+        for model in models:
+            values = [feature(record, metric) for record in training if record["model"] == model]
+            if not values:
+                raise ValueError(f"No training features for model {model!r}.")
+            output[model] = _nanmean_stack(values)
+        return output
+
+    if fold in {"centroid_leave_size", "individual_leave_size"}:
+        fold_specs = [(size, None) for size in sizes]
+    elif fold == "individual_leave_condition":
+        fold_specs = [(None, condition) for condition in conditions]
+    elif fold == "individual_double_holdout":
+        fold_specs = [(size, condition) for size in sizes for condition in conditions]
+    else:
+        raise ValueError(f"Unknown fold: {fold!r}")
+
     predictions = []
+    for held_size, held_condition in fold_specs:
+        if fold in {"centroid_leave_size", "individual_leave_size"}:
+            training = [record for record in records if record["n"] != held_size]
+            testing_records = [record for record in records if record["n"] == held_size]
+        elif fold == "individual_leave_condition":
+            training = [record for record in records if record["condition"] != held_condition]
+            testing_records = [record for record in records if record["condition"] == held_condition]
+        else:
+            training = [
+                record for record in records
+                if record["n"] != held_size and record["condition"] != held_condition
+            ]
+            testing_records = [
+                record for record in records
+                if record["n"] == held_size and record["condition"] == held_condition
+            ]
 
-    for train_metric in HALF_METRICS:
-        for test_metric in HALF_METRICS:
-            if fold in {"centroid_leave_size", "individual_leave_size"}:
-                fold_specs = [(size, None) for size in sizes]
-            elif fold == "individual_leave_condition":
-                fold_specs = [(None, condition) for condition in conditions]
-            elif fold == "individual_double_holdout":
-                fold_specs = [(size, condition) for size in sizes for condition in conditions]
-            else:
-                raise ValueError(f"Unknown fold: {fold!r}")
-
-            for held_size, held_condition in fold_specs:
-                if fold == "centroid_leave_size":
-                    training = [record for record in records if record["n"] != held_size]
-                    testing_records = [record for record in records if record["n"] == held_size]
-                elif fold == "individual_leave_size":
-                    training = [record for record in records if record["n"] != held_size]
-                    testing_records = [record for record in records if record["n"] == held_size]
-                elif fold == "individual_leave_condition":
-                    training = [
-                        record for record in records if record["condition"] != held_condition
-                    ]
-                    testing_records = [
-                        record for record in records if record["condition"] == held_condition
-                    ]
-                else:
-                    training = [
-                        record
-                        for record in records
-                        if record["n"] != held_size
-                        and record["condition"] != held_condition
-                    ]
-                    testing_records = [
-                        record
-                        for record in records
-                        if record["n"] == held_size
-                        and record["condition"] == held_condition
-                    ]
-
-                centroids = _model_centroids(
-                    training,
-                    metric=train_metric,
-                    coordinate=coordinate,
-                    mode=mode,
-                    grid=grid,
-                    models=models,
-                )
-
+        train_centroids = {metric: centroids(training, metric) for metric in HALF_METRICS}
+        for train_metric in HALF_METRICS:
+            model_centroids = train_centroids[train_metric]
+            for test_metric in HALF_METRICS:
                 if fold == "centroid_leave_size":
                     for model in models:
                         model_tests = [
-                            _representation(
-                                record["group"],
-                                test_metric,
-                                coordinate=coordinate,
-                                mode=mode,
-                                grid=grid,
-                            )
+                            feature(record, test_metric)
                             for record in testing_records
                             if record["model"] == model
                         ]
-                        feature = _nanmean_stack(model_tests)
-                        prediction, distance = _classify_feature(feature, centroids)
-                        predictions.append(
-                            {
-                                "coordinate": coordinate,
-                                "mode": mode,
-                                "fold": fold,
-                                "train_metric": train_metric,
-                                "test_metric": test_metric,
-                                "held_size": int(held_size),
-                                "held_condition": np.nan,
-                                "model": model,
-                                "run_id": "MODEL_CENTROID",
-                                "prediction": prediction,
-                                "correct": bool(prediction == model),
-                                "distance_to_prediction": distance,
-                            }
-                        )
+                        test_feature = _nanmean_stack(model_tests)
+                        prediction, distance = _classify_feature(test_feature, model_centroids)
+                        predictions.append({
+                            "coordinate": coordinate, "mode": mode, "fold": fold,
+                            "train_metric": train_metric, "test_metric": test_metric,
+                            "held_size": int(held_size), "held_condition": np.nan,
+                            "model": model, "run_id": "MODEL_CENTROID",
+                            "prediction": prediction, "correct": bool(prediction == model),
+                            "distance_to_prediction": distance,
+                        })
                 else:
                     for record in testing_records:
-                        feature = _representation(
-                            record["group"],
-                            test_metric,
-                            coordinate=coordinate,
-                            mode=mode,
-                            grid=grid,
-                        )
-                        prediction, distance = _classify_feature(feature, centroids)
-                        predictions.append(
-                            {
-                                "coordinate": coordinate,
-                                "mode": mode,
-                                "fold": fold,
-                                "train_metric": train_metric,
-                                "test_metric": test_metric,
-                                "held_size": (
-                                    int(held_size) if held_size is not None else np.nan
-                                ),
-                                "held_condition": (
-                                    int(held_condition)
-                                    if held_condition is not None
-                                    else np.nan
-                                ),
-                                "model": record["model"],
-                                "run_id": record["run_id"],
-                                "prediction": prediction,
-                                "correct": bool(prediction == record["model"]),
-                                "distance_to_prediction": distance,
-                            }
-                        )
+                        test_feature = feature(record, test_metric)
+                        prediction, distance = _classify_feature(test_feature, model_centroids)
+                        predictions.append({
+                            "coordinate": coordinate, "mode": mode, "fold": fold,
+                            "train_metric": train_metric, "test_metric": test_metric,
+                            "held_size": int(held_size) if held_size is not None else np.nan,
+                            "held_condition": int(held_condition) if held_condition is not None else np.nan,
+                            "model": record["model"], "run_id": record["run_id"],
+                            "prediction": prediction,
+                            "correct": bool(prediction == record["model"]),
+                            "distance_to_prediction": distance,
+                        })
+
     prediction_table = pd.DataFrame(predictions)
     summary = (
         prediction_table.groupby(
             ["coordinate", "mode", "fold", "train_metric", "test_metric"],
             as_index=False,
         )
-        .agg(
-            accuracy=("correct", "mean"),
-            correct=("correct", "sum"),
-            predictions=("correct", "size"),
-        )
+        .agg(accuracy=("correct", "mean"), correct=("correct", "sum"), predictions=("correct", "size"))
         .sort_values(["train_metric", "test_metric"])
     )
     return summary, prediction_table
@@ -984,24 +966,27 @@ def x_only_classification(
     sizes = sorted({record["n"] for record in records})
     conditions = sorted({record["condition"] for record in records})
 
-    def feature(record: dict) -> np.ndarray:
+    cache: dict[tuple[str, int, str], np.ndarray] = {}
+    for record in records:
         ordered = record["group"].sort_values("tau")
         x = np.interp(
             grid,
             ordered["tau"].to_numpy(dtype=float),
             ordered["half_lambda_max"].to_numpy(dtype=float),
         )
-        return np.array([x[-1]], dtype=float) if mode == "endpoint" else x
+        cache[(record["model"], record["n"], record["run_id"])] = (
+            np.array([x[-1]], dtype=float) if mode == "endpoint" else x
+        )
+
+    def feature(record: dict) -> np.ndarray:
+        return cache[(record["model"], record["n"], record["run_id"])]
 
     def centroids(training: Sequence[dict]) -> dict[str, np.ndarray]:
         return {
-            model: _nanmean_stack(
-                [feature(record) for record in training if record["model"] == model]
-            )
+            model: _nanmean_stack([feature(record) for record in training if record["model"] == model])
             for model in models
         }
 
-    rows = []
     if fold in {"centroid_leave_size", "individual_leave_size"}:
         fold_specs = [(size, None) for size in sizes]
     elif fold == "individual_leave_condition":
@@ -1011,6 +996,7 @@ def x_only_classification(
     else:
         raise ValueError(f"Unknown fold: {fold!r}")
 
+    rows = []
     for held_size, held_condition in fold_specs:
         if fold in {"centroid_leave_size", "individual_leave_size"}:
             training = [record for record in records if record["n"] != held_size]
@@ -1020,63 +1006,39 @@ def x_only_classification(
             testing = [record for record in records if record["condition"] == held_condition]
         else:
             training = [
-                record
-                for record in records
+                record for record in records
                 if record["n"] != held_size and record["condition"] != held_condition
             ]
             testing = [
-                record
-                for record in records
+                record for record in records
                 if record["n"] == held_size and record["condition"] == held_condition
             ]
         model_centroids = centroids(training)
         if fold == "centroid_leave_size":
             for model in models:
-                test_feature = _nanmean_stack(
-                    [feature(record) for record in testing if record["model"] == model]
-                )
+                test_feature = _nanmean_stack([feature(record) for record in testing if record["model"] == model])
                 prediction, distance = _classify_feature(test_feature, model_centroids)
-                rows.append(
-                    {
-                        "mode": mode,
-                        "fold": fold,
-                        "held_size": int(held_size),
-                        "held_condition": np.nan,
-                        "model": model,
-                        "run_id": "MODEL_CENTROID",
-                        "prediction": prediction,
-                        "correct": bool(prediction == model),
-                        "distance_to_prediction": distance,
-                    }
-                )
+                rows.append({
+                    "mode": mode, "fold": fold, "held_size": int(held_size),
+                    "held_condition": np.nan, "model": model, "run_id": "MODEL_CENTROID",
+                    "prediction": prediction, "correct": bool(prediction == model),
+                    "distance_to_prediction": distance,
+                })
         else:
             for record in testing:
                 prediction, distance = _classify_feature(feature(record), model_centroids)
-                rows.append(
-                    {
-                        "mode": mode,
-                        "fold": fold,
-                        "held_size": int(held_size) if held_size is not None else np.nan,
-                        "held_condition": (
-                            int(held_condition) if held_condition is not None else np.nan
-                        ),
-                        "model": record["model"],
-                        "run_id": record["run_id"],
-                        "prediction": prediction,
-                        "correct": bool(prediction == record["model"]),
-                        "distance_to_prediction": distance,
-                    }
-                )
-    table = pd.DataFrame(rows)
-    summary = pd.DataFrame(
-        [
-            {
-                "mode": mode,
-                "fold": fold,
-                "accuracy": float(table["correct"].mean()),
-                "correct": int(table["correct"].sum()),
-                "predictions": int(len(table)),
-            }
-        ]
+                rows.append({
+                    "mode": mode, "fold": fold,
+                    "held_size": int(held_size) if held_size is not None else np.nan,
+                    "held_condition": int(held_condition) if held_condition is not None else np.nan,
+                    "model": record["model"], "run_id": record["run_id"],
+                    "prediction": prediction, "correct": bool(prediction == record["model"]),
+                    "distance_to_prediction": distance,
+                })
+    predictions = pd.DataFrame(rows)
+    summary = (
+        predictions.groupby(["mode", "fold"], as_index=False)
+        .agg(accuracy=("correct", "mean"), correct=("correct", "sum"), predictions=("correct", "size"))
     )
-    return summary, table
+    return summary, predictions
+

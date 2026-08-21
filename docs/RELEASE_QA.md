@@ -63,13 +63,13 @@ The repaired implementation uses the analytic balanced Marchenko–Pastur cumula
 The validated central results include:
 
 - exact-boundary-normalized common-mode variance: `0.9026282298671149`;
-- cluster-bootstrap 95% interval: `[0.8574156931787958, 0.9379151738860936]`;
+- model-stratified design-cluster 95% interval: `[0.8626128030927239, 0.9341235189039404]`;
 - median per-trajectory common-mode fraction: `0.9475141487435563`;
 - metric-competitive scalar transitions: `808/5760`;
 - metric-competition events in the selected full-spectrum audit: `50`;
 - competition events outside the majorization-incomparable sector: `0`;
-- same-metric held-out-size model-centroid accuracy: `0.9166666666666666`;
-- size-and-condition-held-out individual-path accuracy: `0.3680555555555555`.
+- gap-aware held-out-size model-centroid full-path accuracy: `0.875` in the same metric and `0.6736111111111112` across metrics;
+- size-and-condition-held-out individual full-path accuracy: `0.3298611111111111` in the same metric and `0.35763888888888884` across metrics;
 
 These results support an empirical **metric-robust trajectory class**. They do not establish a formal topological invariant or a universal individual-run fingerprint.
 
@@ -77,7 +77,7 @@ These results support an empirical **metric-robust trajectory class**. They do n
 
 The compact release package passed:
 
-- **69 automated scientific and repository tests**;
+- **76 automated scientific and repository tests**;
 - reconstruction of the public machine context;
 - regeneration of all five public figures from included inputs;
 - public metadata and internal-link validation;
@@ -86,18 +86,30 @@ The compact release package passed:
 - selected-spectrum reconstruction for all 405 archived spectra;
 - package wheel construction and isolated import;
 - syntax checks for the current Python and shell code;
-- CRC checks for the three included data and provenance archives.
+- CRC and schema checks for the four included data and provenance archives.
 
-The regenerated public figures were byte-identical to the archived release figures.
+The regenerated public-figure source tables matched the committed release sources exactly, and all rendered images opened successfully with the declared dimensions. A controlled provenance test confirmed that changing a recomputed input changes the corresponding figure. The XXZ refinement archive was re-evaluated from its 3,528 frozen observations, and the exact Hartley near-product counterexample and thresholded numerical-rank separation were rechecked.
 
-The complete dense state-vector simulation through every declared size up to $n=20$, and the complete 3,000-bootstrap/1,000-permutation recomputation, were not repeated during compact release assembly. Their canonical validated outputs and full workflows remain included.
+The final peer-review audit repeated the complete included-data analysis with 3,000 model-stratified bootstrap resamples and 1,000 Mantel-style permutations, then rebuilt the five public figures from those fresh tables. The dense state-vector simulation through every declared size up to $n=20$ was not repeated; its canonical dataset, an independent all-run $n=10$ regression, the selected-spectrum reconstruction, and the complete workflow remain included.
+
+### Canonical release environment
+
+The blocking hosted job uses:
+
+- `ubuntu-24.04` on `x86_64`;
+- CPython `3.11.15` from `.python-version`;
+- exact build and runtime locks in `requirements/release-build.txt` and `requirements/release-py311.txt`;
+- single-thread numerical environment variables recorded in `environment/release-py311.json`;
+- `pip check`, an exact environment verifier, source-table comparisons and rendered-image checks, the scientific tests, and the public validator.
+
+See [Canonical release environment](RELEASE_ENVIRONMENT.md).
 
 ## Hosted repository release gate
 
 The `v1.0.0` release should be created only after:
 
 1. the final cleanup commit is complete;
-2. the hosted `repository-qa` GitHub Actions workflow passes;
+2. the locked `repository-qa` GitHub Actions release job passes on the final commit;
 3. the repository description, DOI homepage, topics, and social preview have been applied.
 
 A passing local package audit does not replace the final hosted Actions run.

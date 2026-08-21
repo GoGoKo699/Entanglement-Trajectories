@@ -2,11 +2,13 @@
 
 ## Environment
 
-The current implementation requires Python 3.10 or later. Install the analysis and test dependencies declared in `pyproject.toml` with:
+The current implementation supports Python 3.10 or later for development. Install the broad compatibility dependencies declared in `pyproject.toml` with:
 
 ```bash
 python -m pip install -e '.[analysis,test]'
 ```
+
+Release `v1.0.0` has a separate canonical numerical environment: CPython `3.11.15` on `ubuntu-24.04`, with exact build and runtime locks under `requirements/`. See [Canonical release environment](RELEASE_ENVIRONMENT.md). A normal broad installation is not a substitute for the locked release job when reproducing release-level numerical snapshots.
 
 The historical paper-era Qibo scripts are preserved for provenance and are not the recommended current workflow.
 
@@ -32,16 +34,17 @@ Generated figures and compact source tables are written under:
 outputs/public_figures/
 ```
 
-The images under `figures/public/` are the validated release snapshot shown by the README. A clean rebuild should reproduce those PNG files byte-for-byte in the validated environment.
+The images under `figures/public/` are the validated release snapshot shown by the README. A clean rebuild must reproduce the committed plotted source tables exactly. Rendered PNGs are validated for successful generation and dimensions; byte-level image identity is not required across graphics stacks.
 
 ### Level 2 — Automated scientific and repository validation
 
 ```bash
 make test
 make public-validate
+make peer-review-check
 ```
 
-The tests cover metric identities, exact boundaries, majorization, deterministic model dynamics, random-matrix tools, trajectory robustness, included-data regressions, metadata, archive integrity, and internal links. Run the complete public-layer workflow with:
+The tests cover metric identities, exact boundaries, majorization, deterministic model dynamics, random-matrix tools, trajectory robustness, included-data regressions, metadata, archive integrity, and internal links. The peer-review verifier checks closure of the numerical-physics, exact-mathematics, figure-provenance, release-environment, wording, and selected-spectrum gates. Run the complete public-layer workflow with:
 
 ```bash
 make public
@@ -106,8 +109,18 @@ The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata ar
 
 ## Release identity
 
-The tagged Git commit identifies the exact repository source tree. [`RELEASE_QA.md`](RELEASE_QA.md) records the scientific, computational, and hosted-release checks. The repository validator also checks the structure and CRC integrity of the included data and provenance archives.
+The tagged Git commit identifies the exact repository source tree. [`RELEASE_ENVIRONMENT.md`](RELEASE_ENVIRONMENT.md) freezes the canonical Python environment, and [`RELEASE_QA.md`](RELEASE_QA.md) records the scientific, computational, and hosted-release checks. The repository validator also checks the structure and CRC integrity of the included data and provenance archives.
 
 ## Compact repository
 
 Selected spectra and public-analysis inputs are bundled under `data/`; supported workflows extract them automatically into the ignored `outputs/` directory. The provenance archive under `legacy/` is retained for historical reconstruction and is not used by current analyses.
+
+## XXZ convergence audit
+
+Run the dedicated refinement study with:
+
+```bash
+make xxz-convergence
+```
+
+The compact frozen evidence is stored in `data/xxz_convergence_n10_n12_n14.zip`. The released scalar table retains the historical one-substep circuit and documents that interpretation explicitly.

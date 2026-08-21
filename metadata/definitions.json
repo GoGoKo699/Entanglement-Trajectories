@@ -88,6 +88,36 @@
         "exact boundary",
         "universal attractor"
       ]
+    },
+    {
+      "id": "DEF-EXACT-SCHMIDT-RANK",
+      "term": "exact Schmidt rank",
+      "definition": "The number of strictly positive entries in the represented Schmidt spectrum. No support threshold is applied.",
+      "scope": "validated finite Schmidt spectrum",
+      "aliases": [
+        "exact support size"
+      ],
+      "not_equivalent_to": [
+        "thresholded numerical rank"
+      ]
+    },
+    {
+      "id": "DEF-NUMERICAL-SCHMIDT-RANK",
+      "term": "numerical Schmidt rank",
+      "definition": "A threshold-dependent count of Schmidt-spectrum entries above a declared absolute or relative cutoff.",
+      "scope": "floating-point spectral diagnostic with declared threshold",
+      "aliases": [
+        "threshold rank"
+      ],
+      "not_equivalent_to": [
+        "Hartley entropy",
+        "exact Schmidt rank"
+      ]
+    },
+    {
+      "id": "DEF-SCALED-ITERATION",
+      "term": "scaled iteration coordinate",
+      "definition": "The alignment variable tau=step/n. It orders and rescales sampled iterations but is not a common physical time across all dynamical families."
     }
   ]
 }

@@ -11,13 +11,13 @@ The analysis uses a deliberately simple nearest-centroid classifier to test the 
 For model-centroid paths with one system size held out, the same-metric full-path accuracy is
 
 \[
-0.917,
+0.875,
 \]
 
 and the mean cross-metric accuracy is
 
 \[
-0.694.
+0.674.
 \]
 
 Chance accuracy is 0.25. The \(\lambda_{\max}\)-only path baseline is 0.75.
@@ -28,8 +28,8 @@ This supports a limited statement: averaged model-family morphology is often rec
 
 For unseen individual trajectories with one size held out, same-metric and cross-metric full-path accuracies are both about 0.52. Under the stricter simultaneous held-out-size and held-out-condition test:
 
-- same-metric mean accuracy: 0.368;
-- cross-metric mean accuracy: 0.398;
+- same-metric full-path mean accuracy: 0.330;
+- cross-metric full-path mean accuracy: 0.358;
 - \(\lambda_{\max}\)-only path baseline: 0.417.
 
 The individual-path metric atlas therefore does not yet beat the shared horizontal coordinate under the most stringent test. The correct conclusion is not that fingerprints fail completely, but that the present data support **model-level morphology more strongly than universal individual-run identification**.
@@ -64,3 +64,7 @@ A publication-level fingerprint study would require a preregistered feature map 
 - entirely unseen dynamical families.
 
 It should compare entropy-only, \(\lambda_{\max}\)-only, endpoint-only, full-spectrum, and combined-atlas baselines.
+
+## Vertical-coordinate-only result
+
+Full-path classification includes the shared $\lambda_{\max}$ coordinate. Under the gap-aware analysis, held-out-size model-centroid accuracy is 0.764 in the same vertical metric and 0.375 across vertical metrics, compared with 0.875 and 0.674 for the full path. Under simultaneous held-out size and condition, the vertical-only values are 0.309 and 0.276, compared with 0.330 and 0.358 for the full path. Figure 5 therefore reports full-path, vertical-only, and $\lambda_{\max}$-only results together.

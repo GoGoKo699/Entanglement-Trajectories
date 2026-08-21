@@ -13,7 +13,7 @@ This file concatenates the canonical public context. Scoped numerical claims in 
 
 This repository is the corrected computational companion and follow-up evidence package for Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* 8, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.
 
-For a fixed bipartition of a pure state, the primary dynamical object is the ordered Schmidt-spectrum path. Standard spectrum-based entanglement measures are nonlinear functions of that path. Their projected paths form an entanglement-trajectory atlas. In the tested four-family quantum-chaos dataset, three non-equivalent vertical metric classes share a dominant exact-boundary-normalized common mode, while local metric contradictions occur on majorization-incomparable spectral transitions. The supported conclusion is an empirical metric-robust trajectory class. A formal topological invariant and universal individual-run fingerprint have not been established.
+For a fixed bipartition of a pure state, the primary dynamical object is the ordered Schmidt-spectrum path. Standard spectrum-based entanglement measures are nonlinear functions of that path. Their projected paths form an entanglement-trajectory atlas. In the tested four-family dynamical dataset, three non-equivalent vertical metric classes share a dominant exact-boundary-normalized common mode, while local metric contradictions occur on majorization-incomparable spectral transitions. The supported conclusion is an empirical metric-robust trajectory class. A formal topological invariant and universal individual-run fingerprint have not been established.
 
 ## Authority order
 
@@ -22,17 +22,20 @@ When files appear to conflict, use this order:
 1. `metadata/public_claims.json` and `metadata/definitions.json`
 2. `SCIENTIFIC_POSITION.md`
 3. `CORRECTIONS.md` and `paper/AUTHOR_CLARIFICATION_2026.md`
-4. `docs/EXACT_SPECTRAL_GEOMETRY.md`
-5. `docs/METRIC_ROBUSTNESS_RESULT.md`
-6. `data/public_analysis_inputs.zip` (member `metric_robustness_scientific_summary.json`)
-7. current source code and tests under `src/` and `tests/`
-8. historical material under `legacy/historical_sources.zip` and the pinned historical branch
+4. `docs/PEER_REVIEW_RELEASE_AUDIT.md` and `metadata/peer_review_release_audit.json`
+5. `docs/EXACT_SPECTRAL_GEOMETRY.md`
+6. `docs/METRIC_ROBUSTNESS_RESULT.md`
+7. `data/public_analysis_inputs.zip` (member `metric_robustness_scientific_summary.json`)
+8. current source code and tests under `src/` and `tests/`
+9. historical material under `legacy/historical_sources.zip` and the pinned historical branch
 
 Historical scripts are evidence about the development record, not the current source of truth.
 
 ## Primary definitions
 
 - **Schmidt spectrum:** the ordered eigenvalues of a reduced density matrix for a declared bipartition; equivalently, squared Schmidt coefficients.
+- **Exact Schmidt rank:** the number of strictly positive entries in the represented Schmidt spectrum; no support tolerance is applied.
+- **Numerical Schmidt rank:** a threshold-dependent diagnostic counting entries above a declared absolute or relative cutoff; it is not Hartley entropy.
 - **Schmidt-spectrum path:** $t\mapsto\boldsymbol\lambda(t)$.
 - **Entanglement trajectory:** a time-ordered projection of the spectrum path, usually $(\lambda_{\max}(t),E[\boldsymbol\lambda(t)])$.
 - **Entanglement-trajectory atlas:** the family of trajectories obtained from several declared spectrum functionals.
@@ -49,20 +52,21 @@ Historical scripts are evidence about the development record, not the current so
 3. These extremizers give exact finite-dimensional feasible envelopes for von Neumann and Rényi entropies, purity/linear entropy, pure-state logarithmic negativity, effective-rank families, and equivalent coordinates documented in the registry.
 4. On a majorization-compatible transition, all Schur-concave entropy measures order the spectra consistently.
 5. Pure-state logarithmic negativity is the Rényi-$1/2$ entropy. Linear entropy, purity, Rényi-2 entropy, participation ratio, I-concurrence, and I-tangle contain overlapping or strictly transformed information and must not be counted as independent metric families.
+6. Hartley entropy is $H_0=\log\operatorname{rank}(\rho_A)$ with exact represented support. At fixed $p=\lambda_{\max}$, the minimum rank is $\lceil1/p\rceil$ and the maximum is $d$ for $p<1$, while a thresholded numerical rank is a separate diagnostic.
 
 ## Empirical claims and scope
 
 Dataset scope: four model families, four conditions per family, six sizes $n=10,12,14,16,18,20$, 96 trajectories, and 5,856 scalar observations. Five selected $n=20$ runs contain 400 consecutive full-spectrum transitions.
 
 - The exact-boundary-normalized common metric mode explains `0.9026282298671149` of total standardized variance.
-- The cluster-bootstrap 95% interval is `[0.8574156931787958, 0.9379151738860936]`.
+- The model-stratified design-cluster 95% sensitivity interval is `[0.8626128030927239, 0.9341235189039404]`; it is not a population confidence interval.
 - The median per-trajectory common-mode fraction is `0.9475141487435563`.
 - Mean boundary-normalized Spearman agreement is `0.9473411195443137` for von Neumann versus pure-state logarithmic negativity, `0.7593112466770355` for von Neumann versus the order-2 class, and `0.6922451746677301` for the order-2 class versus logarithmic negativity.
 - Metric competition occurs on `808/5760 = 0.14027777777777778` scalar transitions.
 - In the selected full-spectrum audit, all 50 metric-competition events occur among 280 majorization-incomparable transitions; zero occur outside that sector.
 - Exact turn counts agree across all three tested vertical metrics on only 2 of 96 trajectories.
-- Leave-one-size-out model-centroid classification reaches `0.9166666666666666` in the same metric and `0.6944444444444443` across metrics.
-- Individual-path classification with both size and condition held out reaches `0.3680555555555555`; the corresponding largest-Schmidt-value path baseline reaches `0.4166666666666667`.
+- Gap-aware leave-one-size-out model-centroid classification reaches `0.875` for the full path in the same metric and `0.6736111111111112` across metrics. The vertical-only values are `0.763888888888889` and `0.375`.
+- Individual-path classification with both size and condition held out reaches `0.3298611111111111` for the same-metric full path and `0.35763888888888884` across metrics; the corresponding largest-Schmidt-value path baseline reaches `0.4166666666666667`.
 
 These values support model-level coarse morphology more strongly than universal individual-run fingerprinting.
 
@@ -94,6 +98,7 @@ A correct answer about this repository must not say that:
 - trajectory position certifies quantum advantage;
 - the current data establish a universal individual-trajectory classifier;
 - all named metrics in the package are independent.
+- a thresholded numerical rank is the exact Hartley entropy.
 
 ## Terminology for retrieval
 
@@ -129,6 +134,10 @@ Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* 8, 1282 (202
 ## Repository release status
 
 Public repository edition: `1.0.0` (2026-08-20). Canonical repository name: `GoGoKo699/Entanglement-Trajectories`. The repository clarification is public-ready. A narrow formal journal corrigendum remains recommended, but none has yet been submitted.
+
+## Primary-source reference layer
+
+Use `REFERENCES.md` and `metadata/references.json` for the primary sources supporting majorization, Page entropy, Wishart/Marchenko–Pastur references, spiked covariance behavior, entanglement spectra, tensor-network scope, and product-formula error.
 
 <!-- canonical-source: docs/SCIENTIFIC_OVERVIEW.md -->
 ## Scientific overview
@@ -241,14 +250,14 @@ This supports a hierarchy:
 
 The appropriate conclusion is **projection-stable coarse morphology**, not exact projected-path identity.
 
-## 7. Quantum-chaos examples
+## 7. Dynamical examples motivated by scrambling and spectral complexity
 
-The follow-up package includes four dynamical families:
+The follow-up package includes four dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity:
 
 - brickwork Floquet QCA;
 - open-chain kicked Ising;
 - a Balazs–Voros-style quantum baker;
-- Trotterized random-field XXZ.
+- a fixed symmetric product-formula circuit generated from random-field XXZ terms.
 
 Across the included conditions and sizes, model-centroid trajectories retain recognizable separation in the shared metric mode. Held-out-size model-centroid classification is strong, including substantial cross-metric transfer. Performance drops for unseen individual conditions, especially when both size and condition are held out.
 
@@ -297,7 +306,7 @@ The corrected project is stronger because exact geometry, conditional random-mat
 
 ## 11. Current scientific claim
 
-> For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested quantum-chaos families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.
+> For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested dynamical families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.
 
 <!-- canonical-source: docs/RESULTS_AT_A_GLANCE.md -->
 ## Results at a glance
@@ -306,7 +315,7 @@ The corrected project is stronger because exact geometry, conditional random-mat
 
 ## One-sentence conclusion
 
-Across the tested pure-state quantum-chaos families, several non-equivalent Schmidt-spectrum metrics share a dominant exact-boundary-normalized trajectory mode, while localized disagreements occur on majorization-incomparable spectral redistributions. The result supports an empirical **metric-robust trajectory class**, not exact invariance or a universal fingerprint.
+Across the tested pure-state dynamical families, several non-equivalent Schmidt-spectrum metrics share a dominant exact-boundary-normalized trajectory mode, while localized disagreements occur on majorization-incomparable spectral redistributions. The result supports an empirical **metric-robust trajectory class**, not exact invariance or a universal fingerprint.
 
 ## Scope of the controlled test
 
@@ -332,13 +341,13 @@ $$
 90.26\%
 $$
 
-of total variance, with a run-cluster bootstrap 95% interval of
+of total variance, with a model-stratified design-cluster 95% sensitivity interval of
 
 $$
-85.74\%\text{–}93.79\%.
+86.26\%\text{–}93.41\%.
 $$
 
-The median common-mode fraction computed separately for each trajectory is 94.75%.
+The median common-mode fraction computed separately for each trajectory is 94.75%. Equal-trajectory weighting, within-trajectory standardization, and first-difference analyses give first-mode fractions of 0.912, 0.919, and 0.862, respectively, so the main conclusion is not tied to one level-based row weighting.
 
 ### Pairwise trajectory agreement
 
@@ -396,10 +405,10 @@ Arc-length rankings remain highly stable across metrics, with correlations of 0.
 
 | Classification target and holdout | Accuracy |
 |---|---:|
-| model centroid, same metric, held-out size | 0.917 |
-| model centroid, cross metric, held-out size | 0.694 |
+| model centroid, full path, same metric, held-out size | 0.875 |
+| model centroid, full path, cross metric, held-out size | 0.674 |
 | individual path, same metric, held-out size | 0.521 |
-| individual path, same metric, size and condition held out | 0.368 |
+| individual path, full path, same metric, size and condition held out | 0.330 |
 | $\lambda_{\max}$ path baseline, size and condition held out | 0.417 |
 | chance | 0.250 |
 
@@ -575,6 +584,25 @@ H_0^{\max}(p)=\log d.
 \]
 
 At \(p=1\), both bounds are zero. This discontinuity is intrinsic to rank and must not be hidden by numerical thresholding.
+
+### Exact support versus numerical rank
+
+The Hartley entropy in this repository uses the mathematical support of the represented spectrum:
+
+\[
+\operatorname{rank}(\boldsymbol\lambda)
+=\#\{i:\lambda_i>0\}.
+\]
+
+Every strictly positive represented entry counts, irrespective of magnitude. A thresholded count
+
+\[
+R_{\varepsilon}=\#\{i:\lambda_i>\varepsilon\}
+\]
+
+is instead a **numerical Schmidt-rank diagnostic**. It can be useful for floating-point spectra, but it is threshold-dependent, is not the exact Rényi-\(0\) entropy, and must be reported together with \(\varepsilon\) and whether the threshold is absolute or relative to \(\lambda_{\max}\).
+
+The fixed-\(p\) Hartley and Schmidt-rank boundaries are evaluated analytically from the support formulas above. They are not inferred by applying a numerical threshold to the extremizing spectra. The numerical concentrated-spectrum constructor may suppress remainders below its declared spectrum tolerance when evaluating continuous metrics. The discontinuous support formulas do not use that convention and are evaluated analytically.
 
 ### Min-entropy limit \(q=\infty\)
 
@@ -908,7 +936,7 @@ The trajectory representation and the broader unification philosophy survive. Th
 3. **Empirical:** metric-robust trajectory morphology in the tested four-model follow-up package.
 4. **Open:** formal topology, universal fingerprinting, and links to computational advantage.
 
-## What the repository will say
+## What the repository says
 
 - The Schmidt spectrum is the state variable; entanglement metrics are observables on it.
 - Unification does not require universal agreement among metrics.
@@ -923,7 +951,7 @@ The final repository should be completed first. After all corrected formulas, fi
 
 ## Machine-readable record
 
-The authoritative ledger is available as `metadata/paper_correction_ledger.csv` and `metadata/paper_correction_ledger.csv`. Equation and figure dispositions are available in both CSV and JSON form.
+The authoritative location-specific ledger is available as `metadata/paper_correction_ledger.csv`. Deterministic correction calculations are implemented in `analysis/verify_paper_corrections.py`.
 
 ## Quantitative clarification of “topology” and fingerprints
 
@@ -932,6 +960,162 @@ The follow-up data now support a dominant common metric mode and substantial cro
 Model-centroid trajectories are distinguishable under leave-one-size-out tests, but unseen individual trajectories remain a preliminary fingerprint claim and do not clearly outperform the shared `lambda_max` path under the strictest size-plus-condition holdout.
 
 All 50 observed metric-competition events in the selected full-spectrum audit occur on majorization-incomparable transitions. This supplies the corrected mechanism behind legitimate disagreement among entanglement metrics.
+
+<!-- canonical-source: REFERENCES.md -->
+## Primary references
+
+# Primary References
+
+The repository separates exact spectral geometry, product-formula simulation, random-matrix references, and empirical trajectory analysis. The primary sources below anchor those layers.
+
+## M. A. Nielsen
+**Conditions for a Class of Entanglement Transformations.** Physical Review Letters 83, 436–439 (1999). DOI: `10.1103/PhysRevLett.83.436`.
+
+## D. N. Page
+**Average Entropy of a Subsystem.** Physical Review Letters 71, 1291–1294 (1993). DOI: `10.1103/PhysRevLett.71.1291`.
+
+## S. Sen
+**Average Entropy of a Quantum Subsystem.** Physical Review Letters 77, 1–3 (1996). DOI: `10.1103/PhysRevLett.77.1`.
+
+## J. Wishart
+**The Generalised Product Moment Distribution in Samples from a Normal Multivariate Population.** Biometrika 20A, 32–52 (1928). DOI: `10.1093/biomet/20A.1-2.32`.
+
+## V. A. Marchenko and L. A. Pastur
+**Distribution of Eigenvalues for Some Sets of Random Matrices.** Mathematics of the USSR-Sbornik 1, 457–483 (1967). DOI: `10.1070/SM1967v001n04ABEH001994`.
+
+## J. Baik, G. Ben Arous, and S. Péché
+**Phase Transition of the Largest Eigenvalue for Nonnull Complex Sample Covariance Matrices.** Annals of Probability 33, 1643–1697 (2005). DOI: `10.1214/009117905000000233`.
+
+## H. Li and F. D. M. Haldane
+**Entanglement Spectrum as a Generalization of Entanglement Entropy.** Physical Review Letters 101, 010504 (2008). DOI: `10.1103/PhysRevLett.101.010504`.
+
+## M. B. Hastings
+**An Area Law for One-Dimensional Quantum Systems.** Journal of Statistical Mechanics P08024 (2007). DOI: `10.1088/1742-5468/2007/08/P08024`.
+
+## U. Schollwöck
+**The Density-Matrix Renormalization Group in the Age of Matrix Product States.** Annals of Physics 326, 96–192 (2011). DOI: `10.1016/j.aop.2010.09.012`.
+
+## D. Gross, S. T. Flammia, and J. Eisert
+**Most Quantum States Are Too Entangled To Be Useful as Computational Resources.** Physical Review Letters 102, 190501 (2009). DOI: `10.1103/PhysRevLett.102.190501`.
+
+## A. M. Childs, Y. Su, M. C. Tran, N. Wiebe, and S. Zhu
+**Theory of Trotter Error with Commutator Scaling.** Physical Review X 11, 011020 (2021). DOI: `10.1103/PhysRevX.11.011020`.
+
+<!-- canonical-source: docs/XXZ_PRODUCT_FORMULA_CONVERGENCE.md -->
+## XXZ product-formula convergence
+
+# XXZ Product-Formula Convergence Study
+
+## Question
+
+The public dataset currently uses a symmetric product formula for a random-field XXZ construction with record interval
+
+\[
+\Delta t_{\mathrm{record}}=0.25
+\]
+
+and one product-formula substep per recorded update. Is that one-substep trajectory a numerically converged representation of the intended Hamiltonian evolution, and does refining the product formula alter the project’s central multi-metric conclusion?
+
+## Controlled setup
+
+Only the number of product-formula substeps was changed. The following were held fixed:
+
+- four run IDs: `XXZ_1`, `XXZ_2`, `XXZ_3`, `XXZ_4`;
+- system sizes: \(n=10,12,14\);
+- initial-state and disorder seeds;
+- model parameters and open boundary conditions;
+- record interval \(0.25\);
+- recorded times \(\tau=0,1/n,\ldots,4\);
+- half-chain cut and metric definitions.
+
+The substep counts were
+
+\[
+m\in\{1,2,4,8,16,32\}.
+\]
+
+The study contains 72 trajectories and 3,528 recorded observations. The compared normalized half-chain coordinates are:
+
+- von Neumann entropy;
+- linear entropy;
+- pure-state logarithmic negativity;
+- linear geometric coordinate;
+- largest Schmidt value;
+- min-entropy.
+
+## Main convergence result
+
+For each refinement pair \(m\to 2m\), the table gives the largest absolute discrepancy over every tested size, run, time, and metric, together with the largest RMS trajectory discrepancy.
+
+| Refinement | Worst maximum absolute difference | Worst RMS difference | Worst case |
+|---|---:|---:|---|
+| \(1\to2\) | 0.583332 | 0.473704 | \(n=12\), `XXZ_4` |
+| \(2\to4\) | 0.121527 | 0.049058 | \(n=10\), `XXZ_4` |
+| \(4\to8\) | 0.026494 | 0.018671 | \(n=10\), `XXZ_4` |
+| \(8\to16\) | 0.006566 | 0.004309 | \(n=10\), `XXZ_4` |
+| \(16\to32\) | **0.001662** | **0.001057** | \(n=10\), `XXZ_4` |
+
+The median observed convergence order is approximately two for every tested coordinate. For the final refinement, the median inferred orders lie between about 2.00 and 2.01. This is the expected asymptotic behavior of the symmetric second-order product formula used by the implementation.
+
+![Worst-case product-formula refinement error](../figures/xxz_refinement_error.png)
+
+## The one-substep trajectory is not converged
+
+The one-substep data differ materially from the 32-substep reference. The largest observed normalized-coordinate discrepancy is approximately
+
+\[
+0.5755,
+\]
+
+for \(n=12\), `XXZ_4`. At \(n=14\), the `XXZ_4` trajectory also changes qualitatively under refinement.
+
+![Representative XXZ trajectory refinement](../figures/xxz4_n14_trajectory_refinement.png)
+
+Therefore, the existing one-substep XXZ rows must not be described as a convergence-controlled approximation to continuous-time random-field XXZ Hamiltonian dynamics.
+
+## Convergence-controlled reference
+
+For the tested \(n=10,12,14\) scope, the 16-substep trajectories are a defensible refinement-controlled reference:
+
+- maximum change under \(16\to32\): 0.001662;
+- worst RMS change under \(16\to32\): 0.001057;
+- observed order: approximately two;
+- aggregate metric-competition count: unchanged between \(m=16\) and \(m=32\), although two individual trajectories differ by one event.
+
+The fine event-by-event sign structure is more sensitive than the coarse trajectory mode and should not be called exactly converged.
+
+## Effect on the central multi-metric result
+
+Replacing the \(n=10,12,14\) XXZ rows in the canonical dataset by refined trajectories leaves the global exact-boundary-normalized common-mode fraction essentially unchanged:
+
+| Substeps | Global common-mode fraction | Global metric-competition fraction |
+|---:|---:|---:|
+| 1 | 0.902628 | 0.140278 |
+| 4 | 0.902391 | 0.141840 |
+| 8 | 0.902121 | 0.140799 |
+| 16 | 0.902071 | 0.141493 |
+| 32 | 0.902061 | 0.141493 |
+
+Thus, the main claim that several non-equivalent Schmidt-spectrum metrics share a dominant coarse trajectory mode is not an artifact of the coarse XXZ product formula.
+
+![Common-mode stability under refinement](../figures/xxz_refinement_common_mode.png)
+
+## Frozen scientific interpretation
+
+The existing public XXZ dataset is scientifically usable as a precisely defined discrete unitary family:
+
+> a fixed one-substep symmetric product-formula circuit constructed from random-field XXZ terms.
+
+It is not, without further full-size regeneration, a convergence-controlled dataset for the target Hamiltonian evolution.
+
+The recommended release strategy is therefore:
+
+1. retain the existing scalar dataset for continuity and reproducibility;
+2. rename the family to make the fixed product-formula circuit interpretation explicit;
+3. publish this convergence study as a sensitivity analysis;
+4. reserve Hamiltonian-specific claims for trajectories generated with at least 16 substeps and checked against 32 over the declared size range.
+
+A future Hamiltonian-dynamics dataset may regenerate all sizes through \(n=20\) at the refined setting, but that is not required for the current metric-atlas claim.
 
 <!-- canonical-source: docs/LIMITATIONS.md -->
 ## Limitations
@@ -986,6 +1170,245 @@ Entropy magnitude or trajectory location alone does not prove efficient classica
 
 The journal article is the version of record. This repository documents corrections but does not silently rewrite the published paper. Whether the objective errors should also be submitted as a formal corrigendum remains an author decision.
 
+## Designed conditions and selected-spectrum audit
+
+The 96 trajectories are a deterministic designed collection with four declared conditions per dynamical family. Bootstrap intervals quantify sensitivity to those conditions; they are not population confidence intervals over independent disorder, initial-state, or parameter draws.
+
+The full-spectrum majorization audit uses five selected $n=20$ runs and 400 transitions. It is a mechanism check showing where metric contradictions occur in the selected spectra, not a model-wide estimate of event frequencies. The selection omits the quantum-baker family and the non-Clifford QCA conditions.
+
+## XXZ product-formula interpretation
+
+The released random-field XXZ rows use one symmetric product-formula substep per recorded update. The dedicated convergence study finds large one-versus-refined trajectory differences but less than a $10^{-3}$ change in the global common-mode fraction. These rows are therefore interpreted as fixed product-formula circuits, not convergence-controlled continuous-time XXZ Hamiltonian trajectories.
+
+<!-- canonical-source: docs/PEER_REVIEW_RELEASE_AUDIT.md -->
+## Peer-review release audit
+
+# Peer-Review Release Audit
+
+## Verdict
+
+**Scientific release recommendation: GO, conditional on one green run of the locked `repository-qa` workflow on the final uploaded commit and application of the remaining GitHub discovery settings.**
+
+This audit evaluates repository edition `1.0.0` as a corrected computational companion to:
+
+> Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* **8**, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.
+
+The article remains the journal version of record. The repository supplies a transparent author clarification, exact mathematical replacements, repaired code, and scoped follow-up evidence.
+
+## Supported central statement
+
+For a fixed bipartition of a pure state, the ordered Schmidt spectrum is the common state variable. Standard spectrum-based entanglement measures are nonlinear observables on that path. Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, the exact-boundary-normalized metric projections share a dominant coarse mode while retaining legitimate local disagreements on majorization-incomparable spectral changes.
+
+The supported conclusion is an empirical **metric-robust trajectory class**. It is not a formal topological invariant, exact metric equivalence, or a universal individual-run fingerprint.
+
+## Main quantitative evidence
+
+| Check | Frozen result |
+|---|---:|
+| Boundary-normalized first common mode | 0.902628 |
+| Model-stratified design-cluster 95% sensitivity interval | 0.862613–0.934124 |
+| Median separate-trajectory first-mode fraction | 0.947514 |
+| Equal-trajectory-weight first mode | 0.912273 |
+| Within-trajectory-standardized first mode | 0.918605 |
+| First-difference first mode | 0.862160 |
+| Metric-competitive scalar transitions | 808/5,760 |
+| Selected full-spectrum competition events | 50 |
+| Competition outside majorization-incomparable transitions | 0 |
+| Held-out-size model-centroid full-path accuracy | 0.875 same metric; 0.673611 cross metric |
+| Held-out-size model-centroid vertical-only accuracy | 0.763889 same metric; 0.375 cross metric |
+| Size-and-condition-held-out individual full-path accuracy | 0.329861 same metric; 0.357639 cross metric |
+| Corresponding largest-Schmidt-value path baseline | 0.416667 |
+
+These values show a strong shared coarse component and model-level morphology within the designed dataset. They also show why the fingerprint claim must remain limited: vertical-only transfer is weaker, and unseen individual paths do not beat the shared horizontal-coordinate baseline under the strictest test.
+
+## Closure of the four original release blockers
+
+### 1. XXZ product-formula convergence
+
+The released XXZ rows are now interpreted as fixed one-substep symmetric product-formula circuits generated from random-field XXZ terms, not convergence-controlled continuous-time Hamiltonian trajectories. The dedicated `n=10,12,14` study contains 3,528 observations and exhibits second-order refinement. The maximum `16→32` difference is 0.001662, while replacing the coarse XXZ rows by refined rows changes the global common-mode fraction by less than 0.001.
+
+Evidence:
+
+- `docs/XXZ_PRODUCT_FORMULA_CONVERGENCE.md`
+- `data/xxz_convergence_n10_n12_n14.zip`
+- `analysis/run_xxz_convergence.py`
+
+### 2. End-to-end public-figure provenance
+
+The public figure builder accepts freshly recomputed result tables through `--analysis-input-dir`, records exact input provenance, and is called that way by `make rebuild-included`. A controlled perturbation changes the corresponding figure. The frozen snapshot mode remains available for fast reconstruction.
+
+Evidence:
+
+- `docs/PUBLIC_FIGURE_PROVENANCE.md`
+- `scripts/build_public_figures.py`
+- `scripts/rebuild_all_from_included_data.sh`
+- `figures/public/data/public_figure_input_provenance.json`
+
+### 3. Exact Hartley/Rényi-zero semantics
+
+Exact Schmidt rank and Hartley entropy now count every strictly positive represented eigenvalue. Thresholded numerical rank is a separately named diagnostic. At `d=1024`, `p=1-10^-14`, the exact Hartley envelope is `[1,10]` bits even though a `10^-15` threshold gives numerical rank one.
+
+Evidence:
+
+- `src/entanglement_trajectories/metrics.py`
+- `src/entanglement_trajectories/boundaries.py`
+- `docs/EXACT_SPECTRAL_GEOMETRY.md`
+- `metadata/metric_registry.json`
+
+### 4. Archival environment and CI
+
+The canonical release environment is CPython 3.11.15 on Ubuntu 24.04 x86-64, with exact build and numerical dependency locks. The workflow uses immutable full-SHA action references, least-privilege permissions, deterministic thread settings, environment verification, public-source reconstruction, scientific tests, repository validation, and the peer-review release verifier.
+
+Evidence:
+
+- `.github/workflows/qa.yml`
+- `.python-version`
+- `requirements/release-build.txt`
+- `requirements/release-py311.txt`
+- `environment/release-py311.json`
+- `docs/RELEASE_ENVIRONMENT.md`
+
+## Additional peer-review repairs
+
+The final tree also:
+
+- uses gap-aware interpolation rather than bridging internal undefined boundary intervals;
+- reports full-path, vertical-only, and largest-Schmidt-value-only fingerprint baselines together;
+- uses model-stratified design-cluster sensitivity intervals and explicitly rejects population-level interpretation;
+- calls `tau=step/n` a scaled iteration coordinate rather than universal physical time;
+- stores selected Schmidt spectra in descending order with an explicit schema field;
+- distinguishes full-path arc length, vertical total variation, origin-closed area, and exact turn count;
+- includes primary references, split code/content licenses, and machine-readable claim, definition, metric, figure, correction, and audit records;
+- retains the selected-spectrum audit as a five-run mechanism check rather than a model-wide frequency estimate.
+
+The resolution of all 21 review items is recorded in `metadata/peer_review_issue_resolution.csv`.
+
+## Repeated release checks
+
+The final cumulative candidate passed:
+
+- 76 automated tests;
+- a complete included-data analysis with 3,000 model-stratified bootstrap resamples and 1,000 Mantel-style permutations;
+- end-to-end figure generation from the freshly recomputed tables;
+- exact Hartley near-product verification;
+- reconstruction of all 405 selected Schmidt spectra and the 400-transition majorization audit;
+- deterministic paper-correction checks;
+- public links, image links, metadata, archive CRC, figure dimensions, JSON/YAML, Python syntax, shell syntax, wheel build, and isolated installation checks;
+- the dedicated peer-review release verifier.
+
+Run:
+
+```bash
+make public
+make rebuild-included
+python analysis/verify_paper_corrections.py --check-only
+python scripts/verify_release_environment.py --structure-only
+make peer-review-check
+```
+
+## Residual limitations
+
+The release does not claim:
+
+- convergence-controlled XXZ Hamiltonian dynamics for the historical one-substep rows;
+- independent disorder or initial-state ensemble replication;
+- a thermodynamic-limit result;
+- a formal topological invariant;
+- a universal chaos classifier;
+- model-wide majorization-event frequencies from the five selected complete-spectrum runs;
+- that the metric atlas consistently outperforms the largest-Schmidt-value coordinate for unseen individual paths.
+
+A concise factual corrigendum to *Quantum* remains recommended after the repository release is frozen. That journal action is separate from the technical release gate.
+
+## Final release gate
+
+Create `v1.0.0` only after:
+
+1. the cumulative patch is uploaded;
+2. the locked hosted `repository-qa` workflow passes on that exact commit;
+3. the DOI homepage, selected topics, and social-preview image are applied in GitHub settings.
+
+<!-- canonical-source: docs/RELEASE_ENVIRONMENT.md -->
+## Canonical release environment
+
+# Canonical Release Environment
+
+## Purpose
+
+The project keeps broad lower bounds in `pyproject.toml` so that the library can be used in newer compatible environments. Those bounds are not the archival numerical environment for release `v1.0.0`.
+
+The canonical hosted release job is frozen separately:
+
+| Component | Canonical value |
+|---|---|
+| Operating system | `ubuntu-24.04` GitHub-hosted runner |
+| Architecture | `x86_64` |
+| Python | CPython `3.11.15` |
+| Python version file | `.python-version` |
+| Build-tool lock | `requirements/release-build.txt` |
+| Numerical/test lock | `requirements/release-py311.txt` |
+| Machine-readable record | `environment/release-py311.json` |
+
+The numerical and test-package versions were frozen from the dependency installation recorded in GitHub Actions run `32348216286` on 20 August 2026. That run installed the environment successfully; its later failures were in repository-file counting and an over-tight cross-backend regression tolerance, both repaired before this environment was frozen.
+
+## Reproduce the canonical environment
+
+Create an isolated CPython `3.11.15` environment and run:
+
+```bash
+python -m pip install -r requirements/release-build.txt
+python -m pip install -r requirements/release-py311.txt
+python -m pip install --no-deps --no-build-isolation -e .
+python -m pip check
+python scripts/verify_release_environment.py
+make public
+```
+
+The verifier checks the exact Python patch version, every pinned Python distribution, and the deterministic environment variables used by CI.
+
+## Determinism controls
+
+The release job fixes:
+
+```text
+PYTHONHASHSEED=0
+MPLBACKEND=Agg
+OMP_NUM_THREADS=1
+OPENBLAS_NUM_THREADS=1
+MKL_NUM_THREADS=1
+NUMEXPR_NUM_THREADS=1
+VECLIB_MAXIMUM_THREADS=1
+TZ=UTC
+```
+
+The single-thread settings reduce backend-dependent numerical variation in eigensolvers and reductions. They do not make results from different operating systems, CPU architectures, BLAS implementations, or Python versions bitwise identical.
+
+## Release workflow
+
+The external actions are referenced by full immutable commit SHAs, with their reviewed release tags recorded in `environment/release-py311.json`.
+
+The blocking GitHub Actions job:
+
+1. uses `ubuntu-24.04` and CPython `3.11.15`;
+2. installs the two exact requirement locks;
+3. installs this repository without dependency resolution;
+4. runs `pip check` and the release-environment verifier;
+5. rebuilds `llms-full.txt` and the public figures;
+6. checks that the generated machine context and plotted source tables match the committed release records and that every public image renders successfully;
+7. runs the scientific tests and public repository validator.
+
+A green run on the final release commit is required before tagging `v1.0.0`.
+
+## Compatibility outside the lock
+
+A normal development installation remains:
+
+```bash
+python -m pip install -e '.[analysis,test]'
+```
+
+Such an installation is supported for development and portability testing, but it is not the canonical environment for reproducing the release-level numerical snapshots.
+
 <!-- canonical-source: docs/REPRODUCIBILITY.md -->
 ## Reproducibility
 
@@ -993,11 +1416,13 @@ The journal article is the version of record. This repository documents correcti
 
 ## Environment
 
-The current implementation requires Python 3.10 or later. Install the analysis and test dependencies declared in `pyproject.toml` with:
+The current implementation supports Python 3.10 or later for development. Install the broad compatibility dependencies declared in `pyproject.toml` with:
 
 ```bash
 python -m pip install -e '.[analysis,test]'
 ```
+
+Release `v1.0.0` has a separate canonical numerical environment: CPython `3.11.15` on `ubuntu-24.04`, with exact build and runtime locks under `requirements/`. See [Canonical release environment](RELEASE_ENVIRONMENT.md). A normal broad installation is not a substitute for the locked release job when reproducing release-level numerical snapshots.
 
 The historical paper-era Qibo scripts are preserved for provenance and are not the recommended current workflow.
 
@@ -1023,16 +1448,17 @@ Generated figures and compact source tables are written under:
 outputs/public_figures/
 ```
 
-The images under `figures/public/` are the validated release snapshot shown by the README. A clean rebuild should reproduce those PNG files byte-for-byte in the validated environment.
+The images under `figures/public/` are the validated release snapshot shown by the README. A clean rebuild must reproduce the committed plotted source tables exactly. Rendered PNGs are validated for successful generation and dimensions; byte-level image identity is not required across graphics stacks.
 
 ### Level 2 — Automated scientific and repository validation
 
 ```bash
 make test
 make public-validate
+make peer-review-check
 ```
 
-The tests cover metric identities, exact boundaries, majorization, deterministic model dynamics, random-matrix tools, trajectory robustness, included-data regressions, metadata, archive integrity, and internal links. Run the complete public-layer workflow with:
+The tests cover metric identities, exact boundaries, majorization, deterministic model dynamics, random-matrix tools, trajectory robustness, included-data regressions, metadata, archive integrity, and internal links. The peer-review verifier checks closure of the numerical-physics, exact-mathematics, figure-provenance, release-environment, wording, and selected-spectrum gates. Run the complete public-layer workflow with:
 
 ```bash
 make public
@@ -1097,8 +1523,18 @@ The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata ar
 
 ## Release identity
 
-The tagged Git commit identifies the exact repository source tree. [`RELEASE_QA.md`](RELEASE_QA.md) records the scientific, computational, and hosted-release checks. The repository validator also checks the structure and CRC integrity of the included data and provenance archives.
+The tagged Git commit identifies the exact repository source tree. [`RELEASE_ENVIRONMENT.md`](RELEASE_ENVIRONMENT.md) freezes the canonical Python environment, and [`RELEASE_QA.md`](RELEASE_QA.md) records the scientific, computational, and hosted-release checks. The repository validator also checks the structure and CRC integrity of the included data and provenance archives.
 
 ## Compact repository
 
 Selected spectra and public-analysis inputs are bundled under `data/`; supported workflows extract them automatically into the ignored `outputs/` directory. The provenance archive under `legacy/` is retained for historical reconstruction and is not used by current analyses.
+
+## XXZ convergence audit
+
+Run the dedicated refinement study with:
+
+```bash
+make xxz-convergence
+```
+
+The compact frozen evidence is stored in `data/xxz_convergence_n10_n12_n14.zip`. The released scalar table retains the historical one-substep circuit and documents that interpretation explicitly.

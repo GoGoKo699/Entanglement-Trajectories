@@ -1,0 +1,5 @@
+# Build and installer tools for the canonical v1.0.0 release job.
+# These are separate from the numerical runtime lock.
+pip==25.2
+setuptools==80.9.0
+wheel==0.45.1

@@ -82,7 +82,7 @@ FIGURE_METADATA = {
     },
     "figure_07_coarse_vs_fine_stability": {
         "question": "Which geometric properties survive metric replacement?",
-        "answer": "Coarse arc-length ordering persists, signed area is less stable, and exact local turn counts mostly change.",
+        "answer": "Full-path arc-length and vertical total-variation orderings persist, origin-closed area is less stable, and exact local turn counts mostly change.",
         "alt_text": "Grouped bars show high arc-length rank agreement, moderate signed-area agreement, and low exact turn-count agreement.",
     },
 }
@@ -99,6 +99,13 @@ def _bootstrap_pair_summary(
     iterations: int,
     seed: int,
 ) -> pd.DataFrame:
+    """Model-stratified design-cluster sensitivity intervals.
+
+    The four conditions within each dynamical family are resampled with
+    replacement while all six sizes for a condition stay together. These are
+    sensitivity intervals for the declared designed study, not population
+    confidence intervals from independent disorder or parameter draws.
+    """
     rng = np.random.default_rng(seed)
     rows = []
     statistics = ("raw_spearman", "boundary_spearman", "boundary_rmse", "boundary_mae")
@@ -108,16 +115,24 @@ def _bootstrap_pair_summary(
             .mean(numeric_only=True)
             .reset_index(drop=True)
         )
-        count = len(cluster)
+        model_groups = {
+            str(model): np.asarray(indices, dtype=int)
+            for model, indices in cluster.groupby("model", sort=True).groups.items()
+        }
         samples = {name: np.empty(iterations, dtype=float) for name in statistics}
         for index in range(iterations):
-            selected = rng.integers(0, count, size=count)
+            selected = np.concatenate([
+                rng.choice(indices, size=len(indices), replace=True)
+                for indices in model_groups.values()
+            ])
             for name in statistics:
                 samples[name][index] = float(np.nanmean(cluster[name].to_numpy()[selected]))
         row = {
             "metric_a": metric_a,
             "metric_b": metric_b,
-            "clusters": int(count),
+            "clusters": int(len(cluster)),
+            "models": int(len(model_groups)),
+            "resampling": "model-stratified design-cluster bootstrap",
             "bootstrap_iterations": int(iterations),
         }
         for name in statistics:
@@ -137,43 +152,83 @@ def _bootstrap_common_mode(
     iterations: int,
     seed: int,
 ) -> dict:
+    """Fast model-stratified cluster bootstrap from sufficient statistics."""
     rng = np.random.default_rng(seed)
     columns = list(fit.columns)
-    clusters = []
-    cluster_names = []
+    cluster_names: list[str] = []
+    cluster_models: list[str] = []
+    counts: list[int] = []
+    sums: list[np.ndarray] = []
+    cross_products: list[np.ndarray] = []
     for key, group in enriched.groupby(["model", "run_id"], sort=True):
         values = group[columns].to_numpy(dtype=float)
         values = values[np.all(np.isfinite(values), axis=1)]
-        clusters.append(values)
+        if not len(values):
+            continue
         cluster_names.append(f"{key[0]}:{key[1]}")
-    count = len(clusters)
+        cluster_models.append(str(key[0]))
+        counts.append(int(len(values)))
+        sums.append(values.sum(axis=0))
+        cross_products.append(values.T @ values)
+    counts_array = np.asarray(counts, dtype=np.int64)
+    sums_array = np.stack(sums, axis=0)
+    cross_array = np.stack(cross_products, axis=0)
+    model_indices = {
+        model: np.asarray([i for i, value in enumerate(cluster_models) if value == model], dtype=int)
+        for model in sorted(set(cluster_models))
+    }
     ev1 = np.empty(iterations, dtype=float)
-    loadings = np.empty((iterations, 3), dtype=float)
+    loadings = np.empty((iterations, len(columns)), dtype=float)
     for index in range(iterations):
-        chosen = rng.integers(0, count, size=count)
-        matrix = np.concatenate([clusters[i] for i in chosen], axis=0)
-        mean = matrix.mean(axis=0)
-        scale = matrix.std(axis=0)
-        standardized = (matrix - mean) / scale
-        _, singular, components = np.linalg.svd(standardized, full_matrices=False)
-        explained = singular**2 / np.sum(singular**2)
-        if components[0].sum() < 0:
-            components[0] *= -1
-        ev1[index] = explained[0]
-        loadings[index] = components[0]
-    result = {
+        chosen = np.concatenate([
+            rng.choice(indices, size=len(indices), replace=True)
+            for indices in model_indices.values()
+        ])
+        total_count = int(counts_array[chosen].sum())
+        total_sum = sums_array[chosen].sum(axis=0)
+        total_cross = cross_array[chosen].sum(axis=0)
+        mean = total_sum / total_count
+        covariance = total_cross / total_count - np.outer(mean, mean)
+        scale = np.sqrt(np.maximum(np.diag(covariance), 0.0))
+        if np.any(scale <= 0.0):
+            ev1[index] = np.nan
+            loadings[index] = np.nan
+            continue
+        correlation = covariance / np.outer(scale, scale)
+        correlation = 0.5 * (correlation + correlation.T)
+        eigenvalues, eigenvectors = np.linalg.eigh(correlation)
+        order = np.argsort(eigenvalues)[::-1]
+        eigenvalues = np.maximum(eigenvalues[order], 0.0)
+        component = eigenvectors[:, order[0]].astype(float)
+        if component.sum() < 0.0:
+            component *= -1.0
+        ev1[index] = float(eigenvalues[0] / eigenvalues.sum())
+        loadings[index] = component
+    finite_ev = ev1[np.isfinite(ev1)]
+    finite_loadings = loadings[np.all(np.isfinite(loadings), axis=1)]
+    return {
         "cluster_unit": "model:run_id, all six sizes retained together",
+        "resampling": "model-stratified with four designed conditions resampled within each model",
+        "interpretation": "design-cluster sensitivity interval, not a population confidence interval",
         "clusters": cluster_names,
         "bootstrap_iterations": int(iterations),
+        "valid_bootstrap_iterations": int(len(finite_ev)),
         "pc1_explained_observed": float(fit.explained_variance_ratio[0]),
-        "pc1_explained_ci95": [float(x) for x in np.quantile(ev1, [0.025, 0.975])],
+        "pc1_explained_ci95": [float(x) for x in np.quantile(finite_ev, [0.025, 0.975])],
         "pc1_loading_observed": [float(x) for x in fit.components[0]],
         "pc1_loading_ci95": [
-            [float(x) for x in np.quantile(loadings[:, column], [0.025, 0.975])]
-            for column in range(loadings.shape[1])
+            [float(x) for x in np.quantile(finite_loadings[:, column], [0.025, 0.975])]
+            for column in range(finite_loadings.shape[1])
         ],
     }
-    return result
+
+
+def _finite_index_segments(mask: np.ndarray) -> list[np.ndarray]:
+    indices = np.flatnonzero(np.asarray(mask, dtype=bool))
+    if not indices.size:
+        return []
+    split_at = np.flatnonzero(np.diff(indices) > 1) + 1
+    return [segment for segment in np.split(indices, split_at) if segment.size]
 
 
 def _fine_descriptor_table(enriched: pd.DataFrame) -> pd.DataFrame:
@@ -188,59 +243,52 @@ def _fine_descriptor_table(enriched: pd.DataFrame) -> pd.DataFrame:
         x_all = group["half_lambda_max"].to_numpy(dtype=float)
         for metric in HALF_METRICS:
             y_all = group[BOUNDARY_HEIGHT_COLUMNS[metric]].to_numpy(dtype=float)
-            finite = np.isfinite(x_all) & np.isfinite(y_all)
-            x = x_all[finite]
-            y = y_all[finite]
-            if len(x) >= 2:
-                arc = float(np.sum(np.hypot(np.diff(x), np.diff(y))))
-            else:
-                arc = 0.0
-            if len(x) >= 3:
-                area = float(0.5 * np.sum(x[:-1] * y[1:] - x[1:] * y[:-1]))
-            else:
-                area = 0.0
-            turns = sign_changes(np.diff(y)) if len(y) >= 2 else 0
-            rows.append(
-                {
-                    "model": key[0],
-                    "n": int(key[1]),
-                    "run_id": key[2],
-                    "metric": metric,
-                    "finite_points": int(len(x)),
-                    "arc_length": arc,
-                    "signed_area": area,
-                    "vertical_turn_count": turns,
-                }
-            )
+            segments = _finite_index_segments(np.isfinite(x_all) & np.isfinite(y_all))
+            full_arc_length = 0.0
+            vertical_total_variation = 0.0
+            origin_closed_signed_area = 0.0
+            turns = 0
+            finite_points = 0
+            for segment in segments:
+                x = x_all[segment]
+                y = y_all[segment]
+                finite_points += len(segment)
+                if len(segment) >= 2:
+                    dx = np.diff(x)
+                    dy = np.diff(y)
+                    full_arc_length += float(np.sum(np.hypot(dx, dy)))
+                    vertical_total_variation += float(np.sum(np.abs(dy)))
+                    turns += sign_changes(dy)
+                    origin_closed_signed_area += float(
+                        0.5 * np.sum(x[:-1] * y[1:] - x[1:] * y[:-1])
+                    )
+            rows.append({
+                "model": key[0], "n": int(key[1]), "run_id": key[2],
+                "metric": metric, "finite_points": int(finite_points),
+                "finite_segments": int(len(segments)),
+                "full_arc_length": full_arc_length,
+                "vertical_total_variation": vertical_total_variation,
+                "origin_closed_signed_area": origin_closed_signed_area,
+                "vertical_turn_count": turns,
+            })
     return pd.DataFrame(rows)
 
 
 def _fine_descriptor_summary(table: pd.DataFrame) -> pd.DataFrame:
     pivot = table.pivot_table(
-        index=["model", "n", "run_id"],
-        columns="metric",
-        values=["arc_length", "signed_area", "vertical_turn_count"],
+        index=["model", "n", "run_id"], columns="metric",
+        values=["full_arc_length", "vertical_total_variation", "origin_closed_signed_area", "vertical_turn_count"],
     )
     rows = []
     for metric_a, metric_b in combinations(HALF_METRICS, 2):
-        rows.append(
-            {
-                "metric_a": metric_a,
-                "metric_b": metric_b,
-                "arc_length_rank_spearman": float(
-                    spearmanr(pivot["arc_length"][metric_a], pivot["arc_length"][metric_b]).statistic
-                ),
-                "signed_area_rank_spearman": float(
-                    spearmanr(pivot["signed_area"][metric_a], pivot["signed_area"][metric_b]).statistic
-                ),
-                "exact_turn_count_agreement": float(
-                    np.mean(
-                        pivot["vertical_turn_count"][metric_a].to_numpy()
-                        == pivot["vertical_turn_count"][metric_b].to_numpy()
-                    )
-                ),
-            }
-        )
+        rows.append({
+            "metric_a": metric_a,
+            "metric_b": metric_b,
+            "full_arc_length_rank_spearman": float(spearmanr(pivot["full_arc_length"][metric_a], pivot["full_arc_length"][metric_b]).statistic),
+            "vertical_total_variation_rank_spearman": float(spearmanr(pivot["vertical_total_variation"][metric_a], pivot["vertical_total_variation"][metric_b]).statistic),
+            "origin_closed_area_rank_spearman": float(spearmanr(pivot["origin_closed_signed_area"][metric_a], pivot["origin_closed_signed_area"][metric_b]).statistic),
+            "exact_turn_count_agreement": float(np.mean(pivot["vertical_turn_count"][metric_a].to_numpy() == pivot["vertical_turn_count"][metric_b].to_numpy())),
+        })
     all_three = pivot["vertical_turn_count"].nunique(axis=1) == 1
     summary = pd.DataFrame(rows)
     summary.attrs["all_three_turn_count_agreement"] = float(all_three.mean())
@@ -489,16 +537,17 @@ def _save_common_paths_figure(enriched: pd.DataFrame, fit, path: Path, n_focus: 
 def _save_fine_descriptor_figure(summary: pd.DataFrame, path: Path) -> list[str]:
     labels = [PAIR_LABELS[(row.metric_a, row.metric_b)] for row in summary.itertuples()]
     x = np.arange(len(summary))
-    width = 0.26
-    fig, ax = plt.subplots(figsize=(9.0, 4.8))
-    ax.bar(x - width, summary["arc_length_rank_spearman"], width, label="arc-length rank")
-    ax.bar(x, summary["signed_area_rank_spearman"], width, label="signed-area rank")
-    ax.bar(x + width, summary["exact_turn_count_agreement"], width, label="exact turn-count agreement")
+    width = 0.21
+    fig, ax = plt.subplots(figsize=(10.0, 4.8))
+    ax.bar(x - 1.5 * width, summary["full_arc_length_rank_spearman"], width, label="full-path arc-length rank")
+    ax.bar(x - 0.5 * width, summary["vertical_total_variation_rank_spearman"], width, label="vertical-variation rank")
+    ax.bar(x + 0.5 * width, summary["origin_closed_area_rank_spearman"], width, label="origin-closed area rank")
+    ax.bar(x + 1.5 * width, summary["exact_turn_count_agreement"], width, label="exact turn-count agreement")
     ax.set_xticks(x, labels)
-    ax.set_ylim(0.0, 1.02)
+    ax.set_ylim(-0.05, 1.02)
     ax.set_ylabel("agreement across 96 trajectories")
     ax.grid(axis="y", alpha=0.2)
-    ax.legend(frameon=False)
+    ax.legend(frameon=False, fontsize=8, ncol=2)
     ax.set_title("Coarse descriptors persist; exact local turning structure does not")
     pdf, png = save_figure(fig, path)
     plt.close(fig)
@@ -700,8 +749,11 @@ def main() -> None:
         "classification_stress_tests": {
             "chance_accuracy": 0.25,
             "centroid_leave_size_full": classification_block("centroid_leave_size", "full"),
+            "centroid_leave_size_vertical": classification_block("centroid_leave_size", "y"),
             "individual_leave_size_full": classification_block("individual_leave_size", "full"),
+            "individual_leave_size_vertical": classification_block("individual_leave_size", "y"),
             "individual_double_holdout_full": classification_block("individual_double_holdout", "full"),
+            "individual_double_holdout_vertical": classification_block("individual_double_holdout", "y"),
             "lambda_max_path_baselines": x_summary[["fold", "mode", "accuracy", "predictions"]].to_dict(orient="records"),
             "interpretation": "Model-centroid morphology generalizes better than unseen individual conditions; the individual fingerprint claim remains preliminary.",
         },
@@ -732,7 +784,7 @@ def main() -> None:
             "trajectories": fine_summary.attrs["trajectories"],
             "pair_summary": fine_summary.to_dict(orient="records"),
         },
-        "recommended_claim": "Across the tested pure-state chaos families, three non-equivalent Schmidt-spectrum metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization. The preservation is hierarchical rather than exact, and local metric contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or a universal individual-run fingerprint.",
+        "recommended_claim": "Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, three non-equivalent Schmidt-spectrum metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization. The preservation is hierarchical rather than exact, and local metric contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or a universal individual-run fingerprint.",
     }
     write_json(args.result_dir / "metric_robustness_scientific_summary.json", summary)
 

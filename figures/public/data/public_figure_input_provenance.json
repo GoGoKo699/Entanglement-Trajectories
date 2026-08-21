@@ -1,0 +1,54 @@
+{
+  "schema_version": "public-figure-input-provenance-1.0",
+  "generated_by": "scripts/build_public_figures.py",
+  "analysis_source_mode": "archive",
+  "analysis_source": "data/public_analysis_inputs.zip",
+  "analysis_files": [
+    {
+      "name": "common_metric_modes.json",
+      "size_bytes": 2969,
+      "sha256": "359b3c8365a97a7f09f1855b801df8ea7e32addbdc2f8f1aecf218c22c4ef49e"
+    },
+    {
+      "name": "common_mode_timeseries.csv",
+      "size_bytes": 809143,
+      "sha256": "1555a38514f35f8b696fea2817d253ba3fa772dbddaebaaa4a5ab86b9720b487"
+    },
+    {
+      "name": "fine_descriptor_robustness_summary.csv",
+      "size_bytes": 440,
+      "sha256": "fbbee4943d98d19940a9398424486031ed7cf86910011926d076d566a6fa729f"
+    },
+    {
+      "name": "majorization_transition_audit.csv",
+      "size_bytes": 81993,
+      "sha256": "1f9ded35e9695207e9f5831c7a97c26b318c00c02ba28c093606c9e89d6a2904"
+    },
+    {
+      "name": "metric_pair_robustness_by_size.csv",
+      "size_bytes": 2153,
+      "sha256": "6c32540a66643b6bd0f5fd9591f88cfd3c75adf13bfa8364bca6432d8d9a9af3"
+    },
+    {
+      "name": "metric_robustness_scientific_summary.json",
+      "size_bytes": 11558,
+      "sha256": "1ac5956bbe03ee198c64c06fb6e9bf235ba43e9bb0c157a676995cbe153f254e"
+    }
+  ],
+  "analysis_archive_sha256": "f50591d2a8129ec88484ee33414e11da552260c2d0e9bbfa25c27adf6083e5c2",
+  "trajectory_input": {
+    "path": "data/trajectory_observations.csv",
+    "size_bytes": 1738770,
+    "sha256": "940d68a1dd865559a2b8a63145fc10411a2363e99e86004e8613defee59ef202"
+  },
+  "output_directory": "outputs/public_figures",
+  "figures_requested": [
+    "01",
+    "social",
+    "02",
+    "03",
+    "04",
+    "05"
+  ],
+  "principle": "When --analysis-input-dir is used, public figures consume the freshly recomputed result tables in that directory; the frozen archive is not read."
+}

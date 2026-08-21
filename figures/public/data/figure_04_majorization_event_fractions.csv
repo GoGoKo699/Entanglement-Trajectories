@@ -1,0 +1,10 @@
+majorization_relation,metric_event,count,fraction_within_relation
+forward_entanglement_increase,consensus_increase,111,1.0
+forward_entanglement_decrease,consensus_increase,0,0.0
+incomparable,consensus_increase,200,0.7142857142857143
+forward_entanglement_increase,consensus_decrease,0,0.0
+forward_entanglement_decrease,consensus_decrease,9,1.0
+incomparable,consensus_decrease,30,0.10714285714285714
+forward_entanglement_increase,metric_competition,0,0.0
+forward_entanglement_decrease,metric_competition,0,0.0
+incomparable,metric_competition,50,0.17857142857142858

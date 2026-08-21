@@ -30,6 +30,82 @@ def _normalize_log_entropy(value: float, d: int, base: float) -> float:
     return float(value / _log_base(float(d), base))
 
 
+def _exact_support_size(p: np.ndarray) -> int:
+    """Return the mathematical support size of a validated spectrum.
+
+    Strictly positive represented entries count, irrespective of magnitude.
+    This is intentionally different from a tolerance-based numerical rank.
+    """
+    return int(np.count_nonzero(p > 0.0))
+
+
+def schmidt_rank(
+    lam: np.ndarray | list[float] | tuple[float, ...],
+    *,
+    normalized: bool = False,
+    atol: float = 1e-12,
+) -> int | float:
+    """Return the exact support size ``# {i : lambda_i > 0}``.
+
+    The result is exact for the supplied floating-point spectrum after
+    validation.  Tiny positive entries count.  Use
+    :func:`numerical_schmidt_rank` when a declared threshold is intended.
+    """
+    p = normalize_spectrum(lam, atol=atol)
+    rank = _exact_support_size(p)
+    if not normalized or p.size <= 1:
+        return rank
+    return float((rank - 1.0) / (p.size - 1.0))
+
+
+def numerical_schmidt_rank(
+    lam: np.ndarray | list[float] | tuple[float, ...],
+    *,
+    threshold: float = 1e-12,
+    relative: bool = False,
+    normalized: bool = False,
+    atol: float = 1e-12,
+) -> int | float:
+    """Return a threshold-dependent numerical Schmidt-rank diagnostic.
+
+    With ``relative=False``, entries greater than the absolute ``threshold``
+    count.  With ``relative=True``, the cutoff is
+    ``threshold * lambda_max``.  This diagnostic is not the exact Schmidt rank
+    and its threshold must be reported whenever it is used.
+    """
+    p = normalize_spectrum(lam, atol=atol)
+    threshold = float(threshold)
+    if not np.isfinite(threshold) or threshold < 0.0:
+        raise ValueError("threshold must be finite and nonnegative.")
+    if relative and threshold >= 1.0:
+        raise ValueError("A relative threshold must be smaller than one.")
+    cutoff = threshold * float(p[0]) if relative else threshold
+    if cutoff >= float(p[0]):
+        raise ValueError("The numerical-rank threshold removes the largest eigenvalue.")
+    rank = int(np.count_nonzero(p > cutoff))
+    if not normalized or p.size <= 1:
+        return rank
+    return float((rank - 1.0) / (p.size - 1.0))
+
+
+def hartley_entropy(
+    lam: np.ndarray | list[float] | tuple[float, ...],
+    *,
+    base: float = 2.0,
+    normalized: bool = False,
+    atol: float = 1e-12,
+) -> float:
+    """Return exact Hartley entropy ``H_0 = log(rank)``.
+
+    No support threshold is applied.  For noisy numerical spectra this may be
+    full rank even when a thresholded diagnostic is small; that distinction is
+    mathematically intentional.
+    """
+    p = normalize_spectrum(lam, atol=atol)
+    value = float(_log_base(float(_exact_support_size(p)), base))
+    return _normalize_log_entropy(value, p.size, base) if normalized else value
+
+
 def von_neumann_entropy(
     lam: np.ndarray | list[float] | tuple[float, ...],
     *,
@@ -50,21 +126,21 @@ def renyi_entropy(
     *,
     base: float = 2.0,
     normalized: bool = False,
-    support_tol: float = 1e-15,
     atol: float = 1e-12,
 ) -> float:
     """Return Rényi entropy of order ``q`` for ``q>=0``.
 
     ``q=0``, ``q=1``, and ``q=inf`` are handled by their exact limits.
-    For finite positive ``q`` the computation uses log-sum-exp for stability.
+    At ``q=0`` every strictly positive represented eigenvalue counts; no
+    numerical-rank threshold is applied.  For finite positive ``q`` the
+    computation uses log-sum-exp for stability.
     """
     p = normalize_spectrum(lam, atol=atol)
     q = float(q)
     if math.isnan(q) or q < 0.0:
         raise ValueError("This project defines Rényi entropy only for q >= 0.")
     if q == 0.0:
-        rank = int(np.count_nonzero(p > support_tol))
-        value = float(_log_base(float(rank), base))
+        value = hartley_entropy(p, base=base, normalized=False, atol=atol)
     elif math.isinf(q):
         value = -float(_log_base(float(p[0]), base))
     elif abs(q - 1.0) <= 1e-10:
@@ -184,12 +260,12 @@ def effective_rank(
     q: float = 1.0,
     *,
     normalized: bool = False,
-    support_tol: float = 1e-15,
     atol: float = 1e-12,
 ) -> float:
     """Return the Hill/Rényi effective number ``R_q=exp(H_q)``.
 
-    The result is independent of logarithm base.  The normalized form is
+    The result is independent of logarithm base.  At ``q=0`` this is the
+    exact Schmidt rank of the represented spectrum.  The normalized form is
     ``(R_q-1)/(d-1)``.
     """
     p = normalize_spectrum(lam, atol=atol)
@@ -197,7 +273,7 @@ def effective_rank(
     if math.isnan(q) or q < 0.0:
         raise ValueError("Effective rank is defined here only for q >= 0.")
     if q == 0.0:
-        value = float(np.count_nonzero(p > support_tol))
+        value = float(_exact_support_size(p))
     elif math.isinf(q):
         value = 1.0 / float(p[0])
     elif abs(q - 1.0) <= 1e-10:
@@ -291,7 +367,7 @@ def metric_value(
     base: float = 2.0,
     atol: float = 1e-12,
     **kwargs: Any,
-) -> float:
+) -> float | int:
     """Evaluate a canonical metric by registry identifier."""
     key = str(metric_id).strip().lower()
     aliases = {
@@ -299,6 +375,9 @@ def metric_value(
         "h1": "von_neumann_entropy",
         "renyi": "renyi_entropy",
         "h0": "hartley_entropy",
+        "rank": "schmidt_rank",
+        "numerical_rank": "numerical_schmidt_rank",
+        "threshold_rank": "numerical_schmidt_rank",
         "hhalf": "renyi_half",
         "h2": "renyi_two",
         "hinf": "min_entropy",
@@ -316,7 +395,7 @@ def metric_value(
             raise ValueError("renyi_entropy requires q.")
         return renyi_entropy(lam, q, base=base, normalized=normalized, atol=atol)
     if key == "hartley_entropy":
-        return renyi_entropy(lam, 0.0, base=base, normalized=normalized, atol=atol, **kwargs)
+        return hartley_entropy(lam, base=base, normalized=normalized, atol=atol)
     if key == "renyi_half":
         return renyi_entropy(lam, 0.5, base=base, normalized=normalized, atol=atol)
     if key == "renyi_two":
@@ -344,7 +423,9 @@ def metric_value(
     if key == "participation_ratio":
         return effective_rank(lam, 2.0, normalized=normalized, atol=atol)
     if key == "schmidt_rank":
-        return effective_rank(lam, 0.0, normalized=normalized, atol=atol, **kwargs)
+        return schmidt_rank(lam, normalized=normalized, atol=atol)
+    if key == "numerical_schmidt_rank":
+        return numerical_schmidt_rank(lam, normalized=normalized, atol=atol, **kwargs)
     if key == "i_concurrence":
         return i_concurrence(lam, normalized=normalized, atol=atol)
     if key == "i_tangle":

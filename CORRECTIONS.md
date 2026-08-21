@@ -34,7 +34,7 @@ The trajectory representation and the broader unification philosophy survive. Th
 3. **Empirical:** metric-robust trajectory morphology in the tested four-model follow-up package.
 4. **Open:** formal topology, universal fingerprinting, and links to computational advantage.
 
-## What the repository will say
+## What the repository says
 
 - The Schmidt spectrum is the state variable; entanglement metrics are observables on it.
 - Unification does not require universal agreement among metrics.
@@ -49,7 +49,7 @@ The final repository should be completed first. After all corrected formulas, fi
 
 ## Machine-readable record
 
-The authoritative ledger is available as `metadata/paper_correction_ledger.csv` and `metadata/paper_correction_ledger.csv`. Equation and figure dispositions are available in both CSV and JSON form.
+The authoritative location-specific ledger is available as `metadata/paper_correction_ledger.csv`. Deterministic correction calculations are implemented in `analysis/verify_paper_corrections.py`.
 
 ## Quantitative clarification of “topology” and fingerprints
 

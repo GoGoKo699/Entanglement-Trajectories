@@ -106,14 +106,14 @@ This supports a hierarchy:
 
 The appropriate conclusion is **projection-stable coarse morphology**, not exact projected-path identity.
 
-## 7. Quantum-chaos examples
+## 7. Dynamical examples motivated by scrambling and spectral complexity
 
-The follow-up package includes four dynamical families:
+The follow-up package includes four dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity:
 
 - brickwork Floquet QCA;
 - open-chain kicked Ising;
 - a Balazs–Voros-style quantum baker;
-- Trotterized random-field XXZ.
+- a fixed symmetric product-formula circuit generated from random-field XXZ terms.
 
 Across the included conditions and sizes, model-centroid trajectories retain recognizable separation in the shared metric mode. Held-out-size model-centroid classification is strong, including substantial cross-metric transfer. Performance drops for unseen individual conditions, especially when both size and condition are held out.
 
@@ -162,4 +162,4 @@ The corrected project is stronger because exact geometry, conditional random-mat
 
 ## 11. Current scientific claim
 
-> For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested quantum-chaos families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.
+> For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested dynamical families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.

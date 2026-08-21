@@ -3,7 +3,7 @@
 [![Paper DOI](https://img.shields.io/badge/Quantum-10.22331%2Fq--2024--03--14--1282-24557A)](https://doi.org/10.22331/q-2024-03-14-1282)
 [![Python](https://img.shields.io/badge/Python-%E2%89%A53.10-3D7EA6)](pyproject.toml)
 [![Code license](https://img.shields.io/badge/code-BSD--3--Clause-6D6BB5)](LICENSE)
-[![Content license](https://img.shields.io/badge/content-CC--BY--4.0-55AFC9)](LICENSE)
+[![Content license](https://img.shields.io/badge/content-CC--BY--4.0-55AFC9)](LICENSE-CONTENT.md)
 
 **One Schmidt-spectrum path, many entanglement metrics.**
 
@@ -11,7 +11,7 @@ This repository is the corrected computational companion and follow-up evidence 
 
 > Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* **8**, 1282 (2024). DOI: `10.22331/q-2024-03-14-1282`.
 
-The journal article introduced an initial version of the idea. This repository preserves that insight, provides explicit mathematical corrections and scope clarifications, and tests the upgraded claim across four quantum-chaos families, six system sizes, and several non-equivalent functions of the Schmidt spectrum.
+The journal article introduced an initial version of the idea. This repository preserves that insight, provides explicit mathematical corrections and scope clarifications, and tests the upgraded claim across four dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, six system sizes, and several non-equivalent functions of the Schmidt spectrum.
 
 > **Central result.** For a fixed bipartition of a pure state, standard spectrum-based entanglement measures are nonlinear projections of one ordered Schmidt-spectrum path. Across the tested models, the normalized projections share a dominant common mode and preserve substantial coarse morphology, while local disagreements expose spectral redistributions that no single scalar measure can order completely.
 
@@ -71,19 +71,19 @@ Random matrix theory enters only afterward, as a family of Haar/Wishart or spike
 
 ## What the follow-up study establishes
 
-The included dataset contains 5,856 observations from 96 trajectories: four model families, four conditions per family, and sizes $n=10,12,14,16,18,20$.
+The included deterministic designed dataset contains 5,856 observations from 96 trajectories: four dynamical families, four declared conditions per family, and sizes $n=10,12,14,16,18,20$. The conditions are controlled examples, not independent draws from a population.
 
 | Controlled result | Value | Interpretation |
 |---|---:|---|
 | Common normalized metric mode | **90.26%** of variance | a strong shared trajectory component |
-| Cluster-bootstrap 95% interval | **85.74%–93.79%** | uncertainty clustered by dynamical run |
+| Model-stratified design-cluster 95% interval | **86.26%–93.41%** | sensitivity to the declared conditions |
 | Median per-trajectory common-mode fraction | **94.75%** | the shared mode is not produced by only a few paths |
 | Boundary-normalized rank agreement | **0.692–0.947** | robustness is strong but metric-pair dependent |
 | Metric-competitive scalar steps | **808/5,760 = 14.03%** | disagreement is real, not excluded by the framework |
 | Competition in selected full-spectrum audit | **50 events** | all 50 occur on majorization-incomparable transitions |
 | Exact turn counts equal across all three metrics | **2/96 trajectories** | fine projected topology is not invariant |
-| Held-out-size model-centroid accuracy | **0.917** | model-level morphology is reproducible |
-| Size-and-condition-held-out individual accuracy | **0.368** | universal individual fingerprinting remains preliminary |
+| Held-out-size model-centroid full-path accuracy | **0.875** | model-level morphology remains reproducible after gap-aware interpolation |
+| Size-and-condition-held-out individual full-path accuracy | **0.330** | universal individual fingerprinting remains preliminary |
 
 ![Common-mode strength, cross-size agreement, and the distinction between coarse and fine path properties](figures/public/figure_03_metric_robustness_hierarchy.png)
 
@@ -131,7 +131,9 @@ Read the [correction summary](CORRECTIONS.md), the [author clarification](paper/
 
 ## Reproduce the results
 
-Python 3.10 or later is required.
+Python 3.10 or later is supported for development. The canonical `v1.0.0` numerical release uses CPython 3.11.15 and exact dependency locks documented in [Canonical release environment](docs/RELEASE_ENVIRONMENT.md).
+
+Standard development installation:
 
 ```bash
 python -m pip install -e '.[analysis,test]'
@@ -149,6 +151,7 @@ Run the automated tests and public metadata/link validation:
 ```bash
 make test
 make public-validate
+make peer-review-check
 ```
 
 The combined public-layer workflow is:
@@ -178,8 +181,8 @@ See [Reproducibility](docs/REPRODUCIBILITY.md) for output locations, determinist
 | 30 seconds | this summary and Figure 1 |
 | 5 minutes | [Results at a glance](docs/RESULTS_AT_A_GLANCE.md) and [Corrections](CORRECTIONS.md) |
 | 20 minutes | [Scientific overview](docs/SCIENTIFIC_OVERVIEW.md) and [Public figure story](docs/PUBLIC_FIGURE_STORY.md) |
-| Technical audit | [Exact spectral geometry](docs/EXACT_SPECTRAL_GEOMETRY.md), [Analysis methods](docs/ANALYSIS_METHODS.md), and [Release QA](docs/RELEASE_QA.md) |
-| Reproduction | [Reproducibility](docs/REPRODUCIBILITY.md) |
+| Technical audit | [Peer-review release audit](docs/PEER_REVIEW_RELEASE_AUDIT.md), [Exact spectral geometry](docs/EXACT_SPECTRAL_GEOMETRY.md), [Analysis methods](docs/ANALYSIS_METHODS.md), and [Release QA](docs/RELEASE_QA.md) |
+| Reproduction | [Reproducibility](docs/REPRODUCIBILITY.md) and [release environment](docs/RELEASE_ENVIRONMENT.md) |
 | AI or automated research assistant | [AI context](AI_CONTEXT.md) and [public claims JSON](metadata/public_claims.json) |
 | Historical record | `legacy/` and the `paper-2024-original` branch |
 
@@ -193,7 +196,9 @@ data/                            canonical trajectories and compact spectrum/fig
 figures/public/                  five GitHub-facing figures and the social preview
 docs/                            scientific explanation, methods, limitations, and FAQ
 paper/                           public author clarification for the published article
-metadata/                        claims, definitions, metrics, figures, corrections, and discovery records
+metadata/                        claims, definitions, metrics, figures, corrections, references, and discovery records
+environment/                     machine-readable canonical release environment
+requirements/                    exact release dependency locks
 legacy/                          provenance archive and historical-branch instructions
 ```
 
@@ -213,7 +218,7 @@ The preferred citation is the published article:
 }
 ```
 
-Machine-readable citation records are provided in [`CITATION.cff`](CITATION.cff) and [`codemeta.json`](codemeta.json).
+Machine-readable citation records are provided in [`CITATION.cff`](CITATION.cff) and [`codemeta.json`](codemeta.json). See also the [primary references](REFERENCES.md) and the [machine-readable reference registry](metadata/references.json).
 
 ## Scope and nonclaims
 
@@ -224,3 +229,9 @@ The complete public nonclaim list is maintained in [AI_CONTEXT.md](AI_CONTEXT.md
 ## Repository-edition status
 
 Version `1.0.0` is the corrected public repository edition. It freezes the exact mathematical layer, the repaired follow-up computation, the quantitative metric-robustness result, the paper-correction record, and the human/AI discovery layer. A narrow formal journal corrigendum remains recommended, but none has yet been submitted.
+
+### Interpretation of the four families and the horizontal coordinate
+
+The QCA, kicked-Ising, quantum-baker, and XXZ-derived examples are **dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity**. The repository does not assert that every declared condition is independently established to be quantum chaotic.
+
+The common coordinate $\tau=\mathrm{step}/n$ is a **scaled iteration coordinate**, not one universal physical time across circuits, maps, and product-formula dynamics. The released XXZ rows are fixed one-substep symmetric product-formula circuits generated from random-field XXZ terms. The convergence study in [XXZ product-formula convergence](docs/XXZ_PRODUCT_FORMULA_CONVERGENCE.md) shows that this one-substep circuit is not a convergence-controlled approximation to continuous-time XXZ evolution, although the global multi-metric common-mode result is stable under refinement.

@@ -1,0 +1,11 @@
+test_group,representation,accuracy,chance
+model centroid held-out size,"full path, same metric",0.875,0.25
+individual path double holdout,"full path, same metric",0.3298611111111111,0.25
+model centroid held-out size,"full path, cross metric",0.6736111111111112,0.25
+individual path double holdout,"full path, cross metric",0.35763888888888884,0.25
+model centroid held-out size,"vertical only, same metric",0.763888888888889,0.25
+individual path double holdout,"vertical only, same metric",0.3090277777777778,0.25
+model centroid held-out size,"vertical only, cross metric",0.375,0.25
+individual path double holdout,"vertical only, cross metric",0.2760416666666667,0.25
+model centroid held-out size,$\lambda_{\max}$ only,0.75,0.25
+individual path double holdout,$\lambda_{\max}$ only,0.4166666666666667,0.25
