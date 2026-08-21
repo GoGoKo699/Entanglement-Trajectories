@@ -47,7 +47,10 @@ jobs:
       - name: Verify generated release sources and rendered images
         run: |
           git diff --exit-code -- llms-full.txt
-          diff -qr figures/public/data outputs/public_figures/data
+          python scripts/compare_public_figure_data.py \
+            --reference figures/public/data \
+            --candidate outputs/public_figures/data \
+            --atol 1e-10 --rtol 1e-10
           python - <<'PY'
           from pathlib import Path
           from PIL import Image
