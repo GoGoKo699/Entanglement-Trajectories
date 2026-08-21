@@ -854,7 +854,9 @@ def test_release_workflow_uses_exact_environment_and_provenance_checks():
         "requirements/release-py311.txt",
         "verify_release_environment.py",
         "git diff --exit-code -- llms-full.txt",
-        "diff -qr figures/public/data outputs/public_figures/data",
+        "compare_public_figure_data.py",
+        "--reference figures/public/data",
+        "--candidate outputs/public_figures/data",
         "Generated public images are readable and have release dimensions.",
         "permissions:",
         "contents: read",
@@ -908,3 +910,52 @@ def test_references_and_split_license_exist():
     references = json.loads((ROOT / "metadata" / "references.json").read_text())
     ids = [row["id"] for row in references["references"]]
     assert len(ids) >= 10 and len(ids) == len(set(ids))
+
+
+
+def test_public_figure_source_comparator_accepts_last_bit_csv_differences(tmp_path):
+    from scripts.compare_public_figure_data import compare_directories
+
+    reference = tmp_path / "reference"
+    candidate = tmp_path / "candidate"
+    reference.mkdir()
+    candidate.mkdir()
+    (reference / "table.csv").write_text(
+        "label,value\na,0.123456789012345\nb,1.0\n", encoding="utf-8"
+    )
+    (candidate / "table.csv").write_text(
+        "label,value\na,0.123456789012346\nb,1.000000000000001\n", encoding="utf-8"
+    )
+    (reference / "record.json").write_text('{"ok": true}\n', encoding="utf-8")
+    (candidate / "record.json").write_text('{"ok": true}\n', encoding="utf-8")
+
+    errors, differences, csv_count, exact_count = compare_directories(
+        reference,
+        candidate,
+        atol=1e-10,
+        rtol=1e-10,
+    )
+    assert errors == []
+    assert differences
+    assert csv_count == 1
+    assert exact_count == 1
+
+
+def test_public_figure_source_comparator_rejects_material_csv_change(tmp_path):
+    from scripts.compare_public_figure_data import compare_directories
+
+    reference = tmp_path / "reference"
+    candidate = tmp_path / "candidate"
+    reference.mkdir()
+    candidate.mkdir()
+    (reference / "table.csv").write_text("value\n0.5\n", encoding="utf-8")
+    (candidate / "table.csv").write_text("value\n0.50001\n", encoding="utf-8")
+
+    errors, _, _, _ = compare_directories(
+        reference,
+        candidate,
+        atol=1e-10,
+        rtol=1e-10,
+    )
+    assert errors
+    assert "numerical mismatch" in errors[0]

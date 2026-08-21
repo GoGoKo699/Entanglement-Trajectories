@@ -80,3 +80,26 @@ The test requires the resulting PNG digests to differ and verifies that the
 plotted source CSV contains the changed numerical value. This closes the
 failure mode in which a recomputed result could change while the public figure
 silently continued to read an unrelated frozen archive.
+
+## Hosted snapshot comparison
+
+The locked GitHub Actions job rebuilds the snapshot under the canonical
+CPython 3.11.15 environment. Nonnumeric provenance records must be
+byte-identical. CSV source tables must have identical files, schemas, row
+order, nonnumeric entries, and finite/NaN patterns; numeric entries are
+compared with explicit absolute and relative tolerances of `1e-10`.
+
+This distinction is deliberate. CSV text produced from the same floating-point
+calculation can differ in harmless final decimal digits across Python/pandas
+serialization paths. The comparator reports the worst absolute and relative
+difference and still rejects any material numerical change. The canonical raw
+trajectory and spectrum archives are not rounded or rewritten by this check.
+
+Run the comparison directly with:
+
+```bash
+python scripts/compare_public_figure_data.py \
+  --reference figures/public/data \
+  --candidate outputs/public_figures/data \
+  --atol 1e-10 --rtol 1e-10
+```
