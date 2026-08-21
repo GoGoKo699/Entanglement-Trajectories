@@ -700,7 +700,7 @@ def test_n10_all_model_regression_against_included_canonical_table():
         # Different NumPy/LAPACK builds can shift it slightly more than the
         # trace-based entropy and linear coordinates while remaining
         # numerically indistinguishable at the scientific scale.
-        "one_site_mean_geometric_linear": 1e-10,
+        "one_site_mean_geometric_linear": 5e-9,
         "half_vn": 5e-13,
         "half_linear": 5e-13,
         "half_geometric_linear": 5e-13,
@@ -914,8 +914,6 @@ def test_references_and_split_license_exist():
 
 
 def test_public_figure_source_comparator_accepts_last_bit_csv_differences(tmp_path):
-    from scripts.compare_public_figure_data import compare_directories
-
     reference = tmp_path / "reference"
     candidate = tmp_path / "candidate"
     reference.mkdir()
@@ -929,21 +927,29 @@ def test_public_figure_source_comparator_accepts_last_bit_csv_differences(tmp_pa
     (reference / "record.json").write_text('{"ok": true}\n', encoding="utf-8")
     (candidate / "record.json").write_text('{"ok": true}\n', encoding="utf-8")
 
-    errors, differences, csv_count, exact_count = compare_directories(
-        reference,
-        candidate,
-        atol=1e-10,
-        rtol=1e-10,
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "compare_public_figure_data.py"),
+            "--reference",
+            str(reference),
+            "--candidate",
+            str(candidate),
+            "--atol",
+            "1e-10",
+            "--rtol",
+            "1e-10",
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
     )
-    assert errors == []
-    assert differences
-    assert csv_count == 1
-    assert exact_count == 1
+    assert result.returncode == 0, result.stdout + "\n" + result.stderr
+    assert "PUBLIC FIGURE SOURCE COMPARISON: PASS" in result.stdout
 
 
 def test_public_figure_source_comparator_rejects_material_csv_change(tmp_path):
-    from scripts.compare_public_figure_data import compare_directories
-
     reference = tmp_path / "reference"
     candidate = tmp_path / "candidate"
     reference.mkdir()
@@ -951,11 +957,24 @@ def test_public_figure_source_comparator_rejects_material_csv_change(tmp_path):
     (reference / "table.csv").write_text("value\n0.5\n", encoding="utf-8")
     (candidate / "table.csv").write_text("value\n0.50001\n", encoding="utf-8")
 
-    errors, _, _, _ = compare_directories(
-        reference,
-        candidate,
-        atol=1e-10,
-        rtol=1e-10,
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "compare_public_figure_data.py"),
+            "--reference",
+            str(reference),
+            "--candidate",
+            str(candidate),
+            "--atol",
+            "1e-10",
+            "--rtol",
+            "1e-10",
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
     )
-    assert errors
-    assert "numerical mismatch" in errors[0]
+    assert result.returncode != 0
+    assert "PUBLIC FIGURE SOURCE COMPARISON: FAIL" in result.stdout
+    assert "numerical mismatch" in result.stdout

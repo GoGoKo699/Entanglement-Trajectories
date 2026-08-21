@@ -1448,7 +1448,7 @@ Generated figures and compact source tables are written under:
 outputs/public_figures/
 ```
 
-The images under `figures/public/` are the validated release snapshot shown by the README. A clean rebuild must reproduce the committed plotted source tables exactly. Rendered PNGs are validated for successful generation and dimensions; byte-level image identity is not required across graphics stacks.
+The images under `figures/public/` are the validated release snapshot shown by the README. In the locked release job, rebuilt CSV source tables must preserve the file set, schema, row order, nonnumeric values, and finite/NaN patterns exactly; numerical entries must agree within `atol=rtol=1e-10`. Nonnumeric provenance records remain byte-identical. Rendered PNGs are validated for successful generation and dimensions; byte-level image identity is not required across graphics stacks.
 
 ### Level 2 — Automated scientific and repository validation
 
@@ -1520,6 +1520,7 @@ The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata ar
 - The balanced Marchenko–Pastur CDF uses its corrected analytic expression.
 - Majorization tests state their numerical tolerance explicitly.
 - Pure-state logarithmic negativity, equivalent here to the Rényi-$1/2$ sector, is especially sensitive to tiny numerical Schmidt tails near product states; its regression tolerance is therefore recorded separately.
+- The one-site geometric coordinate depends directly on a leading reduced-density-matrix eigenvalue. In the canonical CPython 3.11.15 / NumPy 2.4.6 hosted regression, its maximum absolute difference from the archived table is $2.449\times10^{-9}$. The release test therefore uses an absolute tolerance of $5\times10^{-9}$ for that coordinate only. This is a numerical-backend tolerance on a normalized quantity, not a scientific uncertainty interval.
 
 ## Release identity
 
