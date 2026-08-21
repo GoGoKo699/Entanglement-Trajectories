@@ -1,24 +1,81 @@
 name: repository-qa
 
-on:
+"on":
   push:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-qa-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  release:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: "0"
+      MPLBACKEND: Agg
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+      VECLIB_MAXIMUM_THREADS: "1"
+      TZ: UTC
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
-          python-version: "3.11"
+          python-version-file: .python-version
           cache: pip
-      - name: Install
-        run: python -m pip install -e '.[analysis,test]'
+          cache-dependency-path: |
+            requirements/release-build.txt
+            requirements/release-py311.txt
+      - name: Install pinned release environment
+        run: |
+          python -m pip install --disable-pip-version-check -r requirements/release-build.txt
+          python -m pip install --disable-pip-version-check -r requirements/release-py311.txt
+          python -m pip install --disable-pip-version-check --no-deps --no-build-isolation -e .
+          python -m pip check
+      - name: Verify release environment
+        run: python scripts/verify_release_environment.py --write-report outputs/release_environment.json
       - name: Rebuild machine context and public figures
         run: make public-context public-figures
+      - name: Verify generated release sources and rendered images
+        run: |
+          git diff --exit-code -- llms-full.txt
+          diff -qr figures/public/data outputs/public_figures/data
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          root = Path("outputs/public_figures")
+          names = [
+              "figure_01_one_spectrum_many_lenses.png",
+              "figure_02_exact_metric_arenas.png",
+              "figure_03_metric_robustness_hierarchy.png",
+              "figure_04_majorization_and_metric_competition.png",
+              "figure_05_model_morphology_and_limits.png",
+              "social_preview.png",
+          ]
+          for name in names:
+              path = root / name
+              if not path.is_file():
+                  raise SystemExit(f"missing generated image: {name}")
+              with Image.open(path) as image:
+                  image.verify()
+              with Image.open(path) as image:
+                  if name == "social_preview.png":
+                      assert image.size == (1280, 640), image.size
+                  else:
+                      assert min(image.size) >= 900, (name, image.size)
+          print("Generated public images are readable and have release dimensions.")
+          PY
       - name: Run scientific tests
         run: make test
-      - name: Validate compact public repository
+      - name: Validate public repository
         run: make public-validate
+      - name: Verify peer-review release gates
+        run: make peer-review-check
