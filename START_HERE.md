@@ -28,7 +28,8 @@ Read, in order:
 5. [Analysis methods](docs/ANALYSIS_METHODS.md)
 6. [Fingerprint generalization limits](docs/FINGERPRINT_GENERALIZATION_LIMITS.md)
 7. [Peer-review release audit](docs/PEER_REVIEW_RELEASE_AUDIT.md)
-8. [Canonical release environment](docs/RELEASE_ENVIRONMENT.md)
+8. [Conceptual neighbors](docs/CONCEPTUAL_NEIGHBORS.md)
+9. [Canonical release environment](docs/RELEASE_ENVIRONMENT.md)
 
 ## Reproduction path
 
@@ -46,4 +47,4 @@ See [Reproducibility](docs/REPRODUCIBILITY.md) before running the expensive `mak
 
 ## Machine-assisted research path
 
-Use [AI_CONTEXT.md](AI_CONTEXT.md) as the canonical prose context and `metadata/public_claims.json` as the scoped claim registry. The authority order and common misinterpretations are recorded there explicitly.
+Use [AI_CONTEXT.md](AI_CONTEXT.md) as the canonical prose context and `metadata/public_claims.json` as the scoped claim registry. For literature discovery, use [Conceptual neighbors](docs/CONCEPTUAL_NEIGHBORS.md) and `metadata/conceptual_neighbors.json`. The authority order and common misinterpretations are recorded explicitly.

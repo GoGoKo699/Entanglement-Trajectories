@@ -1,5 +1,5 @@
 {
-  "schema_version": "entanglement-trajectories-references-1.0",
+  "schema_version": "entanglement-trajectories-references-1.1",
   "references": [
     {
       "id": "nielsen1999",
@@ -7,7 +7,12 @@
       "title": "Conditions for a Class of Entanglement Transformations",
       "venue": "Physical Review Letters 83, 436–439 (1999)",
       "doi": "10.1103/PhysRevLett.83.436",
-      "url": "https://doi.org/10.1103/PhysRevLett.83.436"
+      "url": "https://doi.org/10.1103/PhysRevLett.83.436",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 8,
+      "relationship_type": "foundational_method"
     },
     {
       "id": "page1993",
@@ -55,7 +60,12 @@
       "title": "Entanglement Spectrum as a Generalization of Entanglement Entropy",
       "venue": "Physical Review Letters 101, 010504 (2008)",
       "doi": "10.1103/PhysRevLett.101.010504",
-      "url": "https://doi.org/10.1103/PhysRevLett.101.010504"
+      "url": "https://doi.org/10.1103/PhysRevLett.101.010504",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 7,
+      "relationship_type": "spectrum_first_foundation"
     },
     {
       "id": "hastings2007",
@@ -88,6 +98,122 @@
       "venue": "Physical Review X 11, 011020 (2021)",
       "doi": "10.1103/PhysRevX.11.011020",
       "url": "https://doi.org/10.1103/PhysRevX.11.011020"
+    },
+    {
+      "id": "chang2019",
+      "authors": "Po-Yao Chang, Xiao Chen, Sarang Gopalakrishnan, J. H. Pixley",
+      "title": "Evolution of Entanglement Spectra under Generic Quantum Dynamics",
+      "venue": "Physical Review Letters 123, 190602 (2019)",
+      "doi": "10.1103/PhysRevLett.123.190602",
+      "url": "https://doi.org/10.1103/PhysRevLett.123.190602",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 1,
+      "relationship_type": "closest_technical_neighbor"
+    },
+    {
+      "id": "yang2017",
+      "authors": "Zhi-Cheng Yang, Alioscia Hamma, Salvatore M. Giampaolo, Eduardo R. Mucciolo, Claudio Chamon",
+      "title": "Entanglement Complexity in Quantum Many-Body Dynamics, Thermalization and Localization",
+      "venue": "Physical Review B 96, 020408 (2017)",
+      "doi": "10.1103/PhysRevB.96.020408",
+      "url": "https://doi.org/10.1103/PhysRevB.96.020408",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 2,
+      "relationship_type": "closest_philosophical_neighbor"
+    },
+    {
+      "id": "chen2018",
+      "authors": "Xiao Chen, Andreas W. W. Ludwig",
+      "title": "Universal Spectral Correlations in the Chaotic Wave Function and the Development of Quantum Chaos",
+      "venue": "Physical Review B 98, 064309 (2018)",
+      "doi": "10.1103/PhysRevB.98.064309",
+      "url": "https://doi.org/10.1103/PhysRevB.98.064309",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 3,
+      "relationship_type": "quantum_chaos_neighbor"
+    },
+    {
+      "id": "yang2015",
+      "authors": "Zhi-Cheng Yang, Claudio Chamon, Alioscia Hamma, Eduardo R. Mucciolo",
+      "title": "Two-Component Structure in the Entanglement Spectrum of Highly Excited States",
+      "venue": "Physical Review Letters 115, 267206 (2015)",
+      "doi": "10.1103/PhysRevLett.115.267206",
+      "url": "https://doi.org/10.1103/PhysRevLett.115.267206",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 4,
+      "relationship_type": "universal_residual_structure_neighbor"
+    },
+    {
+      "id": "vardhan2026",
+      "authors": "Shreya Vardhan, Sanjay Moudgalya",
+      "title": "Entanglement Dynamics from Universal Low-Lying Modes",
+      "venue": "Physical Review B 113, 014308 (2026)",
+      "doi": "10.1103/prp6-y5hl",
+      "url": "https://doi.org/10.1103/prp6-y5hl",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 5,
+      "relationship_type": "modern_theoretical_neighbor"
+    },
+    {
+      "id": "you2018",
+      "authors": "Yi-Zhuang You, Yingfei Gu",
+      "title": "Entanglement Features of Random Hamiltonian Dynamics",
+      "venue": "Physical Review B 98, 014309 (2018)",
+      "doi": "10.1103/PhysRevB.98.014309",
+      "url": "https://doi.org/10.1103/PhysRevB.98.014309",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 6,
+      "relationship_type": "multi_observable_framework_neighbor"
+    },
+    {
+      "id": "zhou2019",
+      "authors": "Tianci Zhou, Adam Nahum",
+      "title": "Emergent Statistical Mechanics of Entanglement in Random Unitary Circuits",
+      "venue": "Physical Review B 99, 174205 (2019)",
+      "doi": "10.1103/PhysRevB.99.174205",
+      "url": "https://doi.org/10.1103/PhysRevB.99.174205",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 9,
+      "relationship_type": "multi_renyi_dynamics_neighbor"
+    },
+    {
+      "id": "chandran2014",
+      "authors": "Anushya Chandran, Vedika Khemani, S. L. Sondhi",
+      "title": "How Universal Is the Entanglement Spectrum?",
+      "venue": "Physical Review Letters 113, 060501 (2014)",
+      "doi": "10.1103/PhysRevLett.113.060501",
+      "url": "https://doi.org/10.1103/PhysRevLett.113.060501",
+      "reference_groups": [
+        "conceptual_neighbor"
+      ],
+      "conceptual_neighbor_rank": 10,
+      "relationship_type": "scope_caution"
     }
+  ],
+  "conceptual_neighbor_ids": [
+    "chang2019",
+    "yang2017",
+    "chen2018",
+    "yang2015",
+    "vardhan2026",
+    "you2018",
+    "lihaldane2008",
+    "nielsen1999",
+    "zhou2019",
+    "chandran2014"
   ]
 }

@@ -980,3 +980,49 @@ def test_public_figure_source_comparator_rejects_material_csv_change(tmp_path):
     assert result.returncode != 0
     assert "PUBLIC FIGURE SOURCE COMPARISON: FAIL" in result.stdout
     assert "numerical mismatch" in result.stdout
+
+def test_conceptual_neighbor_graph_and_literature_bridge_are_consistent():
+    import json
+
+    graph = json.loads((ROOT / "metadata/conceptual_neighbors.json").read_text(encoding="utf-8"))
+    neighbors = graph["neighbors"]
+    assert len(neighbors) == 10
+    assert [row["rank"] for row in neighbors] == list(range(1, 11))
+
+    ids = [row["id"] for row in neighbors]
+    dois = [row["doi"] for row in neighbors]
+    assert len(ids) == len(set(ids))
+    assert len(dois) == len(set(dois))
+    assert all(row["relationship_type"] for row in neighbors)
+    assert all(row["shared_concepts"] and row["project_adds"] for row in neighbors)
+
+    registry = json.loads((ROOT / "metadata/references.json").read_text(encoding="utf-8"))
+    registry_by_id = {row["id"]: row for row in registry["references"]}
+    assert registry["conceptual_neighbor_ids"] == ids
+    for row in neighbors:
+        assert row["id"] in registry_by_id
+        assert registry_by_id[row["id"]]["doi"] == row["doi"]
+
+    discovery = json.loads((ROOT / "metadata/discovery_terms.json").read_text(encoding="utf-8"))
+    cluster_ids = {
+        neighbor_id
+        for cluster in discovery["literature_query_clusters"]
+        for neighbor_id in cluster["neighbor_ids"]
+    }
+    assert cluster_ids <= set(ids)
+    assert len(discovery["literature_query_clusters"]) == 5
+
+    markdown = (ROOT / "docs/CONCEPTUAL_NEIGHBORS.md").read_text(encoding="utf-8")
+    llms = (ROOT / "llms.txt").read_text(encoding="utf-8")
+    references = (ROOT / "REFERENCES.md").read_text(encoding="utf-8")
+    for row in neighbors:
+        assert row["title"] in markdown
+        assert row["doi"] in markdown
+        assert row["doi"] in llms
+        assert row["doi"] in references
+
+    builder = (ROOT / "scripts/build_llms_full.py").read_text(encoding="utf-8")
+    assert 'docs/CONCEPTUAL_NEIGHBORS.md' in builder
+    full_context = (ROOT / "llms-full.txt").read_text(encoding="utf-8")
+    assert '<!-- canonical-source: docs/CONCEPTUAL_NEIGHBORS.md -->' in full_context
+

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — conceptual literature discovery
+
+- Added a ten-paper conceptual-neighbor map linking the project to entanglement-spectrum dynamics, multi-Rényi evolution, reduced-density-matrix chaos diagnostics, majorization, and spectral-universality literature.
+- Added DOI-based machine-readable retrieval clusters and expanded `llms.txt`, AI context, references, and search vocabulary.
+- Kept the scientific datasets, figures, claims, and software version unchanged.
+
 ## 1.0.0 — 2026-08-20
 
 - Reframed the project around the Schmidt-spectrum path and entanglement-trajectory atlas.

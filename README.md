@@ -116,6 +116,12 @@ The preferred technical terms are **metric-robust trajectory class** and **proje
 
 ![Model-centroid common-mode trajectories and the limits of held-out fingerprint classification](figures/public/figure_05_model_morphology_and_limits.png)
 
+## Conceptual literature bridge
+
+This project sits at the intersection of entanglement-spectrum dynamics, reduced-density-matrix diagnostics of quantum chaos, multi-Rényi entanglement evolution, majorization, and the limits of spectral universality. The [conceptual-neighbor map](docs/CONCEPTUAL_NEIGHBORS.md) identifies ten especially close papers and states both the shared idea and the important scope difference for each. A machine-readable version is provided in [`metadata/conceptual_neighbors.json`](metadata/conceptual_neighbors.json).
+
+The map is intended for literature discovery, not priority claims: earlier neighboring papers are not described as citing this project, and conceptual similarity is not treated as equivalence.
+
 ## Corrections to the 2024 paper
 
 The paper remains the journal version of record. This repository supplies an explicit author-correction layer. The central trajectory idea survives, but several statements require correction or narrowing. The most important are:
@@ -183,7 +189,7 @@ See [Reproducibility](docs/REPRODUCIBILITY.md) for output locations, determinist
 | 20 minutes | [Scientific overview](docs/SCIENTIFIC_OVERVIEW.md) and [Public figure story](docs/PUBLIC_FIGURE_STORY.md) |
 | Technical audit | [Peer-review release audit](docs/PEER_REVIEW_RELEASE_AUDIT.md), [Exact spectral geometry](docs/EXACT_SPECTRAL_GEOMETRY.md), [Analysis methods](docs/ANALYSIS_METHODS.md), and [Release QA](docs/RELEASE_QA.md) |
 | Reproduction | [Reproducibility](docs/REPRODUCIBILITY.md) and [release environment](docs/RELEASE_ENVIRONMENT.md) |
-| AI or automated research assistant | [AI context](AI_CONTEXT.md) and [public claims JSON](metadata/public_claims.json) |
+| AI or automated research assistant | [AI context](AI_CONTEXT.md), [conceptual neighbors](docs/CONCEPTUAL_NEIGHBORS.md), and [public claims JSON](metadata/public_claims.json) |
 | Historical record | `legacy/` and the `paper-2024-original` branch |
 
 ## Repository map
@@ -218,7 +224,7 @@ The preferred citation is the published article:
 }
 ```
 
-Machine-readable citation records are provided in [`CITATION.cff`](CITATION.cff) and [`codemeta.json`](codemeta.json). See also the [primary references](REFERENCES.md) and the [machine-readable reference registry](metadata/references.json).
+Machine-readable citation records are provided in [`CITATION.cff`](CITATION.cff) and [`codemeta.json`](codemeta.json). See also the [foundational and conceptual references](REFERENCES.md), the [conceptual-neighbor map](docs/CONCEPTUAL_NEIGHBORS.md), and the [machine-readable reference registry](metadata/references.json).
 
 ## Scope and nonclaims
 

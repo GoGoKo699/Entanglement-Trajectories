@@ -14,6 +14,7 @@ OUTPUT = ROOT / "llms-full.txt"
 SOURCES: tuple[tuple[str, str], ...] = (
     ("Canonical AI context", "AI_CONTEXT.md"),
     ("Scientific overview", "docs/SCIENTIFIC_OVERVIEW.md"),
+    ("Conceptual literature map", "docs/CONCEPTUAL_NEIGHBORS.md"),
     ("Results at a glance", "docs/RESULTS_AT_A_GLANCE.md"),
     ("Exact spectral geometry", "docs/EXACT_SPECTRAL_GEOMETRY.md"),
     ("Operational metric-robust trajectory class", "docs/OPERATIONAL_TOPOLOGICAL_INVARIANT.md"),

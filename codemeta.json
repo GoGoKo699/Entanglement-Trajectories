@@ -7,7 +7,7 @@
   "codeRepository": "https://github.com/GoGoKo699/Entanglement-Trajectories",
   "url": "https://quantum-journal.org/papers/q-2024-03-14-1282/",
   "version": "1.0.0",
-  "dateModified": "2026-08-20",
+  "dateModified": "2026-08-23",
   "author": {
     "@type": "Person",
     "givenName": "Ruge",
@@ -44,7 +44,12 @@
     "von Neumann entropy",
     "logarithmic negativity",
     "random matrix theory",
-    "reproducible research"
+    "reproducible research",
+    "reduced-density-matrix spectrum",
+    "multi-Renyi entanglement dynamics",
+    "entanglement measure comparison",
+    "majorization order",
+    "conceptual literature map"
   ],
   "license": [
     "https://spdx.org/licenses/BSD-3-Clause.html",

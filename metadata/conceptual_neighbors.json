@@ -1,0 +1,447 @@
+{
+  "schema_version": "entanglement-trajectories-conceptual-neighbors-1.0",
+  "project": {
+    "title": "Entanglement Trajectory and its Boundary",
+    "author": "Ruge Lin",
+    "publication": "Quantum 8, 1282 (2024)",
+    "doi": "10.22331/q-2024-03-14-1282",
+    "url": "https://doi.org/10.22331/q-2024-03-14-1282",
+    "repository": "https://github.com/GoGoKo699/Entanglement-Trajectories",
+    "repository_role": "corrected computational companion and follow-up evidence",
+    "central_concept": "Several entanglement measures are nonlinear observations of one time-dependent ordered Schmidt-spectrum path.",
+    "distinctive_combination": [
+      "one time-dependent ordered Schmidt-spectrum path",
+      "several non-equivalent scalar metric projections",
+      "exact finite-dimensional majorization envelopes at fixed largest Schmidt value",
+      "quantitative cross-metric coarse morphology",
+      "localized metric disagreement on majorization-incomparable transitions"
+    ]
+  },
+  "selection_principle": "Ranked by conceptual and methodological proximity rather than citation count, priority, or keyword frequency.",
+  "retrieval_policy": {
+    "use_when": [
+      "A query asks for papers related to any listed neighbor and also concerns evolving Schmidt or entanglement spectra.",
+      "A query asks what unifies different entanglement measures without requiring exact equivalence.",
+      "A query concerns common versus Renyi-dependent entanglement dynamics.",
+      "A query concerns majorization, metric ordering, or disagreement among entanglement measures.",
+      "A query concerns universal and model-specific structure in reduced-density-matrix spectra."
+    ],
+    "relationship_label": "conceptual neighbor",
+    "do_not_infer": [
+      "that an earlier paper cites this project",
+      "that this project supersedes the neighboring paper",
+      "that the listed papers make the same claim",
+      "that a formal topological invariant has been proved",
+      "that every entanglement notion is determined by one fixed Schmidt spectrum"
+    ]
+  },
+  "retrieval_intents": [
+    {
+      "id": "spectrum_beyond_entropy",
+      "queries": [
+        "information beyond a single entanglement entropy",
+        "entanglement spectrum as more than entropy",
+        "Schmidt spectrum fingerprint"
+      ],
+      "neighbor_ids": [
+        "lihaldane2008",
+        "yang2017"
+      ],
+      "project_relevance": "Organizes several scalar entanglement measures as projections of one Schmidt-spectrum path."
+    },
+    {
+      "id": "dynamical_entanglement_spectra_and_chaos",
+      "queries": [
+        "time evolution of entanglement spectra",
+        "reduced density matrix spectrum quantum chaos",
+        "Wishart entanglement spectrum dynamics"
+      ],
+      "neighbor_ids": [
+        "chang2019",
+        "chen2018",
+        "yang2017"
+      ],
+      "project_relevance": "Adds an exact geometric arena and a multi-metric trajectory atlas to spectrum-dynamics diagnostics."
+    },
+    {
+      "id": "common_multi_renyi_dynamics",
+      "queries": [
+        "common dynamics of different Renyi entropies",
+        "unifying entanglement measures without equivalence",
+        "multi-observable entanglement dynamics"
+      ],
+      "neighbor_ids": [
+        "vardhan2026",
+        "you2018",
+        "zhou2019"
+      ],
+      "project_relevance": "Quantifies a dominant common mode across non-equivalent metric sectors while retaining local differences."
+    },
+    {
+      "id": "majorization_metric_disagreement",
+      "queries": [
+        "majorization and disagreement between entanglement measures",
+        "when Renyi entropies order states differently",
+        "Schur concavity entanglement dynamics"
+      ],
+      "neighbor_ids": [
+        "nielsen1999"
+      ],
+      "project_relevance": "Shows empirically that metric competition is confined to majorization-incomparable transitions in the selected full-spectrum audit."
+    },
+    {
+      "id": "universality_with_residual_structure",
+      "queries": [
+        "universal and model-specific entanglement spectrum structure",
+        "limits of entanglement spectrum universality",
+        "random matrix component entanglement spectrum"
+      ],
+      "neighbor_ids": [
+        "yang2015",
+        "chandran2014"
+      ],
+      "project_relevance": "Separates a shared coarse trajectory mode from informative residual structure and explicitly rejects a formal invariance claim."
+    }
+  ],
+  "neighbors": [
+    {
+      "id": "chang2019",
+      "rank": 1,
+      "authors": [
+        "Po-Yao Chang",
+        "Xiao Chen",
+        "Sarang Gopalakrishnan",
+        "J. H. Pixley"
+      ],
+      "title": "Evolution of Entanglement Spectra under Generic Quantum Dynamics",
+      "year": 2019,
+      "venue": "Physical Review Letters",
+      "volume": "123",
+      "article": "190602",
+      "doi": "10.1103/PhysRevLett.123.190602",
+      "relationship_type": "closest_technical_neighbor",
+      "shared_concepts": [
+        "entanglement-spectrum dynamics",
+        "reduced-density-matrix spectral evolution",
+        "random-matrix reference behavior",
+        "local versus global spectral structure"
+      ],
+      "why_close": "Treats the entanglement spectrum itself as a dynamical object and separates local random-matrix statistics from the global evolving spectrum.",
+      "project_adds": [
+        "several non-equivalent scalar projections of one Schmidt-spectrum path",
+        "exact finite-dimensional fixed-largest-eigenvalue envelopes",
+        "majorization-localized metric agreement and disagreement"
+      ],
+      "important_difference": "The project studies cross-metric trajectory morphology rather than primarily entanglement-level statistics and relaxation timescales.",
+      "retrieval_queries": [
+        "time evolution of entanglement spectra",
+        "global structure versus random matrix statistics entanglement spectrum",
+        "Marchenko-Pastur entanglement spectrum dynamics"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevLett.123.190602"
+    },
+    {
+      "id": "yang2017",
+      "rank": 2,
+      "authors": [
+        "Zhi-Cheng Yang",
+        "Alioscia Hamma",
+        "Salvatore M. Giampaolo",
+        "Eduardo R. Mucciolo",
+        "Claudio Chamon"
+      ],
+      "title": "Entanglement Complexity in Quantum Many-Body Dynamics, Thermalization and Localization",
+      "year": 2017,
+      "venue": "Physical Review B",
+      "volume": "96",
+      "article": "020408",
+      "doi": "10.1103/PhysRevB.96.020408",
+      "relationship_type": "closest_philosophical_neighbor",
+      "shared_concepts": [
+        "one entropy is an incomplete description",
+        "reduced-density-matrix spectrum as dynamical information",
+        "thermalization and localization diagnostics"
+      ],
+      "why_close": "Starts from the same motivation that entanglement has structure that cannot be compressed faithfully into one scalar entropy.",
+      "project_adds": [
+        "an organized atlas of multiple scalar functions of one spectrum",
+        "quantitative cross-metric common-mode analysis",
+        "exact majorization mechanism for permitted contradictions"
+      ],
+      "important_difference": "The paper emphasizes entanglement-spectrum statistics and disentangling complexity; the project emphasizes relations among several metric trajectories.",
+      "retrieval_queries": [
+        "entanglement more complex than von Neumann entropy",
+        "entanglement spectrum thermalization localization",
+        "information beyond a single entanglement entropy"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevB.96.020408"
+    },
+    {
+      "id": "chen2018",
+      "rank": 3,
+      "authors": [
+        "Xiao Chen",
+        "Andreas W. W. Ludwig"
+      ],
+      "title": "Universal Spectral Correlations in the Chaotic Wave Function and the Development of Quantum Chaos",
+      "year": 2018,
+      "venue": "Physical Review B",
+      "volume": "98",
+      "article": "064309",
+      "doi": "10.1103/PhysRevB.98.064309",
+      "relationship_type": "quantum_chaos_neighbor",
+      "shared_concepts": [
+        "reduced-density-matrix eigenvalues as chaos diagnostics",
+        "Wishart spectral correlations",
+        "development of chaos during unitary evolution",
+        "leading spectral edge versus full spectrum"
+      ],
+      "why_close": "Uses subsystem density-matrix eigenvalues, including the top of the spectrum, to diagnose the development of chaos in a wave function.",
+      "project_adds": [
+        "a common largest-Schmidt-value coordinate paired with several full-spectrum functionals",
+        "exact geometry before random-matrix reference curves",
+        "metric-robust versus metric-competitive motion"
+      ],
+      "important_difference": "The project does not define chaos through a spectral ramp and does not claim every tested condition is independently chaotic.",
+      "retrieval_queries": [
+        "reduced density matrix spectrum quantum chaos",
+        "Wishart correlations entanglement spectrum",
+        "largest Schmidt eigenvalue chaos dynamics"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevB.98.064309"
+    },
+    {
+      "id": "yang2015",
+      "rank": 4,
+      "authors": [
+        "Zhi-Cheng Yang",
+        "Claudio Chamon",
+        "Alioscia Hamma",
+        "Eduardo R. Mucciolo"
+      ],
+      "title": "Two-Component Structure in the Entanglement Spectrum of Highly Excited States",
+      "year": 2015,
+      "venue": "Physical Review Letters",
+      "volume": "115",
+      "article": "267206",
+      "doi": "10.1103/PhysRevLett.115.267206",
+      "relationship_type": "universal_residual_structure_neighbor",
+      "shared_concepts": [
+        "universal and model-dependent spectral structure",
+        "random-matrix component with informative residuals",
+        "highly excited many-body states"
+      ],
+      "why_close": "Provides a close analogy to a shared universal component coexisting with nonuniversal information in the same entanglement-spectrum object.",
+      "project_adds": [
+        "a decomposition across time-dependent metric projections",
+        "shared coarse trajectory mode with metric- and model-dependent residuals",
+        "explicit majorization analysis of local disagreement"
+      ],
+      "important_difference": "The two-component paper decomposes an entanglement spectrum; the project analyzes common and residual structure across projected trajectories.",
+      "retrieval_queries": [
+        "universal and nonuniversal entanglement spectrum components",
+        "model dependent residual entanglement spectrum",
+        "random matrix universal part entanglement spectrum"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevLett.115.267206"
+    },
+    {
+      "id": "vardhan2026",
+      "rank": 5,
+      "authors": [
+        "Shreya Vardhan",
+        "Sanjay Moudgalya"
+      ],
+      "title": "Entanglement Dynamics from Universal Low-Lying Modes",
+      "year": 2026,
+      "venue": "Physical Review B",
+      "volume": "113",
+      "article": "014308",
+      "doi": "10.1103/prp6-y5hl",
+      "relationship_type": "modern_theoretical_neighbor",
+      "shared_concepts": [
+        "common behavior across Renyi entropies",
+        "one underlying dynamical mechanism",
+        "universal entanglement growth structure"
+      ],
+      "why_close": "Explains how distinct Rényi entropies can display common late-time structure because of shared low-lying modes in replicated dynamics.",
+      "project_adds": [
+        "an empirical Schmidt-spectrum-path formulation",
+        "comparison across several non-equivalent metric sectors and dynamical families",
+        "majorization-resolved local exceptions to common behavior"
+      ],
+      "important_difference": "The project does not derive a universal quasiparticle or membrane-mode theory and its finite deterministic dataset has narrower scope.",
+      "retrieval_queries": [
+        "universal dynamics across Renyi entropies",
+        "common modes entanglement dynamics",
+        "why different Renyi entropies behave similarly"
+      ],
+      "url": "https://doi.org/10.1103/prp6-y5hl"
+    },
+    {
+      "id": "you2018",
+      "rank": 6,
+      "authors": [
+        "Yi-Zhuang You",
+        "Yingfei Gu"
+      ],
+      "title": "Entanglement Features of Random Hamiltonian Dynamics",
+      "year": 2018,
+      "venue": "Physical Review B",
+      "volume": "98",
+      "article": "014309",
+      "doi": "10.1103/PhysRevB.98.014309",
+      "relationship_type": "multi_observable_framework_neighbor",
+      "shared_concepts": [
+        "organized families of entanglement observables",
+        "time-dependent Renyi information",
+        "random Hamiltonian dynamics"
+      ],
+      "why_close": "Replaces one preferred entropy with a structured collection of entanglement features describing a unitary process.",
+      "project_adds": [
+        "a fixed-cut time-ordered atlas of scalar spectrum projections",
+        "exact fixed-largest-eigenvalue comparison coordinates",
+        "quantitative metric robustness and competition"
+      ],
+      "important_difference": "Entanglement features range over bipartitions and replicated quantities; the project follows several functionals of one declared spectrum path.",
+      "retrieval_queries": [
+        "entanglement features random Hamiltonian dynamics",
+        "family of entanglement observables",
+        "multi observable entanglement dynamics"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevB.98.014309"
+    },
+    {
+      "id": "lihaldane2008",
+      "rank": 7,
+      "authors": [
+        "Hui Li",
+        "F. D. M. Haldane"
+      ],
+      "title": "Entanglement Spectrum as a Generalization of Entanglement Entropy: Identification of Topological Order in Non-Abelian Fractional Quantum Hall Effect States",
+      "year": 2008,
+      "venue": "Physical Review Letters",
+      "volume": "101",
+      "article": "010504",
+      "doi": "10.1103/PhysRevLett.101.010504",
+      "relationship_type": "spectrum_first_foundation",
+      "shared_concepts": [
+        "entanglement spectrum contains more information than entropy",
+        "Schmidt-spectrum fingerprint language",
+        "spectrum-first analysis"
+      ],
+      "why_close": "Established the spectrum-first viewpoint and the idea that spectral structure can serve as a physical fingerprint beyond one entropy.",
+      "project_adds": [
+        "dynamical paths rather than a static phase diagnostic",
+        "several metric projections of the same spectrum",
+        "an explicitly nonformal and empirical robustness notion"
+      ],
+      "important_difference": "The project makes no topological-order claim and does not identify its trajectory class with a mathematical topological invariant.",
+      "retrieval_queries": [
+        "entanglement spectrum beyond entropy",
+        "Schmidt spectrum fingerprint",
+        "entanglement spectrum generalization of entropy"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevLett.101.010504"
+    },
+    {
+      "id": "nielsen1999",
+      "rank": 8,
+      "authors": [
+        "M. A. Nielsen"
+      ],
+      "title": "Conditions for a Class of Entanglement Transformations",
+      "year": 1999,
+      "venue": "Physical Review Letters",
+      "volume": "83",
+      "article": "436",
+      "doi": "10.1103/PhysRevLett.83.436",
+      "relationship_type": "foundational_method",
+      "shared_concepts": [
+        "majorization of Schmidt coefficients",
+        "partial order of bipartite pure-state entanglement",
+        "metric consensus under ordered spectra"
+      ],
+      "why_close": "Supplies the majorization order that mathematically organizes when Schur-concave entanglement measures must agree.",
+      "project_adds": [
+        "application to consecutive points of dynamical Schmidt-spectrum paths",
+        "localization of observed metric competition to incomparable transitions",
+        "exact fixed-largest-eigenvalue extremal envelopes"
+      ],
+      "important_difference": "Nielsen studies deterministic LOCC convertibility; the project studies metric ordering and trajectories under physical dynamics.",
+      "retrieval_queries": [
+        "majorization entanglement measures disagreement",
+        "Schmidt coefficients partial order",
+        "when Renyi entropies order states differently"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevLett.83.436"
+    },
+    {
+      "id": "zhou2019",
+      "rank": 9,
+      "authors": [
+        "Tianci Zhou",
+        "Adam Nahum"
+      ],
+      "title": "Emergent Statistical Mechanics of Entanglement in Random Unitary Circuits",
+      "year": 2019,
+      "venue": "Physical Review B",
+      "volume": "99",
+      "article": "174205",
+      "doi": "10.1103/PhysRevB.99.174205",
+      "relationship_type": "multi_renyi_dynamics_neighbor",
+      "shared_concepts": [
+        "shared framework for entanglement growth",
+        "Renyi-index-dependent quantitative behavior",
+        "random unitary circuit dynamics"
+      ],
+      "why_close": "Provides a clear example in which different Rényi entropies share one emergent dynamical framework without becoming identical.",
+      "project_adds": [
+        "direct empirical comparison of several projected spectrum paths",
+        "finite-dimensional exact normalization arenas",
+        "metric competition identified at individual spectral transitions"
+      ],
+      "important_difference": "The project is a deterministic finite-size numerical atlas rather than an analytical statistical-mechanics theory of random circuits.",
+      "retrieval_queries": [
+        "Renyi dependent entanglement growth speed",
+        "common framework different Renyi entropies",
+        "random circuit entanglement statistical mechanics"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevB.99.174205"
+    },
+    {
+      "id": "chandran2014",
+      "rank": 10,
+      "authors": [
+        "Anushya Chandran",
+        "Vedika Khemani",
+        "S. L. Sondhi"
+      ],
+      "title": "How Universal Is the Entanglement Spectrum?",
+      "year": 2014,
+      "venue": "Physical Review Letters",
+      "volume": "113",
+      "article": "060501",
+      "doi": "10.1103/PhysRevLett.113.060501",
+      "relationship_type": "scope_caution",
+      "shared_concepts": [
+        "limits of entanglement-spectrum universality",
+        "limits of Renyi invariance",
+        "distinction between informative structure and formal invariants"
+      ],
+      "why_close": "Provides the necessary caution that informative entanglement-spectrum features need not be universal phase invariants.",
+      "project_adds": [
+        "an operationally defined metric-robust trajectory class",
+        "quantitative tests of robustness and failure",
+        "explicit nonclaims excluding formal topology and universality"
+      ],
+      "important_difference": "The project studies dynamical metric projections and does not claim a phase invariant, entanglement-Hamiltonian universality, or topological theorem.",
+      "retrieval_queries": [
+        "limits of entanglement spectrum universality",
+        "is entanglement spectrum a topological invariant",
+        "Renyi entropy not universal phase diagnostic"
+      ],
+      "url": "https://doi.org/10.1103/PhysRevLett.113.060501"
+    }
+  ]
+}
