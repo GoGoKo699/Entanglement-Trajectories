@@ -1,0 +1,273 @@
+{
+  "schema_version": "entanglement-trajectories-freeze-audit-statistics-1.0",
+  "audit_date": "2026-09-07",
+  "audited_base_commit": "88d8e420ee292359cb5fb6c10869534c9e59cb03",
+  "environment": {
+    "python": "3.11.15",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5"
+  },
+  "source_sha256": {
+    "src/entanglement_trajectories/robustness.py": "beede4e546179bc6d00a9f98fe2fd4a2b3284fe296a97385e71b8de9faf7fda6",
+    "analysis/analyze_metric_robustness.py": "e8cb3cd6757723f888ac4c0ed14e23610e8394136415cbb84ffef7b747bb377b",
+    "data/trajectory_observations.csv": "940d68a1dd865559a2b8a63145fc10411a2363e99e86004e8613defee59ef202",
+    "metadata/geometry_chronology_controls.json": "a3d1ae7497b0284425d7fc700e00fc0f1db8c1abc22d74b867bf6d242c74c85f"
+  },
+  "scope": {
+    "trajectory_rows": 5856,
+    "trajectories": 96,
+    "model_families": 4,
+    "conditions_per_model": 4,
+    "sizes": [
+      10,
+      12,
+      14,
+      16,
+      18,
+      20
+    ],
+    "selected_full_spectrum_runs": 5,
+    "selected_full_spectrum_transitions": 400
+  },
+  "historical_common_mode": {
+    "raw_pc1_explained": 0.9537884097754765,
+    "boundary_pc1_explained": 0.9026282298671149,
+    "boundary_pc2_explained": 0.09309760279391623,
+    "boundary_pc1_loadings": [
+      0.5953332516609564,
+      0.5449830041977367,
+      0.5903997328949278
+    ],
+    "boundary_pc2_loadings": [
+      0.34647835880885375,
+      -0.8371025379746986,
+      0.42333448689356945
+    ],
+    "boundary_pc1_cluster_bootstrap_ci95": [
+      0.8626128030927239,
+      0.9341235189039404
+    ],
+    "per_trajectory_pc1_median": 0.9475141487435563,
+    "per_trajectory_pc1_iqr": [
+      0.9154636848662878,
+      0.9650399152801113
+    ],
+    "per_trajectory_pc1_minimum": 0.5371338949212004,
+    "finite_boundary_rows": 5657,
+    "total_rows": 5856
+  },
+  "current_common_mode": {
+    "raw_pc1_explained": 0.9537884097754765,
+    "boundary_pc1_explained": 0.9026282301130131,
+    "boundary_pc2_explained": 0.09309760253251137,
+    "boundary_pc1_loadings": [
+      0.5953332515096298,
+      0.5449830043049584,
+      0.5903997329485456
+    ],
+    "boundary_pc2_loadings": [
+      0.3464783604001777,
+      -0.8371025380091122,
+      0.4233344855231002
+    ],
+    "boundary_pc1_cluster_bootstrap_ci95": [
+      0.8626128030949844,
+      0.9341235192885842
+    ],
+    "per_trajectory_resolved": 90,
+    "per_trajectory_total": 96,
+    "per_trajectory_scale_floor": 1e-10,
+    "per_trajectory_status_counts": {
+      "resolved": 90,
+      "unresolved_variation": 6
+    },
+    "per_trajectory_pc1_median": 0.9483959944036638,
+    "per_trajectory_pc1_iqr": [
+      0.9210996069758545,
+      0.9653541905315604
+    ],
+    "per_trajectory_pc1_minimum": 0.7540652326909661,
+    "finite_boundary_rows": 5657,
+    "total_rows": 5856
+  },
+  "unresolved_boundary_paths": [
+    {
+      "model": "qca",
+      "n": 10,
+      "run_id": "QCA_1",
+      "finite_points": 26,
+      "variation_status": "unresolved_variation",
+      "scale_floor": 1e-10
+    },
+    {
+      "model": "qca",
+      "n": 12,
+      "run_id": "QCA_1",
+      "finite_points": 36,
+      "variation_status": "unresolved_variation",
+      "scale_floor": 1e-10
+    },
+    {
+      "model": "qca",
+      "n": 14,
+      "run_id": "QCA_1",
+      "finite_points": 35,
+      "variation_status": "unresolved_variation",
+      "scale_floor": 1e-10
+    },
+    {
+      "model": "qca",
+      "n": 16,
+      "run_id": "QCA_1",
+      "finite_points": 48,
+      "variation_status": "unresolved_variation",
+      "scale_floor": 1e-10
+    },
+    {
+      "model": "qca",
+      "n": 18,
+      "run_id": "QCA_1",
+      "finite_points": 53,
+      "variation_status": "unresolved_variation",
+      "scale_floor": 1e-10
+    },
+    {
+      "model": "qca",
+      "n": 20,
+      "run_id": "QCA_1",
+      "finite_points": 65,
+      "variation_status": "unresolved_variation",
+      "scale_floor": 1e-10
+    }
+  ],
+  "current_pair_status_counts": {
+    "resolved": 270,
+    "unresolved_variation": 18
+  },
+  "historical_pair_statistics": [
+    {
+      "metric_a": "half_linear",
+      "metric_b": "half_logneg",
+      "clusters": 16,
+      "models": 4,
+      "resampling": "model-stratified design-cluster bootstrap",
+      "bootstrap_iterations": 3000,
+      "raw_spearman_cluster_mean": 0.9558888465406898,
+      "raw_spearman_ci_low": 0.9220246586722112,
+      "raw_spearman_ci_high": 0.9830468735719023,
+      "boundary_spearman_cluster_mean": 0.6922451746677301,
+      "boundary_spearman_ci_low": 0.6061712509824537,
+      "boundary_spearman_ci_high": 0.7668880672118888,
+      "boundary_rmse_cluster_mean": 0.1878287793829022,
+      "boundary_rmse_ci_low": 0.15700311058187746,
+      "boundary_rmse_ci_high": 0.21886462447554939,
+      "boundary_mae_cluster_mean": 0.16395195849614386,
+      "boundary_mae_ci_low": 0.13293187664781742,
+      "boundary_mae_ci_high": 0.19698769478092687
+    },
+    {
+      "metric_a": "half_vn",
+      "metric_b": "half_linear",
+      "clusters": 16,
+      "models": 4,
+      "resampling": "model-stratified design-cluster bootstrap",
+      "bootstrap_iterations": 3000,
+      "raw_spearman_cluster_mean": 0.9798006840975884,
+      "raw_spearman_ci_low": 0.9589837295067378,
+      "raw_spearman_ci_high": 0.9936201727274904,
+      "boundary_spearman_cluster_mean": 0.7593112466770355,
+      "boundary_spearman_ci_low": 0.6563739750904716,
+      "boundary_spearman_ci_high": 0.8484657937387818,
+      "boundary_rmse_cluster_mean": 0.2376074726923604,
+      "boundary_rmse_ci_low": 0.20160105072410986,
+      "boundary_rmse_ci_high": 0.27485927218087186,
+      "boundary_mae_cluster_mean": 0.21943219100766234,
+      "boundary_mae_ci_low": 0.1804325134006306,
+      "boundary_mae_ci_high": 0.2592104811510569
+    },
+    {
+      "metric_a": "half_vn",
+      "metric_b": "half_logneg",
+      "clusters": 16,
+      "models": 4,
+      "resampling": "model-stratified design-cluster bootstrap",
+      "bootstrap_iterations": 3000,
+      "raw_spearman_cluster_mean": 0.9875605595249874,
+      "raw_spearman_ci_low": 0.9786966303017353,
+      "raw_spearman_ci_high": 0.9946092619296366,
+      "boundary_spearman_cluster_mean": 0.9473411195443137,
+      "boundary_spearman_ci_low": 0.9116172793636892,
+      "boundary_spearman_ci_high": 0.9732555697010231,
+      "boundary_rmse_cluster_mean": 0.08831065072832672,
+      "boundary_rmse_ci_low": 0.0735002430086765,
+      "boundary_rmse_ci_high": 0.10178370509067884,
+      "boundary_mae_cluster_mean": 0.08135429138117665,
+      "boundary_mae_ci_low": 0.0672068476495891,
+      "boundary_mae_ci_high": 0.0944434435628532
+    }
+  ],
+  "current_pair_statistics": [
+    {
+      "metric_a": "half_linear",
+      "metric_b": "half_logneg",
+      "clusters": 16,
+      "models": 4,
+      "resampling": "model-stratified design-cluster bootstrap",
+      "bootstrap_iterations": 3000,
+      "raw_spearman_cluster_mean": 0.9558888465406898,
+      "raw_spearman_ci_low": 0.9220246586722112,
+      "raw_spearman_ci_high": 0.9830468735719023,
+      "boundary_spearman_cluster_mean": 0.7238935595038053,
+      "boundary_spearman_ci_low": 0.6671377494208303,
+      "boundary_spearman_ci_high": 0.7767891087997923,
+      "boundary_rmse_cluster_mean": 0.1878287791385836,
+      "boundary_rmse_ci_low": 0.1570031101035009,
+      "boundary_rmse_ci_high": 0.2188646244595862,
+      "boundary_mae_cluster_mean": 0.1639519582305821,
+      "boundary_mae_ci_low": 0.1329318761305867,
+      "boundary_mae_ci_high": 0.19698769473390323
+    },
+    {
+      "metric_a": "half_vn",
+      "metric_b": "half_linear",
+      "clusters": 16,
+      "models": 4,
+      "resampling": "model-stratified design-cluster bootstrap",
+      "bootstrap_iterations": 3000,
+      "raw_spearman_cluster_mean": 0.9798006840975884,
+      "raw_spearman_ci_low": 0.9589837295067378,
+      "raw_spearman_ci_high": 0.9936201727274904,
+      "boundary_spearman_cluster_mean": 0.8022340570279466,
+      "boundary_spearman_ci_low": 0.7309279868567737,
+      "boundary_spearman_ci_high": 0.8632727023595064,
+      "boundary_rmse_cluster_mean": 0.2376074726802504,
+      "boundary_rmse_ci_low": 0.2016010507117713,
+      "boundary_rmse_ci_high": 0.2748592721805123,
+      "boundary_mae_cluster_mean": 0.21943219098763314,
+      "boundary_mae_ci_low": 0.18043251340199098,
+      "boundary_mae_ci_high": 0.25921048110798156
+    },
+    {
+      "metric_a": "half_vn",
+      "metric_b": "half_logneg",
+      "clusters": 16,
+      "models": 4,
+      "resampling": "model-stratified design-cluster bootstrap",
+      "bootstrap_iterations": 3000,
+      "raw_spearman_cluster_mean": 0.9875605595249874,
+      "raw_spearman_ci_low": 0.9786966303017353,
+      "raw_spearman_ci_high": 0.9946092619296366,
+      "boundary_spearman_cluster_mean": 0.9629136420508497,
+      "boundary_spearman_ci_low": 0.9463367722920508,
+      "boundary_spearman_ci_high": 0.974840256442057,
+      "boundary_rmse_cluster_mean": 0.08831065049997677,
+      "boundary_rmse_ci_low": 0.07350024255768539,
+      "boundary_rmse_ci_high": 0.10178370509067881,
+      "boundary_mae_cluster_mean": 0.0813542911356483,
+      "boundary_mae_ci_low": 0.06720684715853241,
+      "boundary_mae_ci_high": 0.09444344355671497
+    }
+  ],
+  "interpretation": "Historical public tables are snapshots. Current per-path PCA and within-path correlations omit unresolved coordinate variation at std <= 1e-10. This convention is not a certified measurement error. Global PCA and geometry/chronology-control results are unchanged within numerical precision. Fine tied-rank descriptors remain sensitive to numerical ordering.",
+  "full_physical_n20_regenerated": false
+}

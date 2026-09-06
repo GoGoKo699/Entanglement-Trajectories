@@ -71,6 +71,8 @@ Random matrix theory enters only afterward, as a family of Haar/Wishart or spike
 
 ## What the follow-up study establishes
 
+The table and committed figures below preserve the v1.0.0 analysis snapshot. Current per-path PCA and correlation calculations exclude unresolved near-constant coordinates under a declared numerical floor; fine rank statistics need not reproduce old roundoff orderings. See [numerical foundations](docs/NUMERICAL_FOUNDATIONS.md#numerically-constant-paths-and-historical-summaries) and the [freeze audit](docs/FREEZE_AUDIT.md). The global common-mode and later chronology-control conclusions are unchanged.
+
 The included deterministic designed dataset contains 5,856 observations from 96 trajectories: four dynamical families, four declared conditions per family, and sizes $n=10,12,14,16,18,20$. The conditions are controlled examples, not independent draws from a population.
 
 | Controlled result | Value | Interpretation |

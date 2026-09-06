@@ -210,12 +210,38 @@ def fit_common_metric_mode(
     )
 
 
+def _variation_status(matrix: np.ndarray, scale_floor: float) -> str:
+    """Resolve variation on already complete rows, in coordinate units."""
+    if not math.isfinite(scale_floor) or scale_floor < 0.0:
+        raise ValueError("scale_floor must be finite and nonnegative.")
+    if matrix.shape[0] < 3:
+        return "insufficient_points"
+    if np.any(matrix.std(axis=0) <= scale_floor):
+        return "unresolved_variation"
+    return "resolved"
+
+
+def _resolved_spearman(x: np.ndarray, y: np.ndarray, scale_floor: float):
+    matrix = np.column_stack([x, y])
+    matrix = matrix[np.all(np.isfinite(matrix), axis=1)]
+    status = _variation_status(matrix, scale_floor)
+    value = _safe_spearman(matrix[:, 0], matrix[:, 1]) if status == "resolved" else float("nan")
+    return value, status
+
+
 def per_trajectory_common_mode_table(
     df,
     *,
     coordinate: Literal["raw", "boundary"] = "boundary",
+    scale_floor: float = 1e-10,
 ):
-    """Explained-variance ratios from separate standardized fits per trajectory."""
+    """Separate standardized fits only when every coordinate varies resolvably.
+
+    The declared floor is in normalized-coordinate units and matches the
+    chronology roughness convention. A near-constant coordinate produces NaN,
+    not a PCA of roundoff. Setting the floor to zero restores the unprotected
+    statistical convention, not the old numerical kernels or an accuracy claim.
+    """
     import pandas as pd
 
     validate_canonical_frame(df)
@@ -229,7 +255,8 @@ def per_trajectory_common_mode_table(
     for key, group in work.groupby(["model", "n", "run_id"], sort=True):
         matrix = group[columns].to_numpy(dtype=float)
         matrix = matrix[np.all(np.isfinite(matrix), axis=1)]
-        if matrix.shape[0] < 3 or np.any(matrix.std(axis=0) <= 0.0):
+        status = _variation_status(matrix, scale_floor)
+        if status != "resolved":
             explained = np.array([np.nan, np.nan, np.nan])
         else:
             standardized = (matrix - matrix.mean(axis=0)) / matrix.std(axis=0)
@@ -243,6 +270,8 @@ def per_trajectory_common_mode_table(
                 "run_id": key[2],
                 "coordinate": coordinate,
                 "finite_points": int(matrix.shape[0]),
+                "variation_status": status,
+                "scale_floor": float(scale_floor),
                 "pc1_explained": float(explained[0]),
                 "pc2_explained": float(explained[1]),
                 "pc3_explained": float(explained[2]),
@@ -251,8 +280,13 @@ def per_trajectory_common_mode_table(
     return pd.DataFrame(rows)
 
 
-def pairwise_metric_robustness(df):
-    """Within-trajectory rank agreement and exact-boundary separation."""
+def pairwise_metric_robustness(df, *, scale_floor: float = 1e-10):
+    """Within-path rank agreement where both coordinates vary resolvably.
+
+    Correlations use their pair-specific finite overlap and report the floor
+    and eligibility status. Absolute separation statistics remain available
+    for constant paths; only the unresolved correlation is omitted.
+    """
     import pandas as pd
 
     validate_canonical_frame(df)
@@ -266,6 +300,8 @@ def pairwise_metric_robustness(df):
             a_boundary = group[BOUNDARY_HEIGHT_COLUMNS[first]].to_numpy(dtype=float)
             b_boundary = group[BOUNDARY_HEIGHT_COLUMNS[second]].to_numpy(dtype=float)
             overlap = np.isfinite(a_boundary) & np.isfinite(b_boundary)
+            raw_rank, raw_status = _resolved_spearman(a_raw, b_raw, scale_floor)
+            boundary_rank, boundary_status = _resolved_spearman(a_boundary, b_boundary, scale_floor)
             rows.append(
                 {
                     "model": key[0],
@@ -273,8 +309,11 @@ def pairwise_metric_robustness(df):
                     "run_id": key[2],
                     "metric_a": first,
                     "metric_b": second,
-                    "raw_spearman": _safe_spearman(a_raw, b_raw),
-                    "boundary_spearman": _safe_spearman(a_boundary, b_boundary),
+                    "raw_spearman": raw_rank,
+                    "boundary_spearman": boundary_rank,
+                    "raw_variation_status": raw_status,
+                    "boundary_variation_status": boundary_status,
+                    "scale_floor": float(scale_floor),
                     "boundary_rmse": _nan_rms_distance(a_boundary, b_boundary),
                     "boundary_mae": float(
                         np.mean(np.abs(a_boundary[overlap] - b_boundary[overlap]))

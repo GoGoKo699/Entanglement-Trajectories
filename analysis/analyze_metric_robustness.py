@@ -727,6 +727,10 @@ def main() -> None:
             "boundary_pc1_loadings": [float(x) for x in boundary_fit.components[0]],
             "boundary_pc2_loadings": [float(x) for x in boundary_fit.components[1]],
             "boundary_pc1_cluster_bootstrap_ci95": common_modes["boundary_cluster_bootstrap"]["pc1_explained_ci95"],
+            "per_trajectory_resolved": int(per_boundary["pc1_explained"].notna().sum()),
+            "per_trajectory_total": int(len(per_boundary)),
+            "per_trajectory_scale_floor": 1e-10,
+            "per_trajectory_status_counts": per_boundary["variation_status"].value_counts().to_dict(),
             "per_trajectory_pc1_median": float(per_boundary["pc1_explained"].median()),
             "per_trajectory_pc1_iqr": [
                 float(per_boundary["pc1_explained"].quantile(0.25)),

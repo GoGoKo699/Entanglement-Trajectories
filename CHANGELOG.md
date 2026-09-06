@@ -1,5 +1,7 @@
 # Changelog
 
+- Freeze audit: report unresolved per-path variation instead of PCA or rank correlation of numerical noise; preserve and distinguish historical snapshots. 
+
 ## Unreleased: freeze audit
 
 - Validated boundary dimensions and XXZ refinement inputs before coercion; documented logarithm bases greater than one.
