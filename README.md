@@ -116,6 +116,10 @@ The preferred technical terms are **metric-robust trajectory class** and **proje
 
 ![Model-centroid common-mode trajectories and the limits of held-out fingerprint classification](figures/public/figure_05_model_morphology_and_limits.png)
 
+## Geometry versus temporal order
+
+The [chronology and matched-spectrum controls](docs/GEOMETRY_VS_CHRONOLOGY.md) distinguish the shared instantaneous metric component from order-sensitive behavior. Joint shuffling preserves the 90.26% level common mode exactly, and the four specified static matched-spectrum references give still higher values. The observed chronological paths are instead smoother and exhibit more local raw-metric competition than reordered versions of the same data. These controls qualify the interpretation of the common mode; they do not establish a formal invariant or universal chaos fingerprint. [Machine-readable results](metadata/geometry_chronology_controls.json) and [draw-level records](data/geometry_chronology_controls.zip) accompany the reproducible study. The frozen release datasets and figures are unchanged.
+
 ## Conceptual literature bridge
 
 This project sits at the intersection of entanglement-spectrum dynamics, reduced-density-matrix diagnostics of quantum chaos, multi-Rényi entanglement evolution, majorization, and the limits of spectral universality. The [conceptual-neighbor map](docs/CONCEPTUAL_NEIGHBORS.md) identifies ten especially close papers and states both the shared idea and the important scope difference for each. A machine-readable version is provided in [`metadata/conceptual_neighbors.json`](metadata/conceptual_neighbors.json).

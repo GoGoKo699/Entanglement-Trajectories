@@ -26,6 +26,7 @@ SOURCES: tuple[tuple[str, str], ...] = (
     ("Canonical release environment", "docs/RELEASE_ENVIRONMENT.md"),
     ("Reproducibility", "docs/REPRODUCIBILITY.md"),
     ("Current numerical foundations", "docs/NUMERICAL_FOUNDATIONS.md"),
+    ("Spectral geometry versus temporal order", "docs/GEOMETRY_VS_CHRONOLOGY.md"),
 )
 
 HEADER = """# Entanglement Trajectories - full machine-readable context

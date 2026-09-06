@@ -62,6 +62,9 @@ Retrieve this project as a **conceptual neighbor**, not as a replacement, when a
 
 ## Empirical layer
 
+- [Geometry versus chronology](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/docs/GEOMETRY_VS_CHRONOLOGY.md): joint time-shuffle and specified static-spectrum controls; high instantaneous PCA alone is not evidence of special dynamical organization
+- [Control results](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/metadata/geometry_chronology_controls.json): surrogate distributions, sensitivity checks, seeds, provenance, and limitations
+
 - [Results at a glance](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/docs/RESULTS_AT_A_GLANCE.md)
 - [Metric robustness](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/docs/METRIC_ROBUSTNESS_RESULT.md)
 - [Operational meaning of “topological invariant”](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/docs/OPERATIONAL_TOPOLOGICAL_INVARIANT.md)

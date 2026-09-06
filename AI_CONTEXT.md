@@ -145,3 +145,10 @@ Public repository edition: `1.0.0` (2026-08-20). Canonical repository name: `GoG
 ## Primary-source reference layer
 
 Use `REFERENCES.md` and `metadata/references.json` for foundational and conceptual references. Use `docs/CONCEPTUAL_NEIGHBORS.md` and `metadata/conceptual_neighbors.json` for the ten-paper literature bridge connecting entanglement-spectrum dynamics, multi-Rényi evolution, reduced-density-matrix chaos diagnostics, majorization, and spectral universality.
+
+
+## Geometry-versus-chronology control study
+
+The supplementary study in `docs/GEOMETRY_VS_CHRONOLOGY.md`, with numerical records in `metadata/geometry_chronology_controls.json`, separates instantaneous metric agreement from temporal organization. Level PCA is invariant under joint time reordering. Four specified independent fixed-(dimension, largest-eigenvalue) spectral references produce approximately 97.50% to 97.89% boundary-height PC1, exceeding the observed 90.26%. These are constructed reference laws, not Haar ensembles or uniform feasible-polytope samples. The empirical largest-eigenvalue path is retained; no causal partition of variance into geometry and dynamics is claimed.
+
+Observed paths are smoother and their adjacent raw entanglement increments compete more frequently than joint reorderings. Increment PC1 is not unusually high relative to those references, and relational-geometry effects vary by control and system size. A large common mode alone is therefore not a signature of dynamical universality. Majorization constrains any spectrum pair, irrespective of chronology. The control study is later repository evidence, not a result established in the 2024 paper; the frozen release values remain historical measurements rather than proof of temporal invariance. The archived original datasets and figures are not replaced.
