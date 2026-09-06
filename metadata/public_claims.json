@@ -120,7 +120,9 @@
       "scope": "96 included trajectories",
       "source_paths": [
         "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
-      ]
+      ],
+      "analysis_edition": "preserved v1.0.0 numerical snapshot",
+      "current_qualification": "Current per-path PCA and half-chain within-path correlations omit unresolved variation at standard deviation <= 1e-10. Historical values involving nearly constant paths or tied ranks are not precision guarantees for the current implementation. Consult metadata/freeze_audit_statistics.json and docs/NUMERICAL_FOUNDATIONS.md."
     },
     {
       "id": "PUB-EMP-003",
@@ -134,7 +136,9 @@
       "scope": "cluster means over the 16 model-condition runs",
       "source_paths": [
         "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
-      ]
+      ],
+      "analysis_edition": "preserved v1.0.0 numerical snapshot",
+      "current_qualification": "Current per-path PCA and half-chain within-path correlations omit unresolved variation at standard deviation <= 1e-10. Historical values involving nearly constant paths or tied ranks are not precision guarantees for the current implementation. Consult metadata/freeze_audit_statistics.json and docs/NUMERICAL_FOUNDATIONS.md."
     },
     {
       "id": "PUB-EMP-004",
@@ -244,7 +248,9 @@
         "metadata/common_mode_sensitivity.json",
         "docs/METRIC_ROBUSTNESS_RESULT.md"
       ],
-      "prohibited_overstatement": "Do not describe these reformulations as independent datasets or population replication. The first-difference common-mode fraction does not show unusually high chronological agreement relative to the later shuffle controls."
+      "prohibited_overstatement": "Do not describe these reformulations as independent datasets or population replication. The first-difference common-mode fraction does not show unusually high chronological agreement relative to the later shuffle controls.",
+      "analysis_edition": "preserved v1.0.0 numerical snapshot",
+      "current_qualification": "Current per-path PCA and half-chain within-path correlations omit unresolved variation at standard deviation <= 1e-10. Historical values involving nearly constant paths or tied ranks are not precision guarantees for the current implementation. Consult metadata/freeze_audit_statistics.json and docs/NUMERICAL_FOUNDATIONS.md."
     },
     {
       "id": "PUB-LIM-001",
