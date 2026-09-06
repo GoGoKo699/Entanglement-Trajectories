@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased - geometry-versus-chronology controls
+
+- Added joint, fixed-endpoint, within-window, and late-time chronology controls, plus four explicit dimension/largest-eigenvalue-matched spectrum references.
+- Distinguished instantaneous common-mode agreement from temporal smoothness and local metric competition; high PCA alone is not evidence of dynamical universality.
+- Added reproducible source, draw-level records, analytical permutation expectations, and independent sampler tests without replacing released data or figures.
+
 ## Unreleased - numerical foundations
 
 - Preserve the supplied largest eigenvalue and every positive extremizer remainder; share the canonical reciprocal convention with exact support bounds.

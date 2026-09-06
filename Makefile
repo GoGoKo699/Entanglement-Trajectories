@@ -1,4 +1,4 @@
-.PHONY: numerical-check help install release-env-check peer-review-check quick test metric-robustness xxz-convergence public-context public-figures public-validate public rebuild-included full clean-outputs
+.PHONY: geometry-chronology-controls numerical-check help install release-env-check peer-review-check quick test metric-robustness xxz-convergence public-context public-figures public-validate public rebuild-included full clean-outputs
 
 help:
 	@printf '%s\n' \
@@ -7,6 +7,7 @@ help:
 	  'make peer-review-check Verify the frozen peer-review release gates' \
 	  'make quick            Regenerate all n=10 trajectories and run tests' \
 	  'make test             Run scientific and independent numerical-accuracy tests' \
+	  'make geometry-chronology-controls Run joint shuffles and fixed-(d,p) references' \
 	  'make numerical-check  Audit fixed-p bounds and stable/release-v1 n=10 extraction' \
 	  'make metric-robustness Recompute the central robustness analysis' \
 	  'make xxz-convergence  Recompute the n=10,12,14 XXZ product-formula audit' \
@@ -60,3 +61,6 @@ clean-outputs:
 
 numerical-check:
 	python analysis/verify_numerical_foundations.py
+
+geometry-chronology-controls:
+	python analysis/run_geometry_chronology_controls.py
