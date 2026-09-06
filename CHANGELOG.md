@@ -1,5 +1,16 @@
 # Changelog
 
+- Freeze audit: report unresolved per-path variation instead of PCA or rank correlation of numerical noise; preserve and distinguish historical snapshots. 
+
+## Unreleased: freeze audit
+
+- Validated boundary dimensions and XXZ refinement inputs before coercion; documented logarithm bases greater than one.
+- Removed avoidable logarithmic-gap overflow and made normalized rank coordinates consistent at dimension one.
+- Added independent regression tests for these API cases.
+- Propagated the geometry-versus-chronology interpretation to the scientific entry documents.
+- Recomputed the control record with the hardened source while preserving raw release data, public figures, existing tags, and the scientific conclusions.
+
+
 ## Unreleased - geometry-versus-chronology controls
 
 - Added joint, fixed-endpoint, within-window, and late-time chronology controls, plus four explicit dimension/largest-eigenvalue-matched spectrum references.

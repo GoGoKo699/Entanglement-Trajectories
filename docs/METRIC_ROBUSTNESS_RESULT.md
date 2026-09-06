@@ -1,5 +1,7 @@
 # Quantitative result: metric-robust trajectory morphology
 
+> **Historical result with a later control.** High point-cloud or first-difference common-mode fractions alone do not identify exceptional temporal organization. Read [geometry versus chronology](GEOMETRY_VS_CHRONOLOGY.md) alongside these preserved descriptive results. Static matched references can have stronger agreement, and chronology does not improve path-distance agreement uniformly.
+
 ## Result in one sentence
 
 Across the tested pure-state dynamical families, three non-equivalent Schmidt-spectrum metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization, but the preservation is hierarchical rather than exact.

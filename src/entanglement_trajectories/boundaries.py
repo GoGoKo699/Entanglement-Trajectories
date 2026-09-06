@@ -74,6 +74,7 @@ def _canonical(metric_id: str) -> str:
         "vn": "von_neumann_entropy",
         "h1": "von_neumann_entropy",
         "h0": "hartley_entropy",
+        "rank": "schmidt_rank",
         "hhalf": "renyi_half",
         "h2": "renyi_two",
         "hinf": "min_entropy",
@@ -107,8 +108,8 @@ def _exact_zero_order_bounds(
     rank_lower, rank_upper = schmidt_rank_bounds_fixed_lmax(p, d, atol=atol)
     if key in {"hartley_entropy", "renyi_entropy"}:
         base = float(base)
-        if not np.isfinite(base) or base <= 0.0 or abs(base - 1.0) < 1e-15:
-            raise ValueError("Logarithm base must be positive and different from one.")
+        if not np.isfinite(base) or base <= 1.0:
+            raise ValueError("Entropy units require a finite base greater than one.")
         if normalized:
             if d <= 1:
                 lower = upper = 0.0
@@ -209,6 +210,9 @@ def metric_bounds_fixed_lmax(
     ``renyi_entropy`` and ``effective_rank``.  Zero-order support boundaries are
     evaluated analytically rather than inferred from a numerical threshold.
     """
+    # Validate the dimension before coercing it; never silently truncate 2.5.
+    validate_largest_value(1.0, d, atol=atol)
+    d = int(d)
     arr = np.asarray(p, dtype=np.float64)
     scalar = arr.ndim == 0
     flat = arr.reshape(-1)

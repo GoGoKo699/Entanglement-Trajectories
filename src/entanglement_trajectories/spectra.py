@@ -51,7 +51,7 @@ def normalize_spectrum(
 
 def validate_largest_value(p: float, d: int, *, atol: float = 1e-12) -> float:
     """Validate ``p=lambda_max`` for a ``d``-dimensional spectrum."""
-    if isinstance(d, bool) or int(d) != d or d < 1:
+    if isinstance(d, (bool, np.bool_)) or int(d) != d or d < 1:
         raise ValueError("d must be a positive integer.")
     d = int(d)
     p = float(p)

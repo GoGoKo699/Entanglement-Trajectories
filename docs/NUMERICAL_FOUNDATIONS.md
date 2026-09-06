@@ -220,6 +220,22 @@ its analytically exact power-of-two reciprocal knots remain exact. This fixes
 a plotting-grid rounding artifact rather than snapping user-supplied spectra;
 the public-data comparator retains its original tolerances.
 
+## Freeze-audit API domain
+
+The entropy and entanglement-energy APIs use finite logarithm bases greater than one, so their stated ranges and Schur directions remain valid. Fixed-p bounds validate a positive integer dimension before coercion. XXZ simulation rejects noninteger or nonpositive substep counts and nonpositive or nonfinite record intervals. Normalized support/effective-rank coordinates are zero in a one-dimensional Hilbert space; their unnormalized value remains one.
+
+The entanglement-Hamiltonian gap is evaluated as a difference of logarithms rather than a potentially overflowing ratio. A strictly positive represented second eigenvalue therefore has a finite logarithmic gap, even when the ratio exceeds floating-point range. Exact zero still gives infinity.
+
+These repairs do not change the supplied trajectories or the three metrics used in the control study. Extremely small positive Renyi orders remain sensitive to input rounding: separately rounded weights and a rounded largest eigenvalue can produce differences near a collapsed envelope. The input-error assessment, rather than a claim of arbitrary relative accuracy, governs that case.
+
+## Numerically constant paths and historical summaries
+
+Standardizing a coordinate whose variation is only numerical noise can produce arbitrary PCA fractions and rank correlations. Current per-trajectory PCA and half-chain within-trajectory Spearman calculations therefore declare a standard-deviation floor of `1e-10` in normalized-coordinate units, measured on each statistic's finite overlap. Unresolved cases return `NaN` with an eligibility status and the chosen floor. This is a numerical-resolution convention, not a proof that every smaller physical change is zero. `scale_floor=0` is an explicit unprotected option. Absolute metric separation remains reported.
+
+This matters for the Clifford-reference QCA boundary paths, where nearly constant entropies must not be converted into standardized roundoff. The global point-cloud PCA and the later chronology controls are unaffected by this change. The chronology roughness already used this floor. Historical archived per-path minima, correlations, and fine-descriptor ranks are retained as snapshots, not certified precision estimates.
+
+A fresh included-data analysis uses the current numerical kernels and the declared resolution floor. It is not required to reproduce all secondary v1.0.0 rank statistics exactly. Even before the floor is applied, recomputing very small or tied descriptor values can reorder them; the archived minimum per-path PCA changed from about 0.537 to 0.429 when roundoff was standardized. Neither is meaningful for those unresolved paths. Current tables expose eligibility rather than presenting such minima as scientific evidence. The frozen headline table remains historical, while current analysis tables and source provenance are written to `outputs/rebuild/`.
+
 ## 6. Reproduction
 
 ```bash

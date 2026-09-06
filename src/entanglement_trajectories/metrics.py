@@ -15,8 +15,8 @@ from .spectra import normalize_spectrum
 
 def _validate_base(base: float) -> float:
     base = float(base)
-    if not np.isfinite(base) or base <= 0.0 or abs(base - 1.0) < 1e-15:
-        raise ValueError("Logarithm base must be positive and different from one.")
+    if not np.isfinite(base) or base <= 1.0:
+        raise ValueError("Entropy and entanglement-energy units require a finite base greater than one.")
     return base
 
 
@@ -53,7 +53,9 @@ def schmidt_rank(
     """
     p = normalize_spectrum(lam, atol=atol)
     rank = _exact_support_size(p)
-    if not normalized or p.size <= 1:
+    if normalized and p.size <= 1:
+        return 0.0
+    if not normalized:
         return rank
     return float((rank - 1.0) / (p.size - 1.0))
 
@@ -83,7 +85,9 @@ def numerical_schmidt_rank(
     if cutoff >= float(p[0]):
         raise ValueError("The numerical-rank threshold removes the largest eigenvalue.")
     rank = int(np.count_nonzero(p > cutoff))
-    if not normalized or p.size <= 1:
+    if normalized and p.size <= 1:
+        return 0.0
+    if not normalized:
         return rank
     return float((rank - 1.0) / (p.size - 1.0))
 
@@ -299,7 +303,9 @@ def effective_rank(
     else:
         # Avoid underflow of sum(p**q) at large finite q.
         value = math.exp(renyi_entropy(p, q, base=math.e, atol=atol))
-    if not normalized or p.size <= 1:
+    if normalized and p.size <= 1:
+        return 0.0
+    if not normalized:
         return float(value)
     return float((value - 1.0) / (p.size - 1.0))
 
@@ -369,11 +375,15 @@ def entanglement_hamiltonian_gap(
     ``zero_tol``.  This is the gap between the two lowest entanglement energies
     ``xi_i=-log(lambda_i)``.
     """
+    base = _validate_base(base)
+    if not math.isfinite(zero_tol) or zero_tol < 0.0:
+        raise ValueError("zero_tol must be finite and nonnegative.")
     p = normalize_spectrum(lam, atol=atol)
     second = float(p[1]) if p.size > 1 else 0.0
     if second <= zero_tol:
         return math.inf
-    return float(_log_base(float(p[0] / second), base))
+    # A finite log gap must not overflow just because lambda_1/lambda_2 does.
+    return (math.log(float(p[0])) - math.log(second)) / math.log(base)
 
 
 def metric_value(

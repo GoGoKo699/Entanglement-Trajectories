@@ -379,8 +379,13 @@ def build_evolver(run: ModelRun, n: int) -> Evolver:
     if run.model == "quantum_baker":
         return BakerEvolver(n=n, perturb_phase=baker_perturb_phase(n, float(p["epsilon"])))
     if run.model == "random_field_xxz":
-        substeps = int(p.get("trotter_substeps", XXZ_TROTTER_SUBSTEPS))
+        substeps = p.get("trotter_substeps", XXZ_TROTTER_SUBSTEPS)
+        if isinstance(substeps, (bool, np.bool_)) or not isinstance(substeps, (int, np.integer)) or substeps < 1:
+            raise ValueError("trotter_substeps must be a positive integer.")
+        substeps = int(substeps)
         dt_record = float(p.get("dt_record", DT_RECORD_XXZ))
+        if not math.isfinite(dt_record) or dt_record <= 0.0:
+            raise ValueError("dt_record must be finite and positive.")
         dt = dt_record / substeps
         fields = xxz_disorder_fields(run, n)
         return XXZEvolver(

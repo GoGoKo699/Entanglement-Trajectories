@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0.0",
   "repository_version": "1.0.0",
-  "updated_on": "2026-08-20",
-  "canonical_claim": "For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. Across the tested dynamical families, three non-equivalent metric classes share a dominant exact-boundary-normalized trajectory mode and preserve substantial relational morphology. The preservation is hierarchical rather than exact, and local contradictions occur on majorization-incomparable spectral steps. This supports an empirical metric-robust trajectory class, not a formal topological invariant or universal individual-run fingerprint.",
+  "updated_on": "2026-09-07",
+  "canonical_claim": "For fixed-cut bipartite pure-state dynamics, standard spectrum-based entanglement measures are nonlinear projections of one Schmidt-spectrum path. The tested metrics share a dominant instantaneous common component and descriptive cross-metric morphology. A large point-cloud common mode is not by itself evidence of temporal organization: joint row reordering leaves it unchanged, and the declared matched-spectrum references have higher agreement. Chronological paths are smoother and have more local raw-metric disagreements than the specified reorderings. Disagreement is constrained by majorization incomparability. This is scoped finite-data evidence, not a formal topological invariant, universal chaos diagnostic, or universal individual-run fingerprint.",
   "claims": [
     {
       "id": "PUB-DEF-001",
@@ -110,7 +110,7 @@
         "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json",
         "data/public_analysis_inputs.zip::common_metric_modes.json"
       ],
-      "prohibited_overstatement": "Do not call this exact metric equivalence or a universal invariant."
+      "prohibited_overstatement": "Do not call this exact metric equivalence, a universal invariant, or evidence of temporal organization by itself. This is the preserved v1.0.0 snapshot; later controls use the repaired numerical implementation."
     },
     {
       "id": "PUB-EMP-002",
@@ -120,7 +120,9 @@
       "scope": "96 included trajectories",
       "source_paths": [
         "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
-      ]
+      ],
+      "analysis_edition": "preserved v1.0.0 numerical snapshot",
+      "current_qualification": "Current per-path PCA and half-chain within-path correlations omit unresolved variation at standard deviation <= 1e-10. Historical values involving nearly constant paths or tied ranks are not precision guarantees for the current implementation. Consult metadata/freeze_audit_statistics.json and docs/NUMERICAL_FOUNDATIONS.md."
     },
     {
       "id": "PUB-EMP-003",
@@ -134,7 +136,9 @@
       "scope": "cluster means over the 16 model-condition runs",
       "source_paths": [
         "data/public_analysis_inputs.zip::metric_robustness_scientific_summary.json"
-      ]
+      ],
+      "analysis_edition": "preserved v1.0.0 numerical snapshot",
+      "current_qualification": "Current per-path PCA and half-chain within-path correlations omit unresolved variation at standard deviation <= 1e-10. Historical values involving nearly constant paths or tied ranks are not precision guarantees for the current implementation. Consult metadata/freeze_audit_statistics.json and docs/NUMERICAL_FOUNDATIONS.md."
     },
     {
       "id": "PUB-EMP-004",
@@ -244,7 +248,9 @@
         "metadata/common_mode_sensitivity.json",
         "docs/METRIC_ROBUSTNESS_RESULT.md"
       ],
-      "prohibited_overstatement": "Do not describe these reformulations as independent datasets or population replication."
+      "prohibited_overstatement": "Do not describe these reformulations as independent datasets or population replication. The first-difference common-mode fraction does not show unusually high chronological agreement relative to the later shuffle controls.",
+      "analysis_edition": "preserved v1.0.0 numerical snapshot",
+      "current_qualification": "Current per-path PCA and half-chain within-path correlations omit unresolved variation at standard deviation <= 1e-10. Historical values involving nearly constant paths or tied ranks are not precision guarantees for the current implementation. Consult metadata/freeze_audit_statistics.json and docs/NUMERICAL_FOUNDATIONS.md."
     },
     {
       "id": "PUB-LIM-001",
@@ -354,6 +360,38 @@
         "docs/LIMITATIONS.md",
         "data/spectra_selected_n20.zip"
       ]
+    },
+    {
+      "id": "PUB-CONTROL-001",
+      "status": "exact",
+      "statement": "Joint row permutation leaves the centered covariance and standardized point-cloud principal-component fractions unchanged.",
+      "scope": "the same complete metric tuples and fixed missing-value support",
+      "source_paths": [
+        "docs/GEOMETRY_VS_CHRONOLOGY.md",
+        "src/entanglement_trajectories/controls.py"
+      ]
+    },
+    {
+      "id": "PUB-CONTROL-002",
+      "status": "empirical_control",
+      "statement": "The four declared dimension- and largest-eigenvalue-matched reference generators produce higher point-cloud common-mode fractions than the observed data.",
+      "scope": "Constructed gamma-water-fill and extremizer-segment reference distributions, not uniform-polytope or Haar samples. They do not match locality, conservation laws, purity, or rank.",
+      "source_paths": [
+        "docs/GEOMETRY_VS_CHRONOLOGY.md",
+        "metadata/geometry_chronology_controls.json"
+      ],
+      "prohibited_overstatement": "This does not establish a universal geometric lower bound on common-mode variance or quantify a causal fraction due to dynamics."
+    },
+    {
+      "id": "PUB-CONTROL-003",
+      "status": "empirical_control",
+      "statement": "The chronological paths are smoother and have more locally competing raw metric increments than the specified joint, endpoint-preserving, and within-window reorderings; path-distance agreement is not uniformly improved by chronology.",
+      "scope": "Designed finite-size dataset under the declared masks, thresholds and reference policies; exploratory later repository evidence, not a result of the 2024 article.",
+      "source_paths": [
+        "docs/GEOMETRY_VS_CHRONOLOGY.md",
+        "metadata/geometry_chronology_controls.json"
+      ],
+      "prohibited_overstatement": "No universal chronology-enhanced fingerprint, chaos certificate, population significance, or formal topological invariant is established."
     }
   ],
   "required_nonclaims": [
@@ -366,6 +404,9 @@
     "Entropy magnitude alone certifies simulation cost, computational usefulness, or quantum advantage.",
     "The current atlas is a universal individual-run classifier.",
     "All named metrics in the package are independent.",
-    "A threshold-dependent numerical Schmidt rank is not the exact Hartley entropy."
+    "A threshold-dependent numerical Schmidt rank is the exact Hartley entropy.",
+    "A high point-cloud PCA fraction by itself demonstrates temporal organization.",
+    "The constructed fixed-largest-eigenvalue references are Haar states or uniform capped-simplex samples.",
+    "Chronology improves cross-metric classification or path-distance agreement universally."
   ]
 }

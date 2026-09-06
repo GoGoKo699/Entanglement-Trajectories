@@ -50,9 +50,9 @@
   "implementation_sha256": {
     "analysis/run_geometry_chronology_controls.py": "b6341e320c8cf31f0d27a48375b4a6561c9aa9fa8ee395de4631b115a84e70a5",
     "src/entanglement_trajectories/controls.py": "0db50f97c7033b1afeafdc577b86127e6201d1fae53c7149508b647ee3bc034b",
-    "src/entanglement_trajectories/boundaries.py": "c950e9e258cf43de2fccc4824da9938162e39916565d9093fd0e1d569ff39f70",
-    "src/entanglement_trajectories/metrics.py": "3cdaa8e404849c0fae40e10e1a46b9cd1dab9a896a4a1572b0069811329b9cef",
-    "src/entanglement_trajectories/spectra.py": "541cac648f65ae439758337fe9cbb2ee01ddafb5883aebc6bb20b1fc1ac40fcb"
+    "src/entanglement_trajectories/boundaries.py": "369c07643f8dd1774127e237fe831e42fbebc66161cb6607438cb79383c2f97b",
+    "src/entanglement_trajectories/metrics.py": "2733f2e157a3eaeb28f3baf72c48de9d95cdeac2bdbeeb5488cac1ce57013373",
+    "src/entanglement_trajectories/spectra.py": "d856c4ef8df9da81dc599a9c597f5fc18c8b643fbba6b86eccf9419db3413a74"
   },
   "chronology": {
     "joint": {
@@ -1680,11 +1680,12 @@
     }
   },
   "preservation": {
-    "file_count": 23,
+    "file_count": 24,
     "all_unchanged": true,
     "input_hashes": {
       "data/public_analysis_inputs.zip": "f50591d2a8129ec88484ee33414e11da552260c2d0e9bbfa25c27adf6083e5c2",
       "data/trajectory_observations.csv": "940d68a1dd865559a2b8a63145fc10411a2363e99e86004e8613defee59ef202",
+      "data/geometry_chronology_controls.zip": "5c3e3a91d3e62f2384f139f73dbf2b23b85c4b9ccc4ef50fdd268928c85c8eb6",
       "data/spectra_selected_n20.zip": "1193202290b488cf3621b2c816be6a338166dadd916ee210d92d2f6559047fb8",
       "data/README.md": "72210e79e78f4e87919e97bbae4fd86af06bc5f941599f4907e49408b8fedbc9",
       "data/xxz_convergence_n10_n12_n14.zip": "0b579066f7a69699c730210d6b062189b70101928f92da71b9825a206b344d0f",
