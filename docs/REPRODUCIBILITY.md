@@ -64,6 +64,8 @@ This workflow:
 4. regenerates the analysis figures under `outputs/rebuild/`;
 5. rebuilds the five public figures and validates the repository.
 
+Fresh analyses use the current corrected fixed-p kernels. They are new recomputations, not byte-identical replacements for old boundary coordinates. The small numerical differences and the separate uncertainty-screened view are quantified in [Numerical foundations](NUMERICAL_FOUNDATIONS.md).
+
 The classification and resampling analyses are intentionally more expensive than the public-figure workflow.
 For a fast end-to-end workflow check, reduce only the resampling counts, for example `BOOTSTRAP=20 MANTEL_PERMUTATIONS=10 make rebuild-included`; the release-level quantitative tables use the documented default counts of 3,000 and 1,000.
 
@@ -73,7 +75,7 @@ For a fast end-to-end workflow check, reduce only the resampling counts, for exa
 make quick
 ```
 
-This regenerates all 16 runs at $n=10$, compares the result with the included canonical table, and runs the complete test suite. Outputs are written under `outputs/quick/`.
+This regenerates all 16 runs at $n=10$ with explicit `extraction_method="release-v1"`, compares against the preserved table, and runs the complete test suite. This is historical compatibility, not a numerical-accuracy oracle. Outputs are written under `outputs/quick/`. For stable-versus-historical comparisons and independent accuracy checks, run `make numerical-check`.
 
 ### Level 5 — Full state-vector regeneration
 
@@ -81,11 +83,11 @@ This regenerates all 16 runs at $n=10$, compares the result with the included ca
 make full
 ```
 
-This runs the deterministic trajectory workflow at $n=10,12,14,16,18,20$. The $n=20$ dense state-vector simulations can require substantial memory and runtime. Included-data reconstruction is the normal verification path.
+This runs the deterministic trajectory workflow at $n=10,12,14,16,18,20$ with stable extraction. Generated CSV files have a companion extraction-method record. The CLI default output is under `outputs/current/`, not the curated input table. The $n=20$ dense state-vector simulations can require substantial memory and runtime. Included-data reconstruction is the normal verification path.
 
 ## Canonical inputs and metadata
 
-The current source of truth is:
+The preserved source of truth for the reported v1.0.0 numerical evidence is:
 
 - `data/trajectory_observations.csv` — 5,856 canonical scalar observations;
 - `data/spectra_selected_n20.zip` — five selected complete-spectrum reruns;
@@ -99,14 +101,16 @@ The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata ar
 
 ## Numerical conventions
 
-- Reduced spectra are sorted and normalized before metric evaluation.
+- Reduced spectra are sorted and normalized before metric evaluation. Stable extraction uses a Bloch-vector/hypot formula away from purity, direct two-row SVD near purity, and direct half-chain SVD.
+- Logarithmic negativity can be evaluated directly from unsquared Schmidt coefficients, without forming a Gram matrix. No numerical support threshold is introduced.
+- The fixed-p extremizer retains positive remainders. Only exact equality to the canonical float `1.0/k` denotes a reciprocal point; adjacent floats are not snapped.
 - Tiny negative eigenvalues caused by numerical diagonalization are handled by the canonical spectrum validator.
 - Exact fixed-$\lambda_{\max}$ boundaries are evaluated pointwise rather than interpolated from a plotting grid.
-- Collapsed feasible envelopes return an undefined relative coordinate rather than an arbitrary zero or one.
+- Collapsed feasible envelopes return an undefined relative coordinate rather than an arbitrary zero or one. `relative_boundary_height` is a point evaluation. `assess_boundary_height` additionally screens explicitly supplied input-error budgets and returns an unresolved coordinate when the propagated denominator interval overlaps zero.
 - The balanced Marchenko–Pastur CDF uses its corrected analytic expression.
 - Majorization tests state their numerical tolerance explicitly.
-- Pure-state logarithmic negativity, equivalent here to the Rényi-$1/2$ sector, is especially sensitive to tiny numerical Schmidt tails near product states. In the canonical locked CI, the largest observed half-chain difference from the archived table is $8.299\times10^{-9}$; the release regression therefore uses an absolute tolerance of $2\times10^{-8}$ for the one-site and half-chain logarithmic-negativity coordinates. This is a numerical-tail stability allowance on normalized quantities, not a scientific uncertainty interval.
-- The one-site geometric coordinate depends directly on a leading reduced-density-matrix eigenvalue. In the canonical CPython 3.11.15 / NumPy 2.4.6 hosted regression, its maximum absolute difference from the archived table is $2.449\times10^{-9}$. The release test therefore uses an absolute tolerance of $5\times10^{-9}$ for that coordinate only. This is a numerical-backend tolerance on a normalized quantity, not a scientific uncertainty interval.
+- Pure-state logarithmic negativity, equivalent here to the Rényi-$1/2$ sector, is especially sensitive to tiny numerical Schmidt tails near product states. For explicit historical `release-v1` extraction in the original locked CI, the largest observed half-chain difference from the archived table is $8.299\times10^{-9}$; the release regression therefore uses an absolute tolerance of $2\times10^{-8}$ for the one-site and half-chain logarithmic-negativity coordinates. This is a numerical-tail stability allowance on normalized quantities, not a scientific uncertainty interval.
+- In the preserved determinant-based extraction, the one-site geometric coordinate can amplify roundoff near equal eigenvalues. Stable extraction removes this cancellation. The following thresholds apply only to historical compatibility, not to accuracy: In the canonical CPython 3.11.15 / NumPy 2.4.6 hosted regression, its maximum absolute difference from the archived table is $2.449\times10^{-9}$. The release test therefore uses an absolute tolerance of $5\times10^{-9}$ for that coordinate only. This is a numerical-backend tolerance on a normalized quantity, not a scientific uncertainty interval.
 
 ## Release identity
 

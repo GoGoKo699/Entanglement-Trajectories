@@ -7,6 +7,8 @@ dynamical study supplies deterministic paths through this common space.
 from .aggregates import mean_cut_metric, meyer_wallach_q
 from .boundaries import (
     Bounds,
+    BoundaryHeightAssessment,
+    assess_boundary_height,
     DegenerateEnvelopeError,
     boundary_curve,
     metric_bounds_fixed_lmax,
@@ -21,7 +23,7 @@ from .dataset import (
     legacy_to_canonical,
     read_trajectory_csv,
 )
-from .dynamics import half_chain_spectrum, initialize_state, single_qubit_spectra
+from .dynamics import half_chain_spectrum, half_chain_schmidt_coefficients, initialize_state, single_qubit_spectra
 from .metrics import (
     effective_rank,
     entanglement_hamiltonian_gap,
@@ -32,6 +34,7 @@ from .metrics import (
     i_tangle,
     linear_entropy,
     log_negativity_pure,
+    log_negativity_from_schmidt_coefficients,
     metric_value,
     min_entropy,
     negativity_pure,
@@ -90,6 +93,8 @@ from .spectra import (
 __all__ = [
     "BOUNDARY_HEIGHT_COLUMNS",
     "Bounds",
+    "BoundaryHeightAssessment",
+    "assess_boundary_height",
     "CommonModeFit",
     "HALF_METRICS",
     "ONE_SITE_AGGREGATES",
@@ -118,6 +123,8 @@ __all__ = [
     "hartley_entropy",
     "haar_reference_targets",
     "half_chain_spectrum",
+    "half_chain_schmidt_coefficients",
+    "log_negativity_from_schmidt_coefficients",
     "i_concurrence",
     "i_tangle",
     "initialize_state",

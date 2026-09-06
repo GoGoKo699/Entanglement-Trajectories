@@ -92,6 +92,8 @@ def simulate_half_metrics(n: int, run_id: str, substeps: int) -> pd.DataFrame:
                 "step": int(step),
                 "tau": float(step / n),
                 "trotter_substeps": int(substeps),
+                "extraction_method": "stable",
+                "numerical_implementation": "numerical-foundations-2026-09-06",
                 **metrics_from_spectrum(spectrum),
             }
         )

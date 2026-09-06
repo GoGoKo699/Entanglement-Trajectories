@@ -172,8 +172,19 @@ def state_norm(psi: np.ndarray) -> float:
     return float(np.vdot(psi, psi).real)
 
 
-def single_qubit_spectra(psi: np.ndarray, n: int) -> np.ndarray:
-    """Return ordered spectra of all one-qubit reductions, shape ``(n,2)``."""
+def single_qubit_spectra(
+    psi: np.ndarray, n: int, *, extraction_method: str = "stable"
+) -> np.ndarray:
+    """Ordered one-qubit spectra, shape ``(n,2)``.
+
+    Stable extraction uses a Bloch-vector hypot near equal eigenvalues and
+    direct 2-by-environment SVD near purity. Neither branch drops a tail.
+    ``release-v1`` is the preserved determinant algorithm for checking the
+    archived scalar table, not the numerical-accuracy reference.
+    """
+    psi = _validated_state(psi, n)
+    if extraction_method not in {"stable", "release-v1"}:
+        raise ValueError("extraction_method must be 'stable' or 'release-v1'.")
     norm2 = state_norm(psi)
     if norm2 <= 0.0:
         raise ValueError("State has zero norm.")
@@ -187,14 +198,39 @@ def single_qubit_spectra(psi: np.ndarray, n: int) -> np.ndarray:
         rho00 = float(np.vdot(a0, a0).real) / norm2
         rho11 = float(np.vdot(a1, a1).real) / norm2
         rho01 = np.vdot(a1, a0) / norm2
-        det = float(np.clip(rho00 * rho11 - abs(rho01) ** 2, 0.0, 0.25))
-        delta = math.sqrt(max(0.0, 1.0 - 4.0 * det))
-        out[q] = (0.5 * (1.0 + delta), 0.5 * (1.0 - delta))
+        if extraction_method == "release-v1":
+            det = float(np.clip(rho00 * rho11 - abs(rho01) ** 2, 0.0, 0.25))
+            delta = math.sqrt(max(0.0, 1.0 - 4.0 * det))
+            out[q] = (0.5 * (1.0 + delta), 0.5 * (1.0 - delta))
+        else:
+            trace = rho00 + rho11
+            delta = math.hypot(rho00 - rho11, 2.0 * abs(rho01)) / trace
+            if delta < 0.5:
+                # No near-equal subtraction and neither eigenvalue is tiny.
+                out[q] = (0.5 * (1.0 + delta), 0.5 * (1.0 - delta))
+            else:
+                # A complementary-eigenvalue subtraction is poorly
+                # conditioned near purity. SVD preserves the small value.
+                matrix = np.vstack((a0.ravel(), a1.ravel())) / math.sqrt(norm2)
+                singular = np.linalg.svd(matrix, compute_uv=False)
+                singular /= math.sqrt(math.fsum(float(x) ** 2 for x in singular))
+                out[q] = singular ** 2
     return out
 
 
-def half_chain_spectrum(psi: np.ndarray, n: int) -> np.ndarray:
-    """Ordered reduced spectrum for the lower-half balanced cut."""
+def half_chain_spectrum(
+    psi: np.ndarray, n: int, *, extraction_method: str = "stable"
+) -> np.ndarray:
+    """Ordered lower-half spectrum, using direct SVD by default.
+
+    ``release-v1`` retains the Gram-matrix eigensolver solely for historical
+    snapshot comparisons. Exact support cannot be inferred from roundoff tails.
+    """
+    if extraction_method == "stable":
+        return half_chain_schmidt_coefficients(psi, n) ** 2
+    if extraction_method != "release-v1":
+        raise ValueError("extraction_method must be 'stable' or 'release-v1'.")
+    psi = _validated_state(psi, n)
     if n < 2:
         raise ValueError("n must be at least 2.")
     m = n // 2
@@ -355,3 +391,31 @@ def build_evolver(run: ModelRun, n: int) -> Evolver:
             substeps=substeps,
         )
     raise ValueError(f"Unknown model: {run.model!r}")
+
+
+def _validated_state(psi: np.ndarray, n: int) -> np.ndarray:
+    """Validate state shape and finite nonzero norm without changing it."""
+    if isinstance(n, bool) or not isinstance(n, (int, np.integer)) or n < 1:
+        raise ValueError("n must be a positive integer.")
+    psi = np.asarray(psi, dtype=np.complex128 if np.iscomplexobj(psi) else np.float64)
+    if psi.shape != (1 << n,) or not np.all(np.isfinite(psi)):
+        raise ValueError(f"psi must be a finite vector of shape {(1 << n,)}.")
+    norm2 = state_norm(psi)
+    if not math.isfinite(norm2) or norm2 <= 0.0:
+        raise ValueError("State must have a finite positive squared norm.")
+    return psi
+
+
+def half_chain_schmidt_coefficients(psi: np.ndarray, n: int) -> np.ndarray:
+    """Descending UNSQUARED coefficients from direct coefficient-matrix SVD.
+
+    The lower floor(n/2) qubits form subsystem A. Squared coefficients sum
+    to one to floating-point accuracy. No positive singular value is clipped.
+    """
+    psi = _validated_state(psi, n)
+    if n < 2:
+        raise ValueError("n must be at least 2.")
+    matrix = psi.reshape(1 << (n - n // 2), 1 << (n // 2)).T
+    singular = np.linalg.svd(matrix / math.sqrt(state_norm(psi)), compute_uv=False)
+    singular /= math.sqrt(math.fsum(float(x) ** 2 for x in singular))
+    return singular

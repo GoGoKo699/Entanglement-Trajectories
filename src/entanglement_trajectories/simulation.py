@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from collections.abc import Iterable, Iterator
+import json
+import platform
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +14,7 @@ from .dataset import CANONICAL_COLUMNS, SCHEMA_VERSION, canonical_to_legacy
 from .dynamics import (
     build_evolver,
     half_chain_spectrum,
+    half_chain_schmidt_coefficients,
     initialize_state,
     single_qubit_spectra,
     state_norm,
@@ -20,6 +23,7 @@ from .metrics import (
     geometric_entanglement_linear,
     linear_entropy,
     log_negativity_pure,
+    log_negativity_from_schmidt_coefficients,
     min_entropy,
     von_neumann_entropy,
 )
@@ -58,10 +62,26 @@ def one_site_mean_metrics(spectra: np.ndarray) -> dict[str, float]:
     }
 
 
-def all_observables(psi: np.ndarray, n: int) -> dict[str, float]:
-    one_site = single_qubit_spectra(psi, n)
-    half = half_chain_spectrum(psi, n)
-    return {**one_site_mean_metrics(one_site), **metrics_from_spectrum(half)}
+def _half_observables(psi: np.ndarray, n: int, extraction_method: str):
+    if extraction_method == "stable":
+        coefficients = half_chain_schmidt_coefficients(psi, n)
+        spectrum = coefficients ** 2
+        metrics = metrics_from_spectrum(spectrum)
+        metrics["half_logneg"] = log_negativity_from_schmidt_coefficients(
+            coefficients, normalized=True
+        )
+    else:
+        spectrum = half_chain_spectrum(psi, n, extraction_method=extraction_method)
+        metrics = metrics_from_spectrum(spectrum)
+    return spectrum, metrics
+
+
+def all_observables(
+    psi: np.ndarray, n: int, *, extraction_method: str = "stable"
+) -> dict[str, float]:
+    one_site = single_qubit_spectra(psi, n, extraction_method=extraction_method)
+    _, half_metrics = _half_observables(psi, n, extraction_method)
+    return {**one_site_mean_metrics(one_site), **half_metrics}
 
 
 def iter_run_observations(
@@ -71,8 +91,11 @@ def iter_run_observations(
     max_steps: int | None = None,
     measure_every: int = 1,
     save_spectra: bool = False,
+    extraction_method: str = "stable",
 ) -> Iterator[tuple[dict[str, Any], np.ndarray | None]]:
     """Yield canonical rows and optional half-chain spectra for one trajectory."""
+    if extraction_method not in {"stable", "release-v1"}:
+        raise ValueError("extraction_method must be 'stable' or 'release-v1'.")
     if n < 2 or measure_every < 1:
         raise ValueError("n must be at least two and measure_every at least one.")
     total_steps = 4 * n if max_steps is None else int(max_steps)
@@ -85,7 +108,7 @@ def iter_run_observations(
 
     for step in range(total_steps + 1):
         if step % measure_every == 0:
-            spectrum = half_chain_spectrum(psi, n)
+            spectrum, half_metrics = _half_observables(psi, n, extraction_method)
             row = {
                 "schema_version": SCHEMA_VERSION,
                 "model": run.model,
@@ -97,8 +120,8 @@ def iter_run_observations(
                 "tau": float(step / n),
                 "initial_state_seed": init_seed,
                 "disorder_seed": field_seed,
-                **one_site_mean_metrics(single_qubit_spectra(psi, n)),
-                **metrics_from_spectrum(spectrum),
+                **one_site_mean_metrics(single_qubit_spectra(psi, n, extraction_method=extraction_method)),
+                **half_metrics,
             }
             yield row, spectrum.copy() if save_spectra else None
         if step < total_steps:
@@ -117,6 +140,7 @@ def simulate_frame(
     max_steps: int | None = None,
     measure_every: int = 1,
     verbose: bool = False,
+    extraction_method: str = "stable",
 ):
     """Simulate selected runs and return a canonical pandas DataFrame."""
     import pandas as pd
@@ -137,14 +161,17 @@ def simulate_frame(
                     max_steps=max_steps,
                     measure_every=measure_every,
                     save_spectra=False,
+                    extraction_method=extraction_method,
                 )
             )
     if not rows:
         raise ValueError("No trajectories selected.")
-    frame = pd.DataFrame(rows)
-    return frame.loc[:, CANONICAL_COLUMNS].sort_values(
+    frame = pd.DataFrame(rows).loc[:, CANONICAL_COLUMNS].sort_values(
         ["n", "model", "run_id", "step"]
     ).reset_index(drop=True)
+    frame.attrs["extraction_method"] = extraction_method
+    frame.attrs["numerical_implementation"] = "numerical-foundations-2026-09-06"
+    return frame
 
 
 def write_simulation(
@@ -159,4 +186,17 @@ def write_simulation(
         canonical_to_legacy(frame).to_csv(output, index=False, float_format="%.17g")
     else:
         frame.loc[:, CANONICAL_COLUMNS].to_csv(output, index=False, float_format="%.17g")
+    record = {
+        "schema_version": "entanglement-trajectories-extraction-provenance-1",
+        "extraction_method": frame.attrs.get("extraction_method", "unspecified"),
+        "numerical_implementation": frame.attrs.get("numerical_implementation", "unspecified"),
+        "python": platform.python_version(),
+        "numpy": np.__version__,
+        "rows": int(len(frame)),
+        "legacy_schema": bool(legacy_schema),
+        "note": "New calculation; does not replace the archived v1.0.0 evidence.",
+    }
+    output.with_suffix(output.suffix + ".metadata.json").write_text(
+        json.dumps(record, indent=2) + "\n", encoding="utf-8"
+    )
     return output

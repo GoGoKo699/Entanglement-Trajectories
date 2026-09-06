@@ -1,0 +1,320 @@
+{
+  "schema_version": "entanglement-trajectories-numerical-foundations-1",
+  "date": "2026-09-06",
+  "base_commit": "c58576bc188d603d4f6e03f4225954d3599a2d05",
+  "implementation": "numerical-foundations-2026-09-06",
+  "environment": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.41"
+  },
+  "scope": "numerical foundations only; no chronology or matched-spectrum null tests",
+  "near_product_extremizer": {
+    "p": 0.99999999999999,
+    "dimension": 1024,
+    "first_two": [
+      0.99999999999999,
+      9.992007221626409e-15
+    ],
+    "hartley_lower": 1.0,
+    "renyi_lower_bits": {
+      "0.01": 0.7940603097433246,
+      "0.1": 0.06257390380002302,
+      "0.25": 0.0006080759334403359,
+      "0.5": 2.8842364487905325e-07
+    }
+  },
+  "one_qubit_equal_weight_test": {
+    "target_largest": 0.50000001,
+    "stable_largest": 0.50000001,
+    "release_v1_largest": 0.5000000129047841
+  },
+  "product_n14": {
+    "stable": {
+      "one_site_mean_vn": 7.128400319573211e-29,
+      "one_site_mean_linear": 2.8759864519263903e-30,
+      "one_site_mean_logneg": 1.961876058161538e-15,
+      "one_site_mean_geometric_linear": 0.0,
+      "half_vn": 7.706802854322604e-31,
+      "half_linear": 1.030867532060019e-31,
+      "half_logneg": 2.7169489213542955e-16,
+      "half_geometric_linear": 0.0,
+      "half_lambda_max": 1.0,
+      "half_min_entropy": -0.0
+    },
+    "release_v1": {
+      "one_site_mean_vn": 3.803360893029739e-15,
+      "one_site_mean_linear": 2.854859206178973e-16,
+      "one_site_mean_logneg": 1.378117152560447e-08,
+      "one_site_mean_geometric_linear": 1.427429603089487e-16,
+      "half_vn": 4.0268507948039416e-14,
+      "half_linear": 1.0694234948734966e-14,
+      "half_logneg": 1.596613450282284e-07,
+      "half_geometric_linear": 5.3710317033834344e-15,
+      "half_lambda_max": 0.9999999999999947,
+      "half_min_entropy": 1.0983176584508319e-15
+    }
+  },
+  "all_5856_boundary_check": {
+    "rows": 5856,
+    "decimal_digits": 70,
+    "frozen_pc1_fraction": 0.9026282298671149,
+    "corrected_float": {
+      "pc1_fraction": 0.9026282301130131,
+      "complete_rows": 5657
+    },
+    "independent_decimal": {
+      "pc1_fraction": 0.9026282301130129,
+      "complete_rows": 5657
+    },
+    "float_vs_decimal_pc1_difference": 2.220446049250313e-16,
+    "float_vs_frozen_pc1_difference": 2.4589819069831265e-10,
+    "max_absolute_bound_errors": {
+      "half_vn": 6.661338147750939e-16,
+      "half_linear": 3.3306690738754696e-16,
+      "half_logneg": 4.440892098500626e-16
+    },
+    "max_absolute_height_errors": {
+      "half_vn": 2.220446049250313e-15,
+      "half_linear": 2.475797344914099e-13,
+      "half_logneg": 1.9993708437549123e-15
+    },
+    "finite_masks_match": true,
+    "screening_allowances": {
+      "p_error": 5e-13,
+      "value_error": {
+        "half_vn": 5e-13,
+        "half_linear": 5e-13,
+        "half_logneg": 2e-07
+      },
+      "boundary_error": 1e-13,
+      "max_height_error": 0.01,
+      "status": "illustrative conservative screening allowances, NOT certified error bounds or confidence intervals"
+    },
+    "screening_counts": [
+      {
+        "metric": "half_linear",
+        "status": "degenerate_envelope",
+        "rows": 199
+      },
+      {
+        "metric": "half_linear",
+        "status": "resolved",
+        "rows": 5657
+      },
+      {
+        "metric": "half_logneg",
+        "status": "degenerate_envelope",
+        "rows": 140
+      },
+      {
+        "metric": "half_logneg",
+        "status": "resolved",
+        "rows": 5657
+      },
+      {
+        "metric": "half_logneg",
+        "status": "uncertainty_overlaps_collapsed_envelope",
+        "rows": 59
+      },
+      {
+        "metric": "half_vn",
+        "status": "degenerate_envelope",
+        "rows": 199
+      },
+      {
+        "metric": "half_vn",
+        "status": "resolved",
+        "rows": 5657
+      }
+    ],
+    "screened_point_cloud": {
+      "pc1_fraction": 0.9026282301130131,
+      "complete_rows": 5657
+    },
+    "screening_note": "Not substituted for archived inference; this is an additional conditioning sensitivity check."
+  },
+  "n10_regeneration": {
+    "rows": 656,
+    "trajectories": 16,
+    "stable_vs_release_v1": [
+      {
+        "metric": "one_site_mean_vn",
+        "max_absolute_difference": 3.2705895344792842e-15,
+        "mean_absolute_difference": 1.6198694310602713e-16,
+        "rms_difference": 3.07576036642534e-16,
+        "worst_run": "XXZ_4",
+        "worst_step": 0
+      },
+      {
+        "metric": "one_site_mean_linear",
+        "max_absolute_difference": 2.4424906541753444e-15,
+        "mean_absolute_difference": 1.9144577522194772e-16,
+        "rms_difference": 3.0963483671838067e-16,
+        "worst_run": "QCA_1",
+        "worst_step": 38
+      },
+      {
+        "metric": "one_site_mean_logneg",
+        "max_absolute_difference": 1.4979943378740867e-08,
+        "mean_absolute_difference": 8.725301548280029e-11,
+        "rms_difference": 9.189566638883896e-10,
+        "worst_run": "XXZ_4",
+        "worst_step": 0
+      },
+      {
+        "metric": "one_site_mean_geometric_linear",
+        "max_absolute_difference": 4.5530294756623846e-08,
+        "mean_absolute_difference": 7.589538411013863e-10,
+        "rms_difference": 4.855072455586114e-09,
+        "worst_run": "QCA_1",
+        "worst_step": 20
+      },
+      {
+        "metric": "half_vn",
+        "max_absolute_difference": 4.8147811523325216e-15,
+        "mean_absolute_difference": 4.2923987590382207e-16,
+        "rms_difference": 8.48628694198792e-16,
+        "worst_run": "KI_4",
+        "worst_step": 0
+      },
+      {
+        "metric": "half_linear",
+        "max_absolute_difference": 1.2212453270876722e-15,
+        "mean_absolute_difference": 1.9142550512826697e-16,
+        "rms_difference": 2.617037629296263e-16,
+        "worst_run": "XXZ_3",
+        "worst_step": 2
+      },
+      {
+        "metric": "half_logneg",
+        "max_absolute_difference": 3.676970128812407e-08,
+        "mean_absolute_difference": 1.7547401465274217e-09,
+        "rms_difference": 5.289563138551489e-09,
+        "worst_run": "QCA_4",
+        "worst_step": 0
+      },
+      {
+        "metric": "half_geometric_linear",
+        "max_absolute_difference": 1.1657341758564144e-15,
+        "mean_absolute_difference": 1.6585512358554337e-16,
+        "rms_difference": 2.282389614303883e-16,
+        "worst_run": "QCA_3",
+        "worst_step": 6
+      },
+      {
+        "metric": "half_lambda_max",
+        "max_absolute_difference": 1.1102230246251565e-15,
+        "mean_absolute_difference": 1.6902976308603279e-16,
+        "rms_difference": 2.2898894782158703e-16,
+        "worst_run": "QCA_3",
+        "worst_step": 6
+      },
+      {
+        "metric": "half_min_entropy",
+        "max_absolute_difference": 6.661338147750939e-16,
+        "mean_absolute_difference": 1.2565501077619544e-16,
+        "rms_difference": 1.729843497763433e-16,
+        "worst_run": "KI_4",
+        "worst_step": 25
+      }
+    ],
+    "stable_vs_archived_data": [
+      {
+        "metric": "one_site_mean_vn",
+        "max_absolute_difference": 3.8074966812512835e-15,
+        "mean_absolute_difference": 2.0366690937529358e-16,
+        "rms_difference": 3.494768117234519e-16,
+        "worst_run": "XXZ_4",
+        "worst_step": 0
+      },
+      {
+        "metric": "one_site_mean_linear",
+        "max_absolute_difference": 2.4424906541753444e-15,
+        "mean_absolute_difference": 2.2804420953219014e-16,
+        "rms_difference": 3.386354317229817e-16,
+        "worst_run": "QCA_1",
+        "worst_step": 38
+      },
+      {
+        "metric": "one_site_mean_logneg",
+        "max_absolute_difference": 1.3789167204117807e-08,
+        "mean_absolute_difference": 1.0693725348872528e-10,
+        "rms_difference": 9.9299327701799e-10,
+        "worst_run": "XXZ_4",
+        "worst_step": 0
+      },
+      {
+        "metric": "one_site_mean_geometric_linear",
+        "max_absolute_difference": 4.5530294756623846e-08,
+        "mean_absolute_difference": 7.589537271808262e-10,
+        "rms_difference": 4.855072463645606e-09,
+        "worst_run": "QCA_1",
+        "worst_step": 20
+      },
+      {
+        "metric": "half_vn",
+        "max_absolute_difference": 5.0858835980449075e-15,
+        "mean_absolute_difference": 4.493648674889719e-16,
+        "rms_difference": 8.371526968723271e-16,
+        "worst_run": "KI_4",
+        "worst_step": 0
+      },
+      {
+        "metric": "half_linear",
+        "max_absolute_difference": 9.992007221626409e-16,
+        "mean_absolute_difference": 1.9569141197782582e-16,
+        "rms_difference": 2.624550169672944e-16,
+        "worst_run": "XXZ_3",
+        "worst_step": 5
+      },
+      {
+        "metric": "half_logneg",
+        "max_absolute_difference": 3.985427020963426e-08,
+        "mean_absolute_difference": 1.750405616702815e-09,
+        "rms_difference": 5.296643298076411e-09,
+        "worst_run": "QCA_4",
+        "worst_step": 0
+      },
+      {
+        "metric": "half_geometric_linear",
+        "max_absolute_difference": 1.0547118733938987e-15,
+        "mean_absolute_difference": 1.878873742160627e-16,
+        "rms_difference": 2.533230517996317e-16,
+        "worst_run": "QCA_3",
+        "worst_step": 6
+      },
+      {
+        "metric": "half_lambda_max",
+        "max_absolute_difference": 1.1102230246251565e-15,
+        "mean_absolute_difference": 1.871068510155716e-16,
+        "rms_difference": 2.4842114140727386e-16,
+        "worst_run": "QCA_3",
+        "worst_step": 6
+      },
+      {
+        "metric": "half_min_entropy",
+        "max_absolute_difference": 9.992007221626409e-16,
+        "mean_absolute_difference": 1.6479449108625769e-16,
+        "rms_difference": 2.264641547285789e-16,
+        "worst_run": "KI_4",
+        "worst_step": 25
+      }
+    ],
+    "comparison_role": "drift containment; analytical tests, not historical tails, define accuracy"
+  },
+  "preserved_data_and_figure_files": {
+    "count": 23,
+    "all_hashes_unchanged": true
+  },
+  "checks_passed": true,
+  "test_suite": {
+    "new_numerical_cases": 85,
+    "existing_cases": 79,
+    "total_cases": 164,
+    "local_result": "164 passed",
+    "local_log": "recorded in the separate verification-evidence package",
+    "locked_hosted_result": "pending upload and CI on the new commit"
+  }
+}

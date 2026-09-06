@@ -1,5 +1,7 @@
 # Release QA
 
+> **Historical release record.** This document records the earlier release assembly. The later [numerical-foundations update](NUMERICAL_FOUNDATIONS.md) corrects additional kernel edge cases and separates accuracy tests from snapshot compatibility. The archived tables below are preserved; they are not a claim that the original tests covered every numerical edge case or that external journal peer review was performed.
+
 ## Release identity
 
 - **Repository:** `GoGoKo699/Entanglement-Trajectories`
