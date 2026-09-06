@@ -238,6 +238,10 @@ This repository concerns pure-state dynamics, specified bipartitions or explicit
 
 The complete public nonclaim list is maintained in [AI_CONTEXT.md](AI_CONTEXT.md) and [Limitations](docs/LIMITATIONS.md).
 
+## Freeze-audit record
+
+The [September 2026 frozen-scope audit](docs/FREEZE_AUDIT.md) records the numerical/API checks, interpretation updates, and explicit limits of the rerun. It does not substitute automated checks for external peer review or extend the scope of the 2024 article.
+
 ## Repository-edition status
 
 Version `1.0.0` is the corrected public repository edition. It freezes the exact mathematical layer, the repaired follow-up computation, the quantitative metric-robustness result, the paper-correction record, and the human/AI discovery layer. A narrow formal journal corrigendum remains recommended, but none has yet been submitted.

@@ -23,13 +23,17 @@ The family of these projections is the **entanglement-trajectory atlas**.
 
 ## Central claim for the upgraded repository
 
-Standard bipartite pure-state entanglement measures are nonlinear projections of a common Schmidt-spectrum path. Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, three non-equivalent metric classes share a dominant common trajectory mode and preserve substantial relational morphology after exact-boundary normalization. The preservation is hierarchical rather than exact, and local metric contradictions reveal internal spectral redistribution that no single scalar measure captures.
+Standard bipartite pure-state entanglement measures are nonlinear projections of a common Schmidt-spectrum path. Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, three non-equivalent metric classes share a dominant instantaneous common mode and substantial descriptive cross-metric morphology after exact-boundary normalization. The later chronology controls separate this point-cloud agreement from temporal organization: the observed paths are smoother and contain more local raw-metric disagreements than the specified reorderings, but unusually high common-mode variance is not a dynamical discriminator. The preservation is hierarchical rather than exact, and local metric contradictions reveal internal spectral redistribution that no single scalar measure captures.
 
 This claim has three distinct parts:
 
 1. **Exact common origin.** The fixed-cut measures considered here are functions of the same spectrum.
 2. **Empirical robustness.** Coarse trajectory morphology and the relative geometry among tested model families persist across several metric projections.
-3. **Permitted disagreement.** Different metrics can contradict one another locally, especially when successive spectra are incomparable by majorization.
+3. **Permitted disagreement.** Schur-concave metrics can contradict one another locally only when the spectrum pair is incomparable by majorization (subject to the declared numerical tolerances). Incomparability permits, but does not require, disagreement.
+
+## Interpretation after the chronology controls
+
+The historical common-mode percentage and classifier results remain descriptive evidence, not proofs of special temporal structure. Joint reordering preserves point-cloud PCA exactly; four constructed fixed-(d,p) references exhibit still higher agreement. Temporal smoothness and excess local metric competition survive the stated controls. The path-distance benefit is not uniform across sizes or order-preserving surrogates. See [geometry versus chronology](docs/GEOMETRY_VS_CHRONOLOGY.md) for the full comparison, including negative controls and limitations. These are later repository findings, not results already demonstrated in the 2024 journal article.
 
 ## Quantitative status of the follow-up study
 

@@ -220,6 +220,14 @@ its analytically exact power-of-two reciprocal knots remain exact. This fixes
 a plotting-grid rounding artifact rather than snapping user-supplied spectra;
 the public-data comparator retains its original tolerances.
 
+## Freeze-audit API domain
+
+The entropy and entanglement-energy APIs use finite logarithm bases greater than one, so their stated ranges and Schur directions remain valid. Fixed-p bounds validate a positive integer dimension before coercion. XXZ simulation rejects noninteger or nonpositive substep counts and nonpositive or nonfinite record intervals. Normalized support/effective-rank coordinates are zero in a one-dimensional Hilbert space; their unnormalized value remains one.
+
+The entanglement-Hamiltonian gap is evaluated as a difference of logarithms rather than a potentially overflowing ratio. A strictly positive represented second eigenvalue therefore has a finite logarithmic gap, even when the ratio exceeds floating-point range. Exact zero still gives infinity.
+
+These repairs do not change the supplied trajectories or the three metrics used in the control study. Extremely small positive Renyi orders remain sensitive to input rounding: separately rounded weights and a rounded largest eigenvalue can produce differences near a collapsed envelope. The input-error assessment, rather than a claim of arbitrary relative accuracy, governs that case.
+
 ## 6. Reproduction
 
 ```bash

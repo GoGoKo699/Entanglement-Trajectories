@@ -1,5 +1,7 @@
 # Scientific Overview
 
+> **Interpretation update.** The common-mode percentage describes an instantaneous point cloud. The later [geometry-versus-chronology study](GEOMETRY_VS_CHRONOLOGY.md) separates that agreement from temporal smoothness and local metric competition. It does not establish a universal chronology-enhanced fingerprint. The historical numerical results below are preserved.
+
 ## 1. Why another representation of entanglement?
 
 Entanglement is not naturally one-dimensional. Even for a fixed bipartition of a pure state, the reduced density matrix has a complete ordered spectrum. A scalar entanglement measure compresses that spectrum according to a chosen sensitivity: the leading eigenvalue, the bulk, the tail, or a weighted mixture.
