@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased - numerical foundations
+
+- Preserve the supplied largest eigenvalue and every positive extremizer remainder; share the canonical reciprocal convention with exact support bounds.
+- Use stable one-site extraction and direct half-chain SVD by default; retain an explicit `release-v1` extraction mode for archived-snapshot compatibility.
+- Evaluate small-order/near-one Rényi entropy, high-order effective rank, and near-product linear entropy without the previous cancellation or underflow.
+- Add input-error screening for boundary-relative heights, 85 analytical/high-precision tests, and a reproducible 5,856-row/656-observation verification command.
+- Preserve the released datasets, figures, claim records, dependency locks, and `v1.0.0` tag. New calculations are labeled separately; no release version is created by this maintenance overlay.
+
 ## Unreleased — conceptual literature discovery
 
 - Added a ten-paper conceptual-neighbor map linking the project to entanglement-spectrum dynamics, multi-Rényi evolution, reduced-density-matrix chaos diagnostics, majorization, and spectral-universality literature.

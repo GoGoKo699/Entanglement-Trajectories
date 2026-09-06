@@ -423,8 +423,14 @@ def build_social_preview() -> None:
 def build_figure_02() -> None:
     """Exact metric arenas using normalized min entropy as shared x coordinate."""
     d = 1024
-    x = np.linspace(0.0, 1.0, 1401)
-    p = np.exp(-x * np.log(d))
+    # Generate the declared logarithmic grid directly in base two. For
+    # d=2**10, indices 140, 280, ... have integer binary exponents, so their
+    # exact reciprocal knots stay exact. exp(-x*log(d)) can put those points
+    # one ulp below the knot and introduce a genuine small positive remainder.
+    # This fixes the grid construction; arbitrary supplied p is never snapped.
+    indices = np.arange(1401, dtype=float)
+    x = indices / 1400.0
+    p = np.exp2(-(indices * np.log2(d)) / 1400.0)
     specs = [
         ("von_neumann_entropy", "half_vn", r"von Neumann entropy $H_1$"),
         ("linear_entropy", "half_linear", r"linear entropy / $H_2$ class"),

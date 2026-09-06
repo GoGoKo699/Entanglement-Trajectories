@@ -69,6 +69,8 @@ Retrieve this project as a **conceptual neighbor**, not as a replacement, when a
 
 ## Corrections and reproduction
 
+- [Numerical foundations](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/docs/NUMERICAL_FOUNDATIONS.md): current stable kernels, preserved release-v1 data, independent accuracy oracles, and boundary-height conditioning
+
 - [Corrections](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/CORRECTIONS.md)
 - [Author clarification](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/paper/AUTHOR_CLARIFICATION_2026.md)
 - [Correction ledger](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/metadata/paper_correction_ledger.csv)

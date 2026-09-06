@@ -137,6 +137,8 @@ Read the [correction summary](CORRECTIONS.md), the [author clarification](paper/
 
 ## Reproduce the results
 
+**Current numerical implementation.** New simulations use stable spectrum extraction. The data and figures committed here remain the preserved `v1.0.0` evidence; they are not silently replaced by new calculations. See [Numerical foundations](docs/NUMERICAL_FOUNDATIONS.md) for independent accuracy tests, the explicit historical-compatibility mode, and conditioning limits of boundary-relative coordinates. Run `make numerical-check` for the full maintenance verification.
+
 Python 3.10 or later is supported for development. The canonical `v1.0.0` numerical release uses CPython 3.11.15 and exact dependency locks documented in [Canonical release environment](docs/RELEASE_ENVIRONMENT.md).
 
 Standard development installation:

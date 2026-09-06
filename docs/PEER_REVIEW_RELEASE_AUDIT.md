@@ -1,5 +1,7 @@
 # Peer-Review Release Audit
 
+> **Historical release record.** This document records the earlier release assembly. The later [numerical-foundations update](NUMERICAL_FOUNDATIONS.md) corrects additional kernel edge cases and separates accuracy tests from snapshot compatibility. The archived tables below are preserved; they are not a claim that the original tests covered every numerical edge case or that external journal peer review was performed.
+
 ## Verdict
 
 **Scientific release recommendation: GO, conditional on one green run of the locked `repository-qa` workflow on the final uploaded commit and application of the remaining GitHub discovery settings.**

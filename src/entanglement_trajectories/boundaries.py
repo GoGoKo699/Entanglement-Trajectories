@@ -255,8 +255,10 @@ def relative_boundary_height(
 ) -> float | np.ndarray:
     """Map a metric value to its relative position between exact fixed-p bounds.
 
-    A collapsed envelope does not define a relative height.  The default is to
-    return ``NaN`` rather than silently assigning an arbitrary endpoint.
+    A collapsed envelope does not define a relative height. The default is to
+    return ``NaN`` rather than silently assigning an arbitrary endpoint. This
+    is an algebraic point evaluation, not an uncertainty check. Use
+    :func:`assess_boundary_height` for noisy spectrum/metric inputs.
     """
     p_arr, v_arr = np.broadcast_arrays(np.asarray(p, dtype=float), np.asarray(value, dtype=float))
     bounds = metric_bounds_fixed_lmax(
@@ -321,3 +323,105 @@ def boundary_curve(
         "lower_extremizer": bounds.lower_extremizer,
         "upper_extremizer": bounds.upper_extremizer,
     }
+
+
+@dataclass(frozen=True)
+class BoundaryHeightAssessment:
+    """A scalar height and conservative input-error screening record.
+
+    ``height`` is the point estimate without clipping. ``usable_height`` is
+    NaN unless the propagated interval fits the requested error budget.
+    Reliability is conditional on the supplied input and boundary error
+    allowances; it is not a statistical confidence interval or a proof of
+    floating-point error bounds.
+    """
+
+    height: float
+    usable_height: float
+    interval_lower: float
+    interval_upper: float
+    max_abs_error: float
+    envelope_width: float
+    reliable: bool
+    status: str
+
+
+def assess_boundary_height(
+    metric_id: str,
+    p: float,
+    value: float,
+    d: int,
+    *,
+    p_error: float,
+    value_error: float,
+    q: float | None = None,
+    normalized_metric: bool = False,
+    base: float = 2.0,
+    max_height_error: float = 0.01,
+    boundary_error: float = 1e-13,
+    atol: float = 1e-12,
+) -> BoundaryHeightAssessment:
+    """Screen a boundary coordinate under explicitly declared error budgets.
+
+    For Schur-concave entropy/effective-rank metrics both extremal envelopes
+    are nonincreasing with p. Their endpoint ranges enclose the denominator
+    and numerator for p +/- p_error and value +/- value_error. A rectangular
+    interval calculation is deliberately conservative: errors are not assumed
+    independent, Gaussian, or anticorrelated. If the denominator interval
+    includes zero, the height is unresolved regardless of its point estimate.
+
+    The default boundary_error is a numerical allowance, not an automatically
+    certified solver error. No spectrum or raw metric value is modified, and
+    this function does not change the archived study's masks or statistics.
+    """
+    key = _canonical(metric_id)
+    if key not in _SCHUR_CONCAVE:
+        raise ValueError("Error screening is implemented for Schur-concave metric envelopes only.")
+    for name, error in [("p_error", p_error), ("value_error", value_error),
+                        ("max_height_error", max_height_error), ("boundary_error", boundary_error)]:
+        if not math.isfinite(error) or error < 0:
+            raise ValueError(f"{name} must be finite and nonnegative.")
+    if base <= 1 or not math.isfinite(base):
+        raise ValueError("Error screening requires a logarithm base greater than one.")
+    p = validate_largest_value(p, d, atol=atol)
+    value = float(value)
+    bounds = metric_bounds_fixed_lmax(key, p, d, q=q, normalized=normalized_metric, base=base, atol=atol)
+    width = float(bounds.upper - bounds.lower)
+    height = relative_boundary_height(key, p, value, d, q=q,
+                                     normalized_metric=normalized_metric, base=base, atol=atol)
+
+    def unresolved(status):
+        return BoundaryHeightAssessment(height, math.nan, math.nan, math.nan,
+                                        math.inf, width, False, status)
+
+    if not math.isfinite(value):
+        return unresolved("nonfinite_metric")
+    if not math.isfinite(height) or width <= 0:
+        return unresolved("degenerate_envelope")
+    lo = max(1.0 / d, math.nextafter(p - p_error, -math.inf)) if p_error else p
+    hi = min(1.0, math.nextafter(p + p_error, math.inf)) if p_error else p
+    b_lo = metric_bounds_fixed_lmax(key, lo, d, q=q, normalized=normalized_metric, base=base, atol=atol)
+    b_hi = metric_bounds_fixed_lmax(key, hi, d, q=q, normalized=normalized_metric, base=base, atol=atol)
+    # Monotonic envelope ranges, with a declared evaluation error allowance.
+    lower_min = float(b_hi.lower) - boundary_error
+    lower_max = float(b_lo.lower) + boundary_error
+    upper_min = float(b_hi.upper) - boundary_error
+    upper_max = float(b_lo.upper) + boundary_error
+    if value + value_error < lower_min or value - value_error > upper_max:
+        return unresolved("incompatible_input_intervals")
+    denominator_min = upper_min - lower_max
+    denominator_max = upper_max - lower_min
+    if denominator_min <= 0 or not math.isfinite(denominator_max):
+        return unresolved("uncertainty_overlaps_collapsed_envelope")
+    numerator_min = value - value_error - lower_max
+    numerator_max = value + value_error - lower_min
+    ratios = [n / den for n in (numerator_min, numerator_max)
+              for den in (denominator_min, denominator_max)]
+    interval_lower = math.nextafter(min(ratios), -math.inf)
+    interval_upper = math.nextafter(max(ratios), math.inf)
+    error = max(abs(height - interval_lower), abs(height - interval_upper))
+    reliable = error <= max_height_error
+    return BoundaryHeightAssessment(
+        height, height if reliable else math.nan, interval_lower, interval_upper,
+        error, width, reliable, "resolved" if reliable else "height_error_exceeds_budget"
+    )

@@ -15,13 +15,14 @@ from entanglement_trajectories.simulation import DEFAULT_SYSTEM_SIZES, simulate_
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--out", type=Path, default=Path("data/trajectory_observations.csv"))
+    parser.add_argument("--out", type=Path, default=Path("outputs/current/trajectory_observations.csv"))
     parser.add_argument("--sizes", nargs="*", type=int, default=list(DEFAULT_SYSTEM_SIZES))
     parser.add_argument("--models", nargs="*", default=list(MODEL_ORDER))
     parser.add_argument("--run-ids", nargs="*", default=None)
     parser.add_argument("--max-steps", type=int, default=None)
     parser.add_argument("--measure-every", type=int, default=1)
     parser.add_argument("--legacy-schema", action="store_true")
+    parser.add_argument("--extraction-method", choices=["stable", "release-v1"], default="stable")
     args = parser.parse_args()
 
     frame = simulate_frame(
@@ -31,6 +32,7 @@ def main() -> None:
         max_steps=args.max_steps,
         measure_every=args.measure_every,
         verbose=True,
+        extraction_method=args.extraction_method,
     )
     path = write_simulation(frame, args.out, legacy_schema=args.legacy_schema)
     print(path)

@@ -143,14 +143,25 @@ def renyi_entropy(
         value = hartley_entropy(p, base=base, normalized=False, atol=atol)
     elif math.isinf(q):
         value = -float(_log_base(float(p[0]), base))
-    elif abs(q - 1.0) <= 1e-10:
+    elif q == 1.0:
         value = von_neumann_entropy(p, base=base, normalized=False, atol=atol)
     else:
         nz = p[p > 0.0]
-        log_terms = q * np.log(nz)
-        m = float(np.max(log_terms))
-        ln_sum = m + math.log(float(np.sum(np.exp(log_terms - m))))
-        value = ln_sum / ((1.0 - q) * math.log(_validate_base(base)))
+        logs = np.log(nz)
+        if abs(q - 1.0) < 0.01:
+            # sum(p**q) = 1 + sum(p * expm1((q-1)*log(p))).
+            # Unlike subtracting log(sum(p**q)) from zero, this has a stable
+            # q -> 1 limit and does not silently substitute a nearby order.
+            offset = math.fsum(float(x) for x in nz * np.expm1((q - 1.0) * logs))
+            entropy_nats = math.log1p(offset) / (1.0 - q)
+        else:
+            # Isolate the leading contribution so sub-ulp tail sums survive
+            # near a product state; divide before multiplying for large q.
+            leading_log = float(logs[0])
+            with np.errstate(over="ignore", under="ignore"):
+                tail = math.fsum(float(x) for x in np.exp(q * (logs[1:] - leading_log)))
+            entropy_nats = (q / (1.0 - q)) * leading_log + math.log1p(tail) / (1.0 - q)
+        value = entropy_nats / math.log(_validate_base(base))
     return _normalize_log_entropy(value, p.size, base) if normalized else float(value)
 
 
@@ -173,6 +184,15 @@ def purity(
     return float((p.size * value - 1.0) / (p.size - 1.0))
 
 
+def _linear_from_validated_spectrum(p: np.ndarray) -> float:
+    """Evaluate 1-purity via positive cross-weights near a product point."""
+    leading = float(p[0])
+    tail = math.fsum(float(x) for x in p[1:])
+    tail_square = math.fsum(float(x) * float(x) for x in p[1:])
+    # (sum p)**2 - sum(p**2), avoiding subtraction of two numbers near one.
+    return 2.0 * leading * tail + max(0.0, tail * tail - tail_square)
+
+
 def linear_entropy(
     lam: np.ndarray | list[float] | tuple[float, ...],
     *,
@@ -181,7 +201,7 @@ def linear_entropy(
 ) -> float:
     """Return ``1-Tr(rho^2)`` or its dimension-normalized form."""
     p = normalize_spectrum(lam, atol=atol)
-    value = 1.0 - float(np.dot(p, p))
+    value = _linear_from_validated_spectrum(p)
     if not normalized or p.size <= 1:
         return value
     return float((p.size / (p.size - 1.0)) * value)
@@ -276,11 +296,9 @@ def effective_rank(
         value = float(_exact_support_size(p))
     elif math.isinf(q):
         value = 1.0 / float(p[0])
-    elif abs(q - 1.0) <= 1e-10:
-        nz = p[p > 0.0]
-        value = math.exp(-float(np.sum(nz * np.log(nz))))
     else:
-        value = float(np.sum(p**q)) ** (1.0 / (1.0 - q))
+        # Avoid underflow of sum(p**q) at large finite q.
+        value = math.exp(renyi_entropy(p, q, base=math.e, atol=atol))
     if not normalized or p.size <= 1:
         return float(value)
     return float((value - 1.0) / (p.size - 1.0))
@@ -294,7 +312,7 @@ def i_concurrence(
 ) -> float:
     """Pure-state I-concurrence ``sqrt(2*(1-purity))``."""
     p = normalize_spectrum(lam, atol=atol)
-    value = math.sqrt(max(0.0, 2.0 * (1.0 - float(np.dot(p, p)))))
+    value = math.sqrt(2.0 * _linear_from_validated_spectrum(p))
     if not normalized or p.size <= 1:
         return value
     maximum = math.sqrt(2.0 * (1.0 - 1.0 / p.size))
@@ -309,7 +327,7 @@ def i_tangle(
 ) -> float:
     """Squared I-concurrence ``2*(1-purity)``."""
     p = normalize_spectrum(lam, atol=atol)
-    value = 2.0 * (1.0 - float(np.dot(p, p)))
+    value = 2.0 * _linear_from_validated_spectrum(p)
     if not normalized or p.size <= 1:
         return float(value)
     maximum = 2.0 * (1.0 - 1.0 / p.size)
@@ -439,3 +457,30 @@ def metric_value(
     if key == "entanglement_hamiltonian_gap":
         return entanglement_hamiltonian_gap(lam, base=base, atol=atol, **kwargs)
     raise KeyError(f"Unknown metric identifier: {metric_id!r}")
+
+
+def log_negativity_from_schmidt_coefficients(
+    coefficients: np.ndarray | list[float],
+    *,
+    base: float = 2.0,
+    normalized: bool = False,
+    atol: float = 1e-12,
+) -> float:
+    """Pure-state log-negativity from UNSQUARED Schmidt coefficients.
+
+    Use this with direct coefficient-matrix SVD. It avoids both the Gram
+    matrix and squaring then taking square roots of tiny singular values.
+    The supplied coefficients must be nonnegative with sum(s**2) ~= 1.
+    This routine does not threshold singular values or infer algebraic rank.
+    """
+    base = _validate_base(base)
+    s = np.asarray(coefficients, dtype=float)
+    if s.ndim != 1 or s.size == 0 or not np.all(np.isfinite(s)) or np.any(s < 0):
+        raise ValueError("Schmidt coefficients must be a nonempty finite nonnegative vector.")
+    norm2 = math.fsum(float(x) * float(x) for x in s)
+    if norm2 <= 0 or not math.isfinite(norm2) or abs(norm2 - 1.0) > atol:
+        raise ValueError("Squared Schmidt coefficients must sum to one.")
+    s = np.sort(s / math.sqrt(norm2))[::-1]
+    log_sum = math.log(float(s[0])) + math.log1p(math.fsum(float(x) for x in s[1:]) / float(s[0]))
+    value = 2.0 * max(0.0, log_sum) / math.log(base)
+    return _normalize_log_entropy(value, s.size, base) if normalized else value

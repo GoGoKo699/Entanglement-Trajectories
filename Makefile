@@ -1,4 +1,4 @@
-.PHONY: help install release-env-check peer-review-check quick test metric-robustness xxz-convergence public-context public-figures public-validate public rebuild-included full clean-outputs
+.PHONY: numerical-check help install release-env-check peer-review-check quick test metric-robustness xxz-convergence public-context public-figures public-validate public rebuild-included full clean-outputs
 
 help:
 	@printf '%s\n' \
@@ -6,7 +6,8 @@ help:
 	  'make release-env-check Verify the exact canonical release environment' \
 	  'make peer-review-check Verify the frozen peer-review release gates' \
 	  'make quick            Regenerate all n=10 trajectories and run tests' \
-	  'make test             Run the consolidated scientific test suite' \
+	  'make test             Run scientific and independent numerical-accuracy tests' \
+	  'make numerical-check  Audit fixed-p bounds and stable/release-v1 n=10 extraction' \
 	  'make metric-robustness Recompute the central robustness analysis' \
 	  'make xxz-convergence  Recompute the n=10,12,14 XXZ product-formula audit' \
 	  'make public-context   Rebuild llms-full.txt from canonical documents' \
@@ -56,3 +57,6 @@ full:
 
 clean-outputs:
 	rm -rf outputs
+
+numerical-check:
+	python analysis/verify_numerical_foundations.py

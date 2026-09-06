@@ -683,7 +683,8 @@ from entanglement_trajectories.simulation import simulate_frame
 ROOT = Path(__file__).resolve().parents[1]
 
 def test_n10_all_model_regression_against_included_canonical_table():
-    current = simulate_frame(system_sizes=[10], verbose=False)
+    # Historical snapshot compatibility is distinct from accuracy tests.
+    current = simulate_frame(system_sizes=[10], verbose=False, extraction_method="release-v1")
     reference = pd.read_csv(ROOT / "data" / "trajectory_observations.csv")
     reference = reference[reference["n"] == 10].copy()
     order = ["n", "model", "run_id", "step"]

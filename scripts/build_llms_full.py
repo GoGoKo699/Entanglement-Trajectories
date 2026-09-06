@@ -25,6 +25,7 @@ SOURCES: tuple[tuple[str, str], ...] = (
     ("Peer-review release audit", "docs/PEER_REVIEW_RELEASE_AUDIT.md"),
     ("Canonical release environment", "docs/RELEASE_ENVIRONMENT.md"),
     ("Reproducibility", "docs/REPRODUCIBILITY.md"),
+    ("Current numerical foundations", "docs/NUMERICAL_FOUNDATIONS.md"),
 )
 
 HEADER = """# Entanglement Trajectories - full machine-readable context

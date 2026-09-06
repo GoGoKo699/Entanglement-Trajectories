@@ -1,5 +1,9 @@
 # AI Context: Entanglement Trajectories
 
+## Current numerical implementation and preserved evidence
+
+The unreleased numerical-foundations update uses stable spectrum extraction and fixed-p extremizers without neighborhood snapping. Committed data, public figures, and numerical claim records remain the v1.0.0 evidence snapshot. New calculations and their error-screening diagnostics are described in [Numerical foundations](docs/NUMERICAL_FOUNDATIONS.md) and `metadata/numerical_foundations_summary.json`; do not attribute these later implementation checks to the 2024 article. Historical `release-v1` extraction is for snapshot compatibility, not an accuracy oracle. Automated QA is not external journal peer review.
+
 ## Canonical summary
 
 This repository is the corrected computational companion and follow-up evidence package for Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* 8, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.

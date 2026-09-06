@@ -37,7 +37,7 @@ def normalize_spectrum(
     if np.min(arr) < -atol:
         raise SpectrumError(f"Spectrum contains a negative value below tolerance: {arr.min()}")
     arr[arr < 0.0] = 0.0
-    total = float(arr.sum())
+    total = math.fsum(float(x) for x in arr)
     if total <= 0.0:
         raise SpectrumError("A spectrum must have positive total weight.")
     if abs(total - 1.0) > atol:
@@ -69,11 +69,12 @@ def _exact_reciprocal_decomposition(
     *,
     atol: float = 1e-12,
 ) -> tuple[int, float]:
-    """Return the exact represented-float decomposition ``1 = k p + r``.
+    """Return the fixed-p decomposition ``1 = k p + r`` without a cutoff.
 
     Only the canonical floating-point reciprocal ``1.0 / k`` is treated as an
-    exact reciprocal.  This helper is used for discontinuous support/rank
-    statements, where an arbitrarily small positive remainder matters.
+    exact reciprocal. Away from those canonical points, integer-ratio
+    arithmetic retains the remainder of the supplied binary float. This
+    convention is shared by the extremizer and the support/rank bounds.
     """
     p = validate_largest_value(p, d, atol=atol)
     nearest = int(round(1.0 / p))
@@ -96,25 +97,13 @@ def _exact_reciprocal_decomposition(
 
 
 def _reciprocal_decomposition(p: float, d: int, *, atol: float = 1e-12) -> tuple[int, float]:
-    """Return a tolerance-stabilized decomposition for continuous metrics.
+    """Decompose a valid p without discarding any positive remainder.
 
-    A remainder smaller than the declared spectrum tolerance is treated as
-    zero.  This avoids amplifying floating-point noise near reciprocal values
-    in continuous entropy boundaries.  Discontinuous support/rank statements
-    use :func:`_exact_reciprocal_decomposition` instead.
+    As with support bounds, exactly ``1.0/k`` denotes the canonical reciprocal
+    point. Adjacent floating-point numbers are NOT snapped to that point.
+    ``atol`` controls domain validation only, never support removal.
     """
-    p = validate_largest_value(p, d, atol=atol)
-    inv = 1.0 / p
-    nearest = int(round(inv))
-    if 1 <= nearest <= d and abs(p - 1.0 / nearest) <= atol * max(1.0, p):
-        return nearest, 0.0
-    k = min(d, max(1, int(np.floor(inv))))
-    r = 1.0 - k * p
-    if abs(r) <= atol:
-        r = 0.0
-    if r < -atol or r > p + atol:
-        raise ArithmeticError(f"Invalid reciprocal decomposition: p={p}, k={k}, r={r}.")
-    return k, float(np.clip(r, 0.0, p))
+    return _exact_reciprocal_decomposition(p, d, atol=atol)
 
 
 def schmidt_rank_bounds_fixed_lmax(
@@ -152,10 +141,14 @@ def equal_tail_spectrum(p: float, d: int, *, atol: float = 1e-12) -> np.ndarray:
     d = int(d)
     if d == 1:
         return np.array([1.0], dtype=np.float64)
+    if p == 1.0 / d:
+        return np.full(d, p, dtype=np.float64)
     tail = (1.0 - p) / (d - 1)
     out = np.full(d, tail, dtype=np.float64)
     out[0] = p
-    return normalize_spectrum(out, atol=max(atol, 1e-14))
+    # Do not renormalize: that would shift the caller's largest eigenvalue.
+    # The closed-form entries sum to one up to final floating-point rounding.
+    return out
 
 
 def concentrated_spectrum(p: float, d: int, *, atol: float = 1e-12) -> np.ndarray:
@@ -175,12 +168,9 @@ def concentrated_spectrum(p: float, d: int, *, atol: float = 1e-12) -> np.ndarra
         if k >= d:
             raise ArithmeticError("Positive remainder does not fit in the declared dimension.")
         out[k] = r
-    # Correct only sub-ulp accumulation without changing the extremizer pattern.
-    residual = 1.0 - float(out.sum())
-    if abs(residual) <= 10.0 * atol:
-        positive = np.flatnonzero(out > 0.0)
-        out[positive[-1]] += residual
-    return normalize_spectrum(out, atol=max(100.0 * atol, 1e-13))
+    # The integer-ratio remainder preserves support. Do not add a summation
+    # residual to a populated entry or renormalize: either can change p or r.
+    return out
 
 
 def random_capped_spectrum(

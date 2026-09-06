@@ -396,3 +396,12 @@ The current exact-boundary implementation was checked by:
 - re-evaluation of 405 saved \(d=1024\) spectra from the follow-up package.
 
 All exact-bound tests passed. The maximum observed bound violation was at floating-point roundoff level.
+
+
+## Floating-point implementation and conditioning
+
+A valid supplied largest value is not rounded to a nearby reciprocal. The concentrated spectrum retains every positive remainder, and its entries are not renormalized or patched in a way that changes the requested largest value. Their sum is one up to floating-point rounding. For compatibility with rank statements at reciprocal points, exactly the canonical Python float `1.0/k` denotes mathematical `1/k`; this convention applies to both support bounds and extremizers. Away from these designated points, integer-ratio arithmetic decomposes the represented input. This is an explicit representation convention, not exact symbolic arithmetic for arbitrary real numbers.
+
+The Rényi-zero API counts strictly positive represented entries, while numerical rank requires its own threshold. SVD improves finite-precision extraction but does not determine the exact algebraic rank of a noisy state vector.
+
+A nonzero envelope is not sufficient to guarantee a meaningful normalized coordinate. `assess_boundary_height` propagates explicit error allowances for the largest eigenvalue, metric value, and boundary evaluation. Its conservative interval check does not silently replace the preserved study's masks. See [Numerical foundations](NUMERICAL_FOUNDATIONS.md) for API examples and oracle tests.
