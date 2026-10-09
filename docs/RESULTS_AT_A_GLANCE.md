@@ -101,16 +101,6 @@ Arc-length rankings remain highly stable across metrics, with correlations of 0.
 
 The model-family morphology claim is stronger than the individual-fingerprint claim. Under the strictest holdout, the current atlas does not outperform the shared $\lambda_{\max}$ path baseline.
 
-## Correct interpretation
-
-Supported:
-
-> The tested metric projections share a dominant coarse mode, preserve substantial relational morphology, and exhibit interpretable disagreements tied to majorization incomparability.
-
-Not supported:
-
-> All entanglement metrics are equivalent, a formal topological invariant has been proved, or every individual dynamical run can be identified from its trajectory.
-
 ## Sources
 
 - machine-readable summary: `data/public_analysis_inputs.zip` (member `metric_robustness_scientific_summary.json`)

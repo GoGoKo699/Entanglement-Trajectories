@@ -2,15 +2,15 @@
 
 ## Fixed-cut pure-state scope
 
-The central construction concerns pure states and explicitly declared bipartitions. For one fixed cut, the reduced spectrum is the common state variable. Mixed-state entanglement, entanglement cost, distillable entanglement, discord-like quantities, and genuinely multipartite invariants require different objects and are outside the current unification claim.
+The central construction concerns pure states and explicitly declared bipartitions. For one fixed cut, the reduced spectrum is the common state variable; the unification applies to functions of that spectrum.
 
 The historical `global_*` columns average functions over one-site-versus-rest cuts. They are aggregates over a collection of spectra, not functions of the half-chain spectrum and not automatically genuine multipartite entanglement measures.
 
 ## Metric coverage
 
-The follow-up data cover strategically separated Rényi sectors, not “all entanglement metrics.” Several named quantities are strict transformations or aliases. The metric registry distinguishes independent spectral sensitivity from redundant naming.
+The data cover strategically separated Rényi sectors. Several named quantities are strict transformations or aliases. The metric registry distinguishes independent spectral sensitivity from redundant naming.
 
-The current central empirical comparison uses three non-equivalent vertical metric classes and the shared largest-Schmidt-value coordinate. Other Rényi orders can be calculated from saved spectra where available but have not all been included in the same full trajectory stress test.
+The central empirical comparison uses three non-equivalent vertical metric classes and the shared largest-Schmidt-value coordinate. Saved spectra also support calculation of other Rényi orders.
 
 ## Model and parameter coverage
 
@@ -18,11 +18,11 @@ The evidence is restricted to four implemented dynamical families, four declared
 
 ## Full-spectrum selection
 
-Only five $n=20$ runs have complete saved spectra in the selected audit. The majorization result is exact for every spectrum pair tested, but the empirical event frequencies are not representative of every model family and condition without complete-spectrum reruns.
+The full-spectrum majorization audit uses five selected $n=20$ runs and 400 transitions. It is a mechanism check showing where metric contradictions occur in the selected spectra, rather than a model-wide estimate of event frequencies. The selection omits the quantum-baker family and the non-Clifford QCA conditions. The majorization result is exact for every spectrum pair tested.
 
 ## Finite-size and finite-time effects
 
-The largest simulated size is $n=20$. No thermodynamic-limit theorem is claimed. Trajectories are sampled on finite time grids; connecting lines indicate temporal order rather than reconstructing unsampled dynamics.
+The largest simulated size is $n=20$, so the evidence concerns finite systems. Trajectories are sampled on finite time grids; connecting lines indicate temporal order rather than reconstructing unsampled dynamics.
 
 ## Normalization
 
@@ -46,13 +46,11 @@ Entropy magnitude or trajectory location alone does not prove efficient classica
 
 ## Published-paper status
 
-The journal article is the version of record. This repository documents corrections but does not silently rewrite the published paper. Whether the objective errors should also be submitted as a formal corrigendum remains an author decision.
+The journal article is the version of record. This repository documents corrections separately from the published paper.
 
-## Designed conditions and selected-spectrum audit
+## Designed conditions
 
 The 96 trajectories are a deterministic designed collection with four declared conditions per dynamical family. Bootstrap intervals quantify sensitivity to those conditions; they are not population confidence intervals over independent disorder, initial-state, or parameter draws.
-
-The full-spectrum majorization audit uses five selected $n=20$ runs and 400 transitions. It is a mechanism check showing where metric contradictions occur in the selected spectra, not a model-wide estimate of event frequencies. The selection omits the quantum-baker family and the non-Clifford QCA conditions.
 
 ## XXZ product-formula interpretation
 

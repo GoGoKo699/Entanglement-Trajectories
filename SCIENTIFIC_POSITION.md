@@ -2,7 +2,7 @@
 
 ## Governing philosophy
 
-There are many useful scalar measures of entanglement because a Schmidt spectrum contains more information than one number can retain. The project should not search for a scalar that makes all other measures obsolete. It should identify the common object that the measures observe and explain both their agreements and their disagreements.
+There are many useful scalar measures of entanglement because a Schmidt spectrum contains more information than one number can retain. The common Schmidt spectrum explains both agreement and disagreement among those measures.
 
 For a fixed bipartition of a pure state, that common object is the ordered Schmidt-spectrum path
 
@@ -21,9 +21,9 @@ The family of these projections is the **entanglement-trajectory atlas**.
 
 > The Schmidt spectrum is the state variable; entanglement measures are observables on it; the trajectory atlas records what survives and what changes between those observables.
 
-## Central claim for the upgraded repository
+## Central claim
 
-Standard bipartite pure-state entanglement measures are nonlinear projections of a common Schmidt-spectrum path. Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, three non-equivalent metric classes share a dominant instantaneous common mode and substantial descriptive cross-metric morphology after exact-boundary normalization. The later chronology controls separate this point-cloud agreement from temporal organization: the observed paths are smoother and contain more local raw-metric disagreements than the specified reorderings, but unusually high common-mode variance is not a dynamical discriminator. The preservation is hierarchical rather than exact, and local metric contradictions reveal internal spectral redistribution that no single scalar measure captures.
+Standard bipartite pure-state entanglement measures are nonlinear projections of a common Schmidt-spectrum path. Across four tested dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, three non-equivalent metric classes share a dominant instantaneous common mode and substantial descriptive cross-metric morphology after exact-boundary normalization. The chronology controls separate this point-cloud agreement from temporal organization: the observed paths are smoother and contain more local raw-metric disagreements than the specified reorderings, but unusually high common-mode variance is not a dynamical discriminator. The preservation is hierarchical rather than exact, and local metric contradictions reveal internal spectral redistribution that no single scalar measure captures.
 
 This claim has three distinct parts:
 
@@ -31,13 +31,13 @@ This claim has three distinct parts:
 2. **Empirical robustness.** Coarse trajectory morphology and the relative geometry among tested model families persist across several metric projections.
 3. **Permitted disagreement.** Schur-concave metrics can contradict one another locally only when the spectrum pair is incomparable by majorization (subject to the declared numerical tolerances). Incomparability permits, but does not require, disagreement.
 
-## Interpretation after the chronology controls
+## Chronology controls
 
-The historical common-mode percentage and classifier results remain descriptive evidence, not proofs of special temporal structure. Joint reordering preserves point-cloud PCA exactly; four constructed fixed-(d,p) references exhibit still higher agreement. Temporal smoothness and excess local metric competition survive the stated controls. The path-distance benefit is not uniform across sizes or order-preserving surrogates. See [geometry versus chronology](docs/GEOMETRY_VS_CHRONOLOGY.md) for the full comparison, including negative controls and limitations. These are later repository findings, not results already demonstrated in the 2024 journal article.
+The historical common-mode percentage and classifier results remain descriptive evidence, not proofs of special temporal structure. Joint reordering preserves point-cloud PCA exactly; four constructed fixed-(d,p) references exhibit still higher agreement. Temporal smoothness and excess local metric competition survive the stated controls. The path-distance benefit is not uniform across sizes or order-preserving surrogates. See [geometry versus chronology](docs/GEOMETRY_VS_CHRONOLOGY.md) for the full comparison, including negative controls and limitations. These findings belong to the repository follow-up; the 2024 article introduced the trajectory representation.
 
-## Quantitative status of the follow-up study
+## Quantitative evidence
 
-The current follow-up data provide the following scoped support:
+The follow-up dataset supports the following results:
 
 - the exact-boundary-normalized common metric mode explains 90.26% of total variance;
 - the median separate-trajectory common-mode fraction is 94.75%;
@@ -59,7 +59,7 @@ This leads to two useful dynamical categories:
 - **Metric-consensus motion:** several measures report the same direction of change, consistent with a broad spectral concentration or broadening.
 - **Metric-competitive motion:** valid measures report different directions, indicating a redistribution that cannot be summarized by a total scalar ordering.
 
-Unification therefore means explaining both behaviors through one spectrum path. It does not mean forcing all measures to agree.
+The spectrum path explains both behaviors.
 
 ## Exact arena and normalization
 
@@ -90,21 +90,9 @@ This removes metric-specific ranges and much of the universal feasible-region de
 
 ## Meaning of “topological invariant”
 
-The project may retain the phrase **“topological invariant”** as its conceptual language, but only with an explicit operational qualification.
+The phrase **“topological invariant”** in the conceptual discussion denotes an empirical coarse trajectory class that remains stable across the declared spectrum functionals. Exact turn counts vary between metric projections; no homeomorphism or homotopy theorem underlies this usage.
 
-At present it means:
-
-> the coarse trajectory class that remains stable under replacing one declared spectrum functional by another.
-
-It does **not** presently mean:
-
-- equality of numerical trajectories;
-- preservation of every turning point or self-intersection;
-- a proved homeomorphism or homotopy class;
-- a winding number or persistent-homology theorem;
-- universality over every model, cut, state, and entanglement measure.
-
-The preferred technical terms are **metric-robust trajectory class** and **projection-stable trajectory morphology**. A formal topological construction remains a possible later research direction.
+The technical terms are **metric-robust trajectory class** and **projection-stable trajectory morphology**.
 
 ## Role of random matrix theory
 
@@ -119,7 +107,7 @@ Marchenko-Pastur density, edge statistics, scalar entropy proximity, gap ratios,
 
 ## Scope
 
-The current central claim is limited to:
+The central claim concerns:
 
 - pure-state dynamics;
 - explicitly specified bipartitions or clearly defined averages over cuts;
@@ -127,27 +115,10 @@ The current central claim is limited to:
 - the four supplied dynamical families, sizes, parameters, and initial states;
 - empirical metric robustness rather than universal formal invariance.
 
-The one-site-averaged columns currently named `global_*` are functions of a collection of one-qubit spectra, not of the one half-chain spectrum. Mixed-state entanglement measures, genuine multipartite invariants, discord-like quantities, and operational entanglement costs require separate objects and are not silently absorbed into this claim.
+The one-site-averaged columns named `global_*` are functions of a collection of one-qubit spectra. They must be distinguished from metrics of the half-chain spectrum.
 
-## Relationship between the 2024 paper and the follow-up package
+## Relationship to the 2024 paper
 
-The published paper introduced the primitive idea: entanglement evolution can be represented as a path, the largest Schmidt value supplies an additional coordinate, and recognizable shape may survive a change of entanglement measure.
+The published paper introduced the trajectory representation: entanglement evolution appears as a path, the largest Schmidt value supplies an additional coordinate, and recognizable shape may survive a change of entanglement measure.
 
-The follow-up package upgrades the evidence by adding four model families, six sizes, multiple runs, several normalized spectrum functionals, exact fixed-largest-eigenvalue envelopes, boundary-relative normalization, and spectrum-level random-matrix diagnostics.
-
-The upgrade must preserve the original insight while correcting the paper’s exact boundary, Page-formula, rank-one, QFT, continuity, random-matrix, computational-interpretation, gap, fingerprint, and topology overstatements.
-
-## Public nonclaims
-
-The final repository must never imply that:
-
-- all entanglement metrics always agree;
-- every entanglement notion is a function of one Schmidt spectrum;
-- a formal topological invariant has already been proved;
-- random matrix theory supplies the exact feasible boundary;
-- all tested dynamics converge to an RMT attractor;
-- QFT generally preserves a Schmidt spectrum;
-- low entropy alone guarantees efficient tensor-network simulation;
-- high entropy alone makes a quantum state computationally useless;
-- trajectory location alone certifies computational advantage;
-- selected visual paths already constitute a universal classifier.
+The repository follow-up supplies the four-model, six-size dataset, exact fixed-largest-eigenvalue envelopes, boundary-relative normalization, and spectrum-level diagnostics. [Corrections and clarifications](CORRECTIONS.md) record the mathematical and physical corrections to the article.

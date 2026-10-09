@@ -32,38 +32,13 @@ For unseen individual trajectories with one size held out, same-metric and cross
 - cross-metric full-path mean accuracy: 0.358;
 - \(\lambda_{\max}\)-only path baseline: 0.417.
 
-The individual-path metric atlas therefore does not yet beat the shared horizontal coordinate under the most stringent test. The correct conclusion is not that fingerprints fail completely, but that the present data support **model-level morphology more strongly than universal individual-run identification**.
+The individual-path metric atlas does not beat the shared horizontal coordinate under the most stringent test. The data support **model-level morphology more strongly than individual-run identification**.
 
-## What may be said publicly
+## Interpretation
 
-Supported:
+Model-centroid trajectory morphology is distinguishable and partly transferable across entanglement metrics and system sizes in the supplied study. Generalization is measured within the four tested model families and their declared conditions.
 
-> Model-centroid trajectory morphology is distinguishable and partly transferable across entanglement metrics and system sizes in the supplied study.
-
-Preliminary:
-
-> Individual trajectories may contain model information beyond endpoints, but stronger datasets and held-out conditions are required.
-
-Not supported:
-
-- a universal trajectory classifier;
-- identification of an unseen model family;
-- robustness to arbitrary parameters, cuts, initial states, or time samplings;
-- a claim that the metric atlas consistently outperforms \(\lambda_{\max}\) alone.
-
-## Stronger future test
-
-A publication-level fingerprint study would require a preregistered feature map and held-out:
-
-- disorder realizations;
-- initial states;
-- parameter values;
-- bipartitions;
-- time resolutions;
-- system sizes;
-- entirely unseen dynamical families.
-
-It should compare entropy-only, \(\lambda_{\max}\)-only, endpoint-only, full-spectrum, and combined-atlas baselines.
+The strict individual-trajectory holdout limits the fingerprint interpretation: full-path accuracy is below the \(\lambda_{\max}\)-only baseline, and transfer to arbitrary states, cuts, parameters, or unseen model families is outside the measured scope.
 
 ## Vertical-coordinate-only result
 

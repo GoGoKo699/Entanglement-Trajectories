@@ -11,7 +11,7 @@ This repository is the corrected computational companion and follow-up evidence 
 
 > Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* **8**, 1282 (2024). DOI: `10.22331/q-2024-03-14-1282`.
 
-The journal article introduced an initial version of the idea. This repository preserves that insight, provides explicit mathematical corrections and scope clarifications, and tests the upgraded claim across four dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity, six system sizes, and several non-equivalent functions of the Schmidt spectrum.
+The repository provides exact spectral geometry, a correction layer for the article, and a comparison of entanglement measures across four dynamical families, six system sizes, and several non-equivalent functions of the Schmidt spectrum.
 
 > **Central result.** For a fixed bipartition of a pure state, standard spectrum-based entanglement measures are nonlinear projections of one ordered Schmidt-spectrum path. Across the tested models, the normalized projections share a dominant common mode and preserve substantial coarse morphology, while local disagreements expose spectral redistributions that no single scalar measure can order completely.
 
@@ -69,11 +69,13 @@ minimizes it. These spectra define exact finite-dimensional feasible envelopes a
 
 Random matrix theory enters only afterward, as a family of Haar/Wishart or spiked-Wishart **reference ensembles** inside the exact arena. It does not define the exact boundary.
 
-## What the follow-up study establishes
+## Results
 
-The table and committed figures below preserve the v1.0.0 analysis snapshot. Current per-path PCA and correlation calculations exclude unresolved near-constant coordinates under a declared numerical floor; fine rank statistics need not reproduce old roundoff orderings. See [numerical foundations](docs/NUMERICAL_FOUNDATIONS.md#numerically-constant-paths-and-historical-summaries) and the [freeze audit](docs/FREEZE_AUDIT.md). The global common-mode and later chronology-control conclusions are unchanged.
+The table and figures use the `v1.0.0` analysis snapshot. Per-path PCA and correlation calculations in the current implementation exclude unresolved near-constant coordinates under a declared numerical floor; the snapshot's fine rank statistics are sensitive to roundoff. See [numerical foundations](docs/NUMERICAL_FOUNDATIONS.md#numerically-constant-paths-and-historical-summaries).
 
 The included deterministic designed dataset contains 5,856 observations from 96 trajectories: four dynamical families, four declared conditions per family, and sizes $n=10,12,14,16,18,20$. The conditions are controlled examples, not independent draws from a population.
+
+The QCA, kicked-Ising, quantum-baker, and XXZ-derived families probe scrambling, recurrence, disorder, and spectral complexity; the conditions carry no blanket classification as quantum chaotic. The coordinate $\tau=\mathrm{step}/n$ is a scaled iteration coordinate. The XXZ rows describe fixed one-substep product-formula circuits. Their [refinement study](docs/XXZ_PRODUCT_FORMULA_CONVERGENCE.md) shows that these rows are not a convergence-controlled approximation to continuous-time Hamiltonian evolution, while the global common-mode fraction is stable under refinement.
 
 | Controlled result | Value | Interpretation |
 |---|---:|---|
@@ -106,13 +108,11 @@ Incomparability permits disagreement but does not require it: 230 incomparable t
 
 ## What the quoted “topological invariant” means
 
-The phrase is retained as a historical conceptual label, but it is used only in the following operational sense:
+The paper's phrase has the following operational meaning here:
 
 > **A metric-robust trajectory class is the coarse path morphology that remains recognizable when one declared Schmidt-spectrum metric is replaced by another.**
 
 **No formal topological invariant has been proved.**
-
-It does **not** currently mean equality of coordinates, preservation of every turn or crossing, a homeomorphism, a homotopy class, a winding-number theorem, persistent-homology invariance, or universality over all cuts, states, dynamics, and notions of entanglement.
 
 The preferred technical terms are **metric-robust trajectory class** and **projection-stable trajectory morphology**.
 
@@ -120,13 +120,11 @@ The preferred technical terms are **metric-robust trajectory class** and **proje
 
 ## Geometry versus temporal order
 
-The [chronology and matched-spectrum controls](docs/GEOMETRY_VS_CHRONOLOGY.md) distinguish the shared instantaneous metric component from order-sensitive behavior. Joint shuffling preserves the 90.26% level common mode exactly, and the four specified static matched-spectrum references give still higher values. The observed chronological paths are instead smoother and exhibit more local raw-metric competition than reordered versions of the same data. These controls qualify the interpretation of the common mode; they do not establish a formal invariant or universal chaos fingerprint. [Machine-readable results](metadata/geometry_chronology_controls.json) and [draw-level records](data/geometry_chronology_controls.zip) accompany the reproducible study. The frozen release datasets and figures are unchanged.
+The [chronology and matched-spectrum controls](docs/GEOMETRY_VS_CHRONOLOGY.md) distinguish the shared instantaneous metric component from order-sensitive behavior. Joint shuffling preserves the 90.26% level common mode exactly, and the four specified static matched-spectrum references give still higher values. The observed chronological paths are smoother and exhibit more local raw-metric competition than reordered versions of the same data. A large common mode alone therefore does not identify temporal organization. [Machine-readable results](metadata/geometry_chronology_controls.json) and [draw-level records](data/geometry_chronology_controls.zip) accompany the study.
 
 ## Conceptual literature bridge
 
 This project sits at the intersection of entanglement-spectrum dynamics, reduced-density-matrix diagnostics of quantum chaos, multi-Rényi entanglement evolution, majorization, and the limits of spectral universality. The [conceptual-neighbor map](docs/CONCEPTUAL_NEIGHBORS.md) identifies ten especially close papers and states both the shared idea and the important scope difference for each. A machine-readable version is provided in [`metadata/conceptual_neighbors.json`](metadata/conceptual_neighbors.json).
-
-The map is intended for literature discovery, not priority claims: earlier neighboring papers are not described as citing this project, and conceptual similarity is not treated as equivalence.
 
 For static entropy–largest-eigenvalue diagrams, noncentral Wishart states, outlier-and-bulk entropy, normalized matrix spectra, Schmidt-scale trajectories, and algorithmic entanglement, see [Research questions and literature connections](docs/RESEARCH_CONNECTIONS.md). This guide gives concrete answers and recent related reading while distinguishing the separate [analytical note](https://arxiv.org/abs/2204.01754), the [trajectory paper](https://doi.org/10.22331/q-2024-03-14-1282), and the repository’s corrected and extended results.
 
@@ -145,7 +143,7 @@ Read the [correction summary](CORRECTIONS.md), the [author clarification](paper/
 
 ## Reproduce the results
 
-**Current numerical implementation.** New simulations use stable spectrum extraction. The data and figures committed here remain the preserved `v1.0.0` evidence; they are not silently replaced by new calculations. See [Numerical foundations](docs/NUMERICAL_FOUNDATIONS.md) for independent accuracy tests, the explicit historical-compatibility mode, and conditioning limits of boundary-relative coordinates. Run `make numerical-check` for the full maintenance verification.
+Simulations use stable spectrum extraction. The committed data and figures are the `v1.0.0` snapshot; `release-v1` extraction provides compatibility with that snapshot. See [Numerical foundations](docs/NUMERICAL_FOUNDATIONS.md) for accuracy tests and conditioning limits of boundary-relative coordinates.
 
 Python 3.10 or later is supported for development. The canonical `v1.0.0` numerical release uses CPython 3.11.15 and exact dependency locks documented in [Canonical release environment](docs/RELEASE_ENVIRONMENT.md).
 
@@ -155,11 +153,10 @@ Standard development installation:
 python -m pip install -e '.[analysis,test]'
 ```
 
-Rebuild the machine-facing context and five public figures from the canonical documents and included data:
+Rebuild the machine-facing context from its canonical sources:
 
 ```bash
 make public-context
-make public-figures
 ```
 
 Run the automated tests and public metadata/link validation:
@@ -168,12 +165,7 @@ Run the automated tests and public metadata/link validation:
 make test
 make public-validate
 make peer-review-check
-```
-
-The combined public-layer workflow is:
-
-```bash
-make public
+make numerical-check
 ```
 
 Rebuild all analyses from the included trajectory and selected-spectrum data:
@@ -182,13 +174,7 @@ Rebuild all analyses from the included trajectory and selected-spectrum data:
 make rebuild-included
 ```
 
-The complete state-vector regeneration through 20 qubits is separate and expensive:
-
-```bash
-make full
-```
-
-See [Reproducibility](docs/REPRODUCIBILITY.md) for output locations, deterministic seeds, numerical tolerances, and the distinction between included-data reconstruction and full simulation.
+See [Reproducibility](docs/REPRODUCIBILITY.md) for deterministic seeds, numerical tolerances, snapshot figure rebuilding (`make public-figures`), and the expensive state-vector regeneration through 20 qubits (`make full`).
 
 ## Reading paths
 
@@ -197,10 +183,9 @@ See [Reproducibility](docs/REPRODUCIBILITY.md) for output locations, determinist
 | 30 seconds | this summary and Figure 1 |
 | 5 minutes | [Results at a glance](docs/RESULTS_AT_A_GLANCE.md) and [Corrections](CORRECTIONS.md) |
 | 20 minutes | [Scientific overview](docs/SCIENTIFIC_OVERVIEW.md) and [Public figure story](docs/PUBLIC_FIGURE_STORY.md) |
-| Technical audit | [Peer-review release audit](docs/PEER_REVIEW_RELEASE_AUDIT.md), [Exact spectral geometry](docs/EXACT_SPECTRAL_GEOMETRY.md), [Analysis methods](docs/ANALYSIS_METHODS.md), and [Release QA](docs/RELEASE_QA.md) |
+| Technical details | [Exact spectral geometry](docs/EXACT_SPECTRAL_GEOMETRY.md), [Analysis methods](docs/ANALYSIS_METHODS.md), and [Numerical foundations](docs/NUMERICAL_FOUNDATIONS.md) |
 | Reproduction | [Reproducibility](docs/REPRODUCIBILITY.md) and [release environment](docs/RELEASE_ENVIRONMENT.md) |
 | AI or automated research assistant | [AI context](AI_CONTEXT.md), [conceptual neighbors](docs/CONCEPTUAL_NEIGHBORS.md), and [public claims JSON](metadata/public_claims.json) |
-| Historical record | `legacy/` and the `paper-2024-original` branch |
 
 ## Repository map
 
@@ -236,22 +221,6 @@ The preferred citation is the published article:
 
 Machine-readable citation records are provided in [`CITATION.cff`](CITATION.cff) and [`codemeta.json`](codemeta.json). See also the [foundational and conceptual references](REFERENCES.md), the [conceptual-neighbor map](docs/CONCEPTUAL_NEIGHBORS.md), and the [machine-readable reference registry](metadata/references.json).
 
-## Scope and nonclaims
+## Scope
 
-This repository concerns pure-state dynamics, specified bipartitions or explicitly declared averages over cuts, and the implemented spectrum functionals. It does not silently extend the claim to mixed-state entanglement, genuine multipartite invariants, discord-like quantities, entanglement cost, every possible metric, or every notion of quantum chaos.
-
-The complete public nonclaim list is maintained in [AI_CONTEXT.md](AI_CONTEXT.md) and [Limitations](docs/LIMITATIONS.md).
-
-## Freeze-audit record
-
-The [September 2026 frozen-scope audit](docs/FREEZE_AUDIT.md) records the numerical/API checks, interpretation updates, and explicit limits of the rerun. It does not substitute automated checks for external peer review or extend the scope of the 2024 article.
-
-## Repository-edition status
-
-Version `1.0.0` is the corrected public repository edition. It freezes the exact mathematical layer, the repaired follow-up computation, the quantitative metric-robustness result, the paper-correction record, and the human/AI discovery layer. A narrow formal journal corrigendum remains recommended, but none has yet been submitted.
-
-### Interpretation of the four families and the horizontal coordinate
-
-The QCA, kicked-Ising, quantum-baker, and XXZ-derived examples are **dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity**. The repository does not assert that every declared condition is independently established to be quantum chaotic.
-
-The common coordinate $\tau=\mathrm{step}/n$ is a **scaled iteration coordinate**, not one universal physical time across circuits, maps, and product-formula dynamics. The released XXZ rows are fixed one-substep symmetric product-formula circuits generated from random-field XXZ terms. The convergence study in [XXZ product-formula convergence](docs/XXZ_PRODUCT_FORMULA_CONVERGENCE.md) shows that this one-substep circuit is not a convergence-controlled approximation to continuous-time XXZ evolution, although the global multi-metric common-mode result is stable under refinement.
+The results concern pure-state dynamics, specified bipartitions or declared averages over cuts, and the implemented spectrum functionals. [Limitations](docs/LIMITATIONS.md) documents the sampling and numerical qualifications needed to interpret them.

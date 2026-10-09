@@ -10,8 +10,6 @@ python -m pip install -e '.[analysis,test]'
 
 Release `v1.0.0` has a separate canonical numerical environment: CPython `3.11.15` on `ubuntu-24.04`, with exact build and runtime locks under `requirements/`. See [Canonical release environment](RELEASE_ENVIRONMENT.md). A normal broad installation is not a substitute for the locked release job when reproducing release-level numerical snapshots.
 
-The historical paper-era Qibo scripts are preserved for provenance and are not the recommended current workflow.
-
 ## Reproduction levels
 
 ### Level 0 — Rebuild the canonical machine-facing context
@@ -20,7 +18,7 @@ The historical paper-era Qibo scripts are preserved for provenance and are not t
 make public-context
 ```
 
-This deterministically rebuilds `llms-full.txt` from the canonical public documents listed in `scripts/build_llms_full.py`. It does not alter scientific results.
+This deterministically rebuilds `llms-full.txt` from the canonical public documents listed in `scripts/build_llms_full.py`.
 
 ### Level 1 — Rebuild the five public figures from included inputs
 
@@ -44,7 +42,7 @@ make public-validate
 make peer-review-check
 ```
 
-The tests cover metric identities, exact boundaries, majorization, deterministic model dynamics, random-matrix tools, trajectory robustness, included-data regressions, metadata, archive integrity, and internal links. The peer-review verifier checks closure of the numerical-physics, exact-mathematics, figure-provenance, release-environment, wording, and selected-spectrum gates. Run the complete public-layer workflow with:
+The tests cover metric identities, exact boundaries, majorization, deterministic model dynamics, random-matrix tools, trajectory robustness, included-data regressions, metadata, archive integrity, and internal links. The internal-audit verifier checks numerical physics, exact mathematics, figure provenance, the release environment, scientific wording, and selected-spectrum integrity. Run the complete public-layer workflow with:
 
 ```bash
 make public
@@ -64,7 +62,7 @@ This workflow:
 4. regenerates the analysis figures under `outputs/rebuild/`;
 5. rebuilds the five public figures and validates the repository.
 
-Fresh analyses use the current corrected fixed-p kernels. They are new recomputations, not byte-identical replacements for old boundary coordinates. The small numerical differences and the separate uncertainty-screened view are quantified in [Numerical foundations](NUMERICAL_FOUNDATIONS.md).
+Fresh analyses use the current fixed-p kernels. Differences from archived boundary coordinates and the separate uncertainty-screened view are quantified in [Numerical foundations](NUMERICAL_FOUNDATIONS.md).
 
 The classification and resampling analyses are intentionally more expensive than the public-figure workflow.
 For a fast end-to-end workflow check, reduce only the resampling counts, for example `BOOTSTRAP=20 MANTEL_PERMUTATIONS=10 make rebuild-included`; the release-level quantitative tables use the documented default counts of 3,000 and 1,000.
@@ -97,7 +95,7 @@ The preserved source of truth for the reported v1.0.0 numerical evidence is:
 - `metadata/paper_correction_ledger.csv` — location-specific audit of the 2024 paper;
 - `src/entanglement_trajectories/models.py` — model parameters, run IDs, and deterministic seed policy.
 
-The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata are preserved inside `legacy/historical_sources.zip`. The original root scripts remain recoverable from the `paper-2024-original` branch and Git history. They have been removed from the corrected `main` branch so that historical filenames cannot be mistaken for the supported implementation.
+Historical source scripts and publication metadata are preserved in `legacy/historical_sources.zip` and the `paper-2024-original` branch.
 
 ## Numerical conventions
 
@@ -114,7 +112,7 @@ The original GPT-5.5 follow-up ZIP and frozen publication/repository metadata ar
 
 ## Release identity
 
-The tagged Git commit identifies the exact repository source tree. [`RELEASE_ENVIRONMENT.md`](RELEASE_ENVIRONMENT.md) freezes the canonical Python environment, and [`RELEASE_QA.md`](RELEASE_QA.md) records the scientific, computational, and hosted-release checks. The repository validator also checks the structure and CRC integrity of the included data and provenance archives.
+The tagged Git commit identifies the exact repository source tree. [`RELEASE_ENVIRONMENT.md`](RELEASE_ENVIRONMENT.md) specifies the canonical Python environment, and [`RELEASE_QA.md`](RELEASE_QA.md) records the historical release checks. The repository validator checks the structure and CRC integrity of the included data and provenance archives.
 
 ## Compact repository
 

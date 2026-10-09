@@ -2,8 +2,6 @@
 
 This repository records the author-correction map for *Entanglement Trajectory and its Boundary*, Quantum 8, 1282 (2024). It does not alter the journal version of record.
 
-## Bottom line
-
 The trajectory representation and the broader unification philosophy survive. The exact mathematical core is stronger after correction: the feasible arena is known exactly from the Schmidt spectrum. The article's simple boundary curves, exact Page theorem, rank-one argument, QFT invariance, arithmetic endpoint, and several computational interpretations require correction.
 
 ## Material corrections
@@ -32,7 +30,6 @@ The trajectory representation and the broader unification philosophy survive. Th
 1. **Exact:** finite-dimensional feasible envelopes derived from spectrum extremization and majorization.
 2. **Conditional:** Haar/Wishart and separated-spike asymptotics under declared ensemble assumptions.
 3. **Empirical:** metric-robust trajectory morphology in the tested four-model follow-up package.
-4. **Open:** formal topology, universal fingerprinting, and links to computational advantage.
 
 ## What the repository says
 
@@ -43,17 +40,13 @@ The trajectory representation and the broader unification philosophy survive. Th
 - Quoted "topological invariant" means empirical coarse morphology stable across metric projections, not a proved topological invariant.
 - Random matrix theory provides reference ensembles, not the exact boundary.
 
-## Journal-status recommendation
-
-The final repository should be completed first. After all corrected formulas, figures, code, and data are frozen, the author should contact *Quantum* with a concise factual corrigendum covering the objective mathematical and physical errors. The fuller conceptual reframing belongs in this repository clarification.
-
 ## Machine-readable record
 
 The authoritative location-specific ledger is available as `metadata/paper_correction_ledger.csv`. Deterministic correction calculations are implemented in `analysis/verify_paper_corrections.py`.
 
 ## Quantitative clarification of “topology” and fingerprints
 
-The follow-up data now support a dominant common metric mode and substantial cross-metric relational morphology after exact-boundary normalization. They do **not** support exact projected-path topology: exact vertical-turn counts agree across all three tested metric classes on only 2 of 96 trajectories. The quoted “topological invariant” should therefore mean an empirical coarse metric-robust trajectory class.
+The follow-up data support a dominant common metric mode and substantial cross-metric relational morphology after exact-boundary normalization. They do **not** support exact projected-path topology: exact vertical-turn counts agree across all three tested metric classes on only 2 of 96 trajectories. The quoted “topological invariant” should therefore mean an empirical coarse metric-robust trajectory class.
 
 Model-centroid trajectories are distinguishable under leave-one-size-out tests, but unseen individual trajectories remain a preliminary fingerprint claim and do not clearly outperform the shared `lambda_max` path under the strictest size-plus-condition holdout.
 

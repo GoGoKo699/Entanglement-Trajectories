@@ -15,16 +15,16 @@ A scientifically clean atlas must distinguish:
 
 Rényi order provides the most economical organizing axis.
 
-| Order or class | Sensitivity | Canonical representative | Follow-up representative |
+| Order or class | Sensitivity | Canonical representative | Dataset or API representative |
 |---|---|---|---|
-| \(q=0\) | exact support/rank | exact Schmidt rank or \(H_0\) | not yet in the main CSV |
+| \(q=0\) | exact support/rank | exact Schmidt rank or \(H_0\) | spectrum-level support APIs |
 | \(q=1/2\) | tail-sensitive | \(H_{1/2}\) | pure-state logarithmic negativity |
 | \(q=1\) | bulk-weighted | von Neumann entropy | normalized half-chain VN entropy |
 | \(q=2\) | head-weighted | purity or \(H_2\) | normalized linear entropy |
 | \(q=\infty\) | largest eigenvalue only | \(\lambda_{\max}\) or \(H_\infty\) | normalized geometric coordinate |
-| leading edge | first two eigenvalues | \(\lambda_2/\lambda_1\) or log gap | saved in spectrum-level extension, not main CSV |
+| leading edge | first two eigenvalues | \(\lambda_2/\lambda_1\) or log gap | saved spectrum-level diagnostics |
 
-The follow-up package therefore does something more precise than “include almost every easy metric”: it samples four widely separated Rényi-order equivalence classes, from tail sensitivity through the spectral head. That is broad and strategically meaningful, but it is not literally exhaustive.
+The scalar dataset samples four widely separated Rényi-order equivalence classes, from tail sensitivity through the spectral head.
 
 ## Exact support is not numerical rank
 
@@ -129,7 +129,7 @@ The historical columns named `global_*` are not functions of the half-chain spec
 - `global_logneg` → mean one-site pure logarithmic negativity;
 - `global_geo` → mean one-site geometric quantity.
 
-The upgraded repository will retain the old names only as backward-compatible data aliases. Public text and regenerated tables will use explicit `mean_one_site_*` labels.
+The `global_*` names are legacy data aliases. Current table columns use explicit `one_site_mean_*` labels, while the metric registry supplies `mean_one_site_*` IDs.
 
 ## Implication for evidence counting
 

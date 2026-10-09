@@ -27,7 +27,7 @@ Read, in order:
 4. [Majorization dynamics](docs/MAJORIZATION_AND_METRIC_DISAGREEMENT.md)
 5. [Analysis methods](docs/ANALYSIS_METHODS.md)
 6. [Fingerprint generalization limits](docs/FINGERPRINT_GENERALIZATION_LIMITS.md)
-7. [Peer-review release audit](docs/PEER_REVIEW_RELEASE_AUDIT.md)
+7. [Numerical foundations](docs/NUMERICAL_FOUNDATIONS.md)
 8. [Conceptual neighbors](docs/CONCEPTUAL_NEIGHBORS.md)
 9. [Canonical release environment](docs/RELEASE_ENVIRONMENT.md)
 

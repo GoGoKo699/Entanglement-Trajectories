@@ -94,19 +94,10 @@ Thus, the main claim that several non-equivalent Schmidt-spectrum metrics share 
 
 ![Common-mode stability under refinement](../figures/xxz_refinement_common_mode.png)
 
-## Frozen scientific interpretation
+## Scientific interpretation
 
 The existing public XXZ dataset is scientifically usable as a precisely defined discrete unitary family:
 
 > a fixed one-substep symmetric product-formula circuit constructed from random-field XXZ terms.
 
-It is not, without further full-size regeneration, a convergence-controlled dataset for the target Hamiltonian evolution.
-
-The recommended release strategy is therefore:
-
-1. retain the existing scalar dataset for continuity and reproducibility;
-2. rename the family to make the fixed product-formula circuit interpretation explicit;
-3. publish this convergence study as a sensitivity analysis;
-4. reserve Hamiltonian-specific claims for trajectories generated with at least 16 substeps and checked against 32 over the declared size range.
-
-A future Hamiltonian-dynamics dataset may regenerate all sizes through \(n=20\) at the refined setting, but that is not required for the current metric-atlas claim.
+The refinement-controlled Hamiltonian reference consists of the 16-substep trajectories checked against 32 substeps over \(n=10,12,14\). The one-substep scalar dataset remains a fixed-circuit dataset throughout its declared size range.
