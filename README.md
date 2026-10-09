@@ -128,6 +128,8 @@ This project sits at the intersection of entanglement-spectrum dynamics, reduced
 
 The map is intended for literature discovery, not priority claims: earlier neighboring papers are not described as citing this project, and conceptual similarity is not treated as equivalence.
 
+For static entropy–largest-eigenvalue diagrams, noncentral Wishart states, outlier-and-bulk entropy, normalized matrix spectra, Schmidt-scale trajectories, and algorithmic entanglement, see [Research questions and literature connections](docs/RESEARCH_CONNECTIONS.md). This guide gives concrete answers and recent related reading while distinguishing the separate [analytical note](https://arxiv.org/abs/2204.01754), the [trajectory paper](https://doi.org/10.22331/q-2024-03-14-1282), and the repository’s corrected and extended results.
+
 ## Corrections to the 2024 paper
 
 The paper remains the journal version of record. This repository supplies an explicit author-correction layer. The central trajectory idea survives, but several statements require correction or narrowing. The most important are:

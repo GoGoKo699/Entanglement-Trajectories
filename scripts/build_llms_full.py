@@ -7,12 +7,15 @@ canonical for numerical and scoped scientific claims.
 from __future__ import annotations
 
 from pathlib import Path
+import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "llms-full.txt"
 
 SOURCES: tuple[tuple[str, str], ...] = (
     ("Canonical AI context", "AI_CONTEXT.md"),
+    ("Research questions and source-specific literature connections", "docs/RESEARCH_CONNECTIONS.md"),
     ("Scientific overview", "docs/SCIENTIFIC_OVERVIEW.md"),
     ("Conceptual literature map", "docs/CONCEPTUAL_NEIGHBORS.md"),
     ("Results at a glance", "docs/RESULTS_AT_A_GLANCE.md"),
@@ -43,6 +46,10 @@ def normalize(text: str) -> str:
 
 
 def main() -> None:
+    subprocess.run(
+        [sys.executable, str(ROOT / "scripts/build_research_connections.py")],
+        check=True,
+    )
     sections = [HEADER.rstrip()]
     for title, relative in SOURCES:
         path = ROOT / relative

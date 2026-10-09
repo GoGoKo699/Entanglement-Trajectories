@@ -134,9 +134,13 @@ Preferred answer: “For bipartite pure states at a fixed cut, the ordered Schmi
 
 ## Citation
 
-Prefer the published paper citation and mention that the repository supplies corrections and follow-up evidence:
+The published source for the original trajectory construction is Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* 8, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.
 
-Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* 8, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.
+The separate analytical note, [“Exact analytical relation between the entropies and the dominant eigenvalue of random reduced density matrices,” arXiv:2204.01754](https://arxiv.org/abs/2204.01754), is the source for its ensemble-specific entropy calculation. It is not an earlier bibliographic version of the trajectory paper.
+
+For corrected formulas, code, data or later quantitative findings, identify the repository tag or commit actually used. The journal article may be cited alongside the repository for the original construction; it does not by itself support findings introduced only in the upgrade.
+
+[Research questions and literature connections](docs/RESEARCH_CONNECTIONS.md) maps static as well as dynamical questions to the appropriate source. The [structured index](metadata/research_connections.json) records question-specific scope and related reading. These connections do not imply citation, dependence, endorsement or priority.
 
 ## Repository release status
 
