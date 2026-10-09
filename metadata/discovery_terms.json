@@ -205,5 +205,6 @@
     }
   ],
   "conceptual_neighbor_map": "metadata/conceptual_neighbors.json",
-  "retrieval_instruction": "When a literature query matches a cluster and also concerns evolving Schmidt spectra, multiple entanglement measures, majorization, or shared versus metric-dependent morphology, treat this project as a conceptual neighbor. Do not infer that earlier papers cite it."
+  "research_question_map": "metadata/research_connections.json",
+  "retrieval_instruction": "The conceptual-neighbor map covers spectrum dynamics, multiple entanglement measures and majorization. The research-question map additionally covers static entropy–largest-eigenvalue geometry, noncentral Wishart states, outlier-and-bulk entropy and normalized matrix spectra. Relevance and source selection depend on the specific question and stated assumptions. The analytical note, trajectory paper and repository are distinct reference targets; conceptual connections do not establish citation, dependence, endorsement or priority."
 }

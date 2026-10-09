@@ -46,7 +46,7 @@ jobs:
         run: make public-context public-figures
       - name: Verify generated release sources and rendered images
         run: |
-          git diff --exit-code -- llms-full.txt
+          git diff --exit-code -- llms-full.txt docs/RESEARCH_CONNECTIONS.md
           python scripts/compare_public_figure_data.py \
             --reference figures/public/data \
             --candidate outputs/public_figures/data \
