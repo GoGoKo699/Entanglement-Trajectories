@@ -1,0 +1,96 @@
+name: Apply and verify research discovery update
+
+"on":
+  push:
+    branches: [discovery/research-connections-20261009]
+    paths: [.discovery-update.patch.b64, .github/workflows/apply-discovery-update.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.repository == 'GoGoKo699/Entanglement-Trajectories' && github.ref == 'refs/heads/discovery/research-connections-20261009'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: "0"
+      MPLBACKEND: Agg
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
+      VECLIB_MAXIMUM_THREADS: "1"
+      TZ: UTC
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          fetch-depth: 2
+      - name: Verify base and apply the reviewed patch
+        run: |
+          test "$(git rev-parse HEAD^)" = f2a2a69dd236efa1f6516b8664d55e5ce70d4e8c
+          test "$(git ls-remote origin refs/heads/main | cut -f1)" = f2a2a69dd236efa1f6516b8664d55e5ce70d4e8c
+          python - <<'PY'
+          import base64, hashlib, os, pathlib, subprocess, zlib
+          encoded = pathlib.Path('.discovery-update.patch.b64').read_text()
+          # Repair two verified transport duplications before validating the payload.
+          encoded = encoded.replace('FM4RZZGF', 'FM4RZGF').replace('GGpyuxZZtag', 'GGpyuxZtag')
+          payload = zlib.decompress(base64.b64decode(encoded))
+          assert hashlib.sha256(payload).hexdigest() == 'e3b5efb099ee855b5348d9ab5aa702e61fc77f37d073a4c95d74b8dcc87c01ab'
+          patch = pathlib.Path(os.environ['RUNNER_TEMP']) / 'discovery.patch'
+          patch.write_bytes(payload)
+          subprocess.run(['git', 'apply', '--check', str(patch)], check=True)
+          subprocess.run(['git', 'apply', str(patch)], check=True)
+          PY
+          git rm .discovery-update.patch.b64 .github/workflows/apply-discovery-update.yml
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: |
+            requirements/release-build.txt
+            requirements/release-py311.txt
+      - name: Install and verify the pinned release environment
+        run: |
+          python -m pip install --disable-pip-version-check -r requirements/release-build.txt
+          python -m pip install --disable-pip-version-check -r requirements/release-py311.txt
+          python -m pip install --disable-pip-version-check --no-deps --no-build-isolation -e .
+          python -m pip check
+          python scripts/verify_release_environment.py --write-report outputs/release_environment.json
+      - name: Generate and verify the discovery documents
+        run: |
+          make public-context
+          python scripts/build_research_connections.py --check
+          sha256sum docs/RESEARCH_CONNECTIONS.md llms-full.txt > "$RUNNER_TEMP/generated.sha256"
+          make public-context
+          sha256sum -c "$RUNNER_TEMP/generated.sha256"
+      - name: Run all scientific and discovery tests
+        run: make test
+      - name: Validate repository and preserved release evidence
+        run: |
+          make public-validate peer-review-check
+          make public-figures
+          python scripts/compare_public_figure_data.py --reference figures/public/data --candidate outputs/public_figures/data --atol 1e-10 --rtol 1e-10
+      - name: Verify the exact change scope
+        run: |
+          git add README.md AI_CONTEXT.md llms.txt llms-full.txt metadata/discovery_terms.json metadata/research_connections.json scripts/build_llms_full.py scripts/build_research_connections.py docs/RESEARCH_CONNECTIONS.md tests/test_research_connections.py .github/workflows/qa.yml
+          git diff --cached --check
+          python - <<'PY'
+          import subprocess
+          base = 'f2a2a69dd236efa1f6516b8664d55e5ce70d4e8c'
+          allowed = {'README.md', 'AI_CONTEXT.md', 'llms.txt', 'llms-full.txt', 'metadata/discovery_terms.json', 'metadata/research_connections.json', 'scripts/build_llms_full.py', 'scripts/build_research_connections.py', 'docs/RESEARCH_CONNECTIONS.md', 'tests/test_research_connections.py', '.github/workflows/qa.yml'}
+          changed = set(subprocess.check_output(['git', 'diff', '--cached', '--name-only', base], text=True).splitlines())
+          assert changed == allowed, (changed - allowed, allowed - changed)
+          untracked = subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard'], text=True)
+          assert not untracked.strip(), untracked
+          print('Exactly 11 discovery/documentation/check files changed; scientific sources, data, figures, claims, corrections, licenses, and release metadata unchanged.')
+          PY
+          git diff --cached --stat f2a2a69dd236efa1f6516b8664d55e5ce70d4e8c
+      - name: Publish the verified candidate on the feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Add source-specific research questions and literature discovery guide'
+          git push origin HEAD:refs/heads/discovery/research-connections-20261009
+          git rev-parse HEAD
+          git rev-parse HEAD^{tree}
