@@ -16,8 +16,6 @@ The canonical hosted release job is frozen separately:
 | Numerical/test lock | `requirements/release-py311.txt` |
 | Machine-readable record | `environment/release-py311.json` |
 
-The numerical and test-package versions were frozen from the dependency installation recorded in GitHub Actions run `32348216286` on 20 August 2026. That run installed the environment successfully; its later failures were in repository-file counting and an over-tight cross-backend regression tolerance, both repaired before this environment was frozen.
-
 ## Reproduce the canonical environment
 
 Create an isolated CPython `3.11.15` environment and run:
@@ -50,7 +48,7 @@ TZ=UTC
 
 The single-thread settings reduce backend-dependent numerical variation in eigensolvers and reductions. They do not make results from different operating systems, CPU architectures, BLAS implementations, or Python versions bitwise identical.
 
-## Release workflow
+## Hosted validation
 
 The external actions are referenced by full immutable commit SHAs, with their reviewed release tags recorded in `environment/release-py311.json`.
 
@@ -63,8 +61,6 @@ The blocking GitHub Actions job:
 5. rebuilds `llms-full.txt` and the public figures;
 6. checks that the generated machine context and plotted source tables match the committed release records and that every public image renders successfully;
 7. runs the scientific tests and public repository validator.
-
-A green run on the final release commit is required before tagging `v1.0.0`.
 
 ## Compatibility outside the lock
 

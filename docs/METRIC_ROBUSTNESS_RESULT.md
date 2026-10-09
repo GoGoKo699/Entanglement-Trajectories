@@ -1,6 +1,6 @@
 # Quantitative result: metric-robust trajectory morphology
 
-> **Historical result with a later control.** High point-cloud or first-difference common-mode fractions alone do not identify exceptional temporal organization. Read [geometry versus chronology](GEOMETRY_VS_CHRONOLOGY.md) alongside these preserved descriptive results. Static matched references can have stronger agreement, and chronology does not improve path-distance agreement uniformly.
+High point-cloud or first-difference common-mode fractions alone do not identify exceptional temporal organization. In the [geometry-versus-chronology controls](GEOMETRY_VS_CHRONOLOGY.md), static matched references can have stronger agreement, and chronology does not improve path-distance agreement uniformly. The descriptive statistics below belong to the v1.0.0 snapshot; [numerical foundations](NUMERICAL_FOUNDATIONS.md) explains resolution screening for per-path statistics.
 
 ## Result in one sentence
 

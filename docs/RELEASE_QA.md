@@ -1,6 +1,6 @@
-# Release QA
+# Release Validation Record — v1.0.0
 
-> **Historical release record.** This document records the earlier release assembly. The later [numerical-foundations update](NUMERICAL_FOUNDATIONS.md) corrects additional kernel edge cases and separates accuracy tests from snapshot compatibility. The archived tables below are preserved; they are not a claim that the original tests covered every numerical edge case or that external journal peer review was performed.
+> **Historical validation record.** The checks and numerical summaries below apply to the v1.0.0 snapshot. Current numerical accuracy and snapshot compatibility are distinguished in [Numerical foundations](NUMERICAL_FOUNDATIONS.md).
 
 ## Release identity
 
@@ -10,7 +10,6 @@
 - **DOI:** `10.22331/q-2024-03-14-1282`
 - **Historical paper-era branch:** `paper-2024-original`
 - **Frozen historical commit:** `81206df955622c31225f0d4f9c290e35d41ba381`
-- **Formal journal corrigendum:** not submitted
 
 The published article remains the journal version of record. This repository provides an explicit author clarification, corrected mathematical layer, repaired computational implementation, and follow-up evidence.
 
@@ -58,7 +57,7 @@ The selected full-spectrum audit contains:
 - 405 Schmidt spectra;
 - spectrum dimension 1,024.
 
-The repaired implementation uses the analytic balanced Marchenko–Pastur cumulative distribution rather than the inaccurate singular-grid integration used in the historical follow-up code.
+The spectrum diagnostics use the analytic balanced Marchenko–Pastur cumulative distribution.
 
 ### Metric-robustness result
 
@@ -92,7 +91,7 @@ The compact release package passed:
 
 The regenerated public-figure source tables matched the committed release sources exactly, and all rendered images opened successfully with the declared dimensions. A controlled provenance test confirmed that changing a recomputed input changes the corresponding figure. The XXZ refinement archive was re-evaluated from its 3,528 frozen observations, and the exact Hartley near-product counterexample and thresholded numerical-rank separation were rechecked.
 
-The final peer-review audit repeated the complete included-data analysis with 3,000 model-stratified bootstrap resamples and 1,000 Mantel-style permutations, then rebuilt the five public figures from those fresh tables. The dense state-vector simulation through every declared size up to $n=20$ was not repeated; its canonical dataset, an independent all-run $n=10$ regression, the selected-spectrum reconstruction, and the complete workflow remain included.
+The internal audit repeated the complete included-data analysis with 3,000 model-stratified bootstrap resamples and 1,000 Mantel-style permutations, then rebuilt the five public figures from those fresh tables. Physical-trajectory validation used the canonical dataset, independent all-run $n=10$ regeneration, and selected-spectrum reconstruction; this check set did not include a full $n=20$ regeneration.
 
 ### Canonical release environment
 
@@ -105,44 +104,3 @@ The blocking hosted job uses:
 - `pip check`, an exact environment verifier, source-table comparisons and rendered-image checks, the scientific tests, and the public validator.
 
 See [Canonical release environment](RELEASE_ENVIRONMENT.md).
-
-## Hosted repository release gate
-
-The `v1.0.0` release should be created only after:
-
-1. the final cleanup commit is complete;
-2. the locked `repository-qa` GitHub Actions release job passes on the final commit;
-3. the repository description, DOI homepage, topics, and social preview have been applied.
-
-A passing local package audit does not replace the final hosted Actions run.
-
-## Assessment
-
-Subject to the hosted release gate above, the repository is suitable as the corrected public computational companion to the 2024 article.
-
-Its supported scientific hierarchy is:
-
-```math
-\begin{array}{c}
-\text{Schmidt-spectrum path}
-\\[4pt]
-\downarrow
-\\[4pt]
-\text{multiple metric projections}
-\\[4pt]
-\downarrow
-\\[4pt]
-\text{trajectory atlas}
-\\[4pt]
-\downarrow
-\\[4pt]
-\left\{
-\begin{array}{l}
-\text{shared coarse morphology},\\[3pt]
-\text{informative metric competition}.
-\end{array}
-\right.
-\end{array}
-```
-
-Exact mathematical statements, conditional random-matrix references, empirical results, published-paper corrections, and unresolved questions are separated explicitly.

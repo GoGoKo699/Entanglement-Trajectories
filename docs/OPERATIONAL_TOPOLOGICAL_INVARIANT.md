@@ -2,7 +2,7 @@
 
 ## Philosophy
 
-The phrase “topological invariant” was introduced to express a visual observation: when the entanglement metric changes, the path can remain recognizably associated with the same underlying dynamics. The follow-up analysis turns that intuition into a reproducible but deliberately non-topological set of tests.
+The phrase “topological invariant” describes a visual observation: when the entanglement metric changes, the path can remain recognizably associated with the same underlying dynamics. Its operational meaning here is tested through empirical trajectory comparisons.
 
 The primary object is the Schmidt-spectrum path
 
@@ -42,19 +42,8 @@ The data directly reject stronger interpretations:
 - an individual unseen trajectory is not reliably identified under the strictest holdout;
 - self-intersections, curvature, and local extrema are not guaranteed to survive projection.
 
-There is presently no declared topological space, equivalence relation, homotopy, winding number, or persistent-homology object whose value has been proved invariant.
+These comparisons establish an empirical morphology, rather than a formal topological invariant.
 
 ## Preferred terminology
 
-Technical text should use:
-
-- **metric-robust trajectory class**;
-- **projection-stable trajectory morphology**;
-- **common metric mode**;
-- **metric-consensus and metric-competitive motion**.
-
-The phrase **“topological invariant”** may remain in quotation marks as the historical and conceptual label, followed immediately by the operational qualification above.
-
-## Public wording
-
-> We use “topological invariant” descriptively for a coarse trajectory class that remains recognizable when one declared Schmidt-spectrum metric is replaced by another. The present evidence is quantitative but empirical; it does not establish a formal topological invariant, and local path features and metric directions may differ.
+**Metric-robust trajectory class** and **projection-stable trajectory morphology** name the empirical object. **Common metric mode** describes shared variation, while **metric-consensus and metric-competitive motion** distinguish local responses. The quoted phrase **“topological invariant”** carries this operational qualification.

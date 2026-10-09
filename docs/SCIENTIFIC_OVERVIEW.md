@@ -1,6 +1,6 @@
 # Scientific Overview
 
-> **Interpretation update.** The common-mode percentage describes an instantaneous point cloud. The later [geometry-versus-chronology study](GEOMETRY_VS_CHRONOLOGY.md) separates that agreement from temporal smoothness and local metric competition. It does not establish a universal chronology-enhanced fingerprint. The historical numerical results below are preserved.
+The common-mode percentage describes an instantaneous point cloud. The [geometry-versus-chronology study](GEOMETRY_VS_CHRONOLOGY.md) measures temporal smoothness and local metric competition separately; the results below describe the v1.0.0 evidence snapshot.
 
 ## 1. Why another representation of entanglement?
 
@@ -110,7 +110,7 @@ The appropriate conclusion is **projection-stable coarse morphology**, not exact
 
 ## 7. Dynamical examples motivated by scrambling and spectral complexity
 
-The follow-up package includes four dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity:
+The dataset includes four dynamical families used to probe scrambling, recurrence, disorder, and spectral complexity:
 
 - brickwork Floquet QCA;
 - open-chain kicked Ising;
@@ -119,15 +119,15 @@ The follow-up package includes four dynamical families used to probe scrambling,
 
 Across the included conditions and sizes, model-centroid trajectories retain recognizable separation in the shared metric mode. Held-out-size model-centroid classification is strong, including substantial cross-metric transfer. Performance drops for unseen individual conditions, especially when both size and condition are held out.
 
-The result supports model-family morphology within the tested scope. It does not yet establish a universal chaos fingerprint.
+The result supports model-family morphology within the tested scope.
 
 ## 8. Meaning of topology
 
-The published paper used “topological invariant” as informal conceptual language for the stability of trajectory shape across metric choices. The upgraded evidence supports only a coarse operational version:
+The published paper uses “topological invariant” informally for stability of trajectory shape across metric choices. The evidence supports a coarse operational meaning:
 
 > a trajectory class is metric robust when its major stages and relational morphology remain stable under replacement of one declared spectrum functional by another.
 
-Exact turns, self-intersections, signed areas, curvature, and homotopy type need not be preserved. A formal topological construction remains an open research direction and would require an explicit object, equivalence relation, coarse-graining rule, stability theorem, and validation under sampling and perturbation.
+Exact turns, self-intersections, signed areas, curvature, and homotopy type need not be preserved. This empirical morphology is distinct from a formal topological invariant.
 
 ## 9. Role of random matrix theory
 
@@ -141,26 +141,13 @@ The exact arena is determined by spectrum geometry. Random matrix theory supplie
 
 These diagnostics can disagree. A spectrum may have a bulk adjacent-gap ratio near a random-matrix reference while its one-point density or largest eigenvalue remains far away. Such disagreement is part of the spectral information, not something to suppress.
 
-The follow-up data do not show one universal RMT attractor. Some selected paths approach the reference closely, some rebound, and others remain far from it.
+The data do not show one universal RMT attractor. Some selected paths approach the reference closely, some rebound, and others remain far from it.
 
 ## 10. Relationship to the 2024 paper
 
 The paper introduced the useful primitive idea: entanglement evolution can be represented as a path; the largest Schmidt value supplies a complementary coordinate; recognizable path morphology may survive a change of metric.
 
-The repository corrects or narrows:
-
-- the exact entropy boundary;
-- the finite-dimensional Page formula;
-- the rank-one noncentral-Wishart algebra and scaling;
-- general QFT invariance;
-- the finite arithmetic-union endpoint;
-- continuity language;
-- entropy-gap interpretation;
-- random-matrix boundary and attractor language;
-- entropy-based claims about simulation and computational usefulness;
-- topology and fingerprint claims.
-
-The corrected project is stronger because exact geometry, conditional random-matrix references, empirical robustness, and open hypotheses are now kept separate.
+The [correction summary](../CORRECTIONS.md) documents the mathematical corrections and narrowed interpretations. Exact geometry, conditional random-matrix references, and empirical robustness have distinct evidentiary roles.
 
 ## 11. Current scientific claim
 

@@ -25,7 +25,7 @@ SOURCES: tuple[tuple[str, str], ...] = (
     ("Primary references", "REFERENCES.md"),
     ("XXZ product-formula convergence", "docs/XXZ_PRODUCT_FORMULA_CONVERGENCE.md"),
     ("Limitations", "docs/LIMITATIONS.md"),
-    ("Peer-review release audit", "docs/PEER_REVIEW_RELEASE_AUDIT.md"),
+    ("Internal validation record", "docs/PEER_REVIEW_RELEASE_AUDIT.md"),
     ("Canonical release environment", "docs/RELEASE_ENVIRONMENT.md"),
     ("Reproducibility", "docs/REPRODUCIBILITY.md"),
     ("Current numerical foundations", "docs/NUMERICAL_FOUNDATIONS.md"),

@@ -1,20 +1,15 @@
 # Numerical foundations
 
-## Scope and status
+## Scope
 
-This is an **unreleased numerical-maintenance update**, identified as
-`numerical-foundations-2026-09-06`, on top of commit
-`c58576bc188d603d4f6e03f4225954d3599a2d05`.
-
-It improves finite-precision implementations of the existing mathematics. It
-adds no dynamical family, new phase claim, topology theorem, or chronology-null
-result. The 2024 article and the later repository evidence remain distinct.
+The numerical kernels implement the spectrum geometry and observables described
+in this repository. Known-state calculations and independent high-precision
+oracles distinguish numerical accuracy from compatibility with archived output.
 
 The committed data, selected-spectrum archives, public figures, and numerical
-claim records remain the preserved **v1.0.0 evidence snapshot**. The tag is not
-moved. Version and citation fields still identify the existing release until a
-later version is deliberately prepared. Newly generated trajectories carry an
-extraction-method record and must not be passed off as the historical archive.
+claim records form the **v1.0.0 evidence snapshot**. Generated trajectories record
+their extraction method so that current calculations can be distinguished from
+that archive. The 2024 article and the repository evidence remain distinct.
 
 ## 1. Fixed-largest-value spectra without remainder deletion
 
@@ -26,7 +21,7 @@ k=\lfloor 1/p\rfloor,\qquad r=1-kp.
 ```
 
 A probability tolerance must not turn a positive remainder into zero. For
-`p = 1 - 1e-14` and `d = 1024`, the extremizer now retains `[p, 1-p, 0, ...]`.
+`p = 1 - 1e-14` and `d = 1024`, the extremizer retains `[p, 1-p, 0, ...]`.
 The previous nearby-reciprocal rounding returned a product spectrum instead.
 That discrepancy is particularly important for small positive Rényi orders,
 not only for discontinuous Hartley entropy.
@@ -188,8 +183,8 @@ There are two explicit extraction modes:
 
 `release-v1` preserves the old extraction algorithms, not a second copy of
 all historical software. The immutable tag is the full old implementation.
-Existing archived-regression tolerances have not been widened. The quick
-regression script was synchronized with the already declared CI tolerances.
+Archived-regression tolerances govern compatibility with the snapshot;
+independent oracles govern numerical accuracy.
 
 The fixed-p boundary sensitivity check holds all **5,856 archived scalar
 observations fixed** and changes only boundary evaluation:
@@ -212,21 +207,21 @@ coordinates agree at approximately machine precision. Differences of order
 they are separately tabulated rather than hidden by changing an accuracy
 target. Analytical tests establish the improvement at the sensitive states.
 
-The global PCA is still a point-cloud statistic. This maintenance result is
-not additional evidence for time-order-dependent morphology.
+The global PCA is a point-cloud statistic; its sensitivity check concerns
+boundary evaluation rather than time-order-dependent morphology.
 
-The Figure 2 logarithmic sampling grid is now constructed in base two so
-its analytically exact power-of-two reciprocal knots remain exact. This fixes
-a plotting-grid rounding artifact rather than snapping user-supplied spectra;
-the public-data comparator retains its original tolerances.
+The Figure 2 logarithmic sampling grid is constructed in base two so that its
+analytically exact power-of-two reciprocal knots remain exact. This plotting
+convention does not snap user-supplied spectra; the public-data comparator uses
+the declared tolerances.
 
-## Freeze-audit API domain
+## API domain
 
 The entropy and entanglement-energy APIs use finite logarithm bases greater than one, so their stated ranges and Schur directions remain valid. Fixed-p bounds validate a positive integer dimension before coercion. XXZ simulation rejects noninteger or nonpositive substep counts and nonpositive or nonfinite record intervals. Normalized support/effective-rank coordinates are zero in a one-dimensional Hilbert space; their unnormalized value remains one.
 
 The entanglement-Hamiltonian gap is evaluated as a difference of logarithms rather than a potentially overflowing ratio. A strictly positive represented second eigenvalue therefore has a finite logarithmic gap, even when the ratio exceeds floating-point range. Exact zero still gives infinity.
 
-These repairs do not change the supplied trajectories or the three metrics used in the control study. Extremely small positive Renyi orders remain sensitive to input rounding: separately rounded weights and a rounded largest eigenvalue can produce differences near a collapsed envelope. The input-error assessment, rather than a claim of arbitrary relative accuracy, governs that case.
+Extremely small positive Renyi orders remain sensitive to input rounding: separately rounded weights and a rounded largest eigenvalue can produce differences near a collapsed envelope. The input-error assessment governs that case.
 
 ## Numerically constant paths and historical summaries
 
@@ -254,16 +249,8 @@ screening table, stable and historical n=10 trajectories, and their comparison
 to `outputs/numerical_foundations/`. It checks that curated data and figures
 were not modified. `--skip-n10` omits only the trajectory regeneration.
 
-The suite has 79 existing cases plus 85 new parameterized numerical cases.
-The oracle tests use the standard library; no new release dependency or
-workflow permission is required. The pinned hosted environment is retained.
-
-The maintenance verification was run locally on CPython 3.13.5, NumPy 2.3.5,
-and pandas 2.2.3. The new uploaded commit still needs its own successful locked
-GitHub Actions run. A previous commit's green status does not validate it.
-
-The complete n=20 simulation, all 72 XXZ refinement trajectories, the full
-3,000/1,000 resampling analysis, chronology-shuffled controls, and conditional
-static-spectrum controls were **not** repeated in this checkpoint. They are
-not required to establish the analytical kernel corrections, and they are not
-represented here as having been performed.
+The documented local kernel verification used CPython 3.13.5, NumPy 2.3.5,
+and pandas 2.2.3. It covers independent analytical checks and both extraction
+modes for the 16 n=10 trajectories. The oracle tests use the standard library.
+The [freeze audit](FREEZE_AUDIT.md) records broader repository checks and their
+scope.

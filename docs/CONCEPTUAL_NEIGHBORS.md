@@ -55,7 +55,7 @@ The papers below are ranked by **conceptual proximity**, not by citation count, 
 
 **What this project adds.** A common largest-Schmidt-value coordinate paired with several full-spectrum functionals; exact geometry before random-matrix reference curves; metric-robust versus metric-competitive motion.
 
-**Important difference.** The project does not define chaos through a spectral ramp and does not claim every tested condition is independently chaotic.
+**Important difference.** Chen–Ludwig study spectral correlations as a chaos diagnostic; the project measures cross-metric trajectory morphology in a finite deterministic dataset.
 
 ### 4. Two-Component Structure in the Entanglement Spectrum of Highly Excited States
 
@@ -75,7 +75,7 @@ The papers below are ranked by **conceptual proximity**, not by citation count, 
 
 **What this project adds.** An empirical Schmidt-spectrum-path formulation; comparison across several non-equivalent metric sectors and dynamical families; majorization-resolved local exceptions to common behavior.
 
-**Important difference.** The project does not derive a universal quasiparticle or membrane-mode theory and its finite deterministic dataset has narrower scope.
+**Important difference.** Vardhan–Moudgalya explain common Rényi behavior through replicated dynamics; the project supplies empirical cross-metric comparisons for a finite deterministic dataset.
 
 ### 6. Entanglement Features of Random Hamiltonian Dynamics
 
@@ -93,9 +93,9 @@ The papers below are ranked by **conceptual proximity**, not by citation count, 
 
 **Why it is close.** Established the spectrum-first viewpoint and the idea that spectral structure can serve as a physical fingerprint beyond one entropy.
 
-**What this project adds.** Dynamical paths rather than a static phase diagnostic; several metric projections of the same spectrum; an explicitly nonformal and empirical robustness notion.
+**What this project adds.** Dynamical paths rather than a static phase diagnostic; several metric projections of the same spectrum; an empirical robustness notion for coarse trajectory morphology.
 
-**Important difference.** The project makes no topological-order claim and does not identify its trajectory class with a mathematical topological invariant.
+**Important difference.** Li–Haldane study topological order; the project’s trajectory class describes empirical coarse metric robustness.
 
 ### 8. Conditions for a Class of Entanglement Transformations
 
@@ -123,9 +123,9 @@ The papers below are ranked by **conceptual proximity**, not by citation count, 
 
 **Why it is close.** Provides the necessary caution that informative entanglement-spectrum features need not be universal phase invariants.
 
-**What this project adds.** An operationally defined metric-robust trajectory class; quantitative tests of robustness and failure; explicit nonclaims excluding formal topology and universality.
+**What this project adds.** An operationally defined metric-robust trajectory class; quantitative tests of robustness and failure; a finite-data scope for empirical trajectory morphology.
 
-**Important difference.** The project studies dynamical metric projections and does not claim a phase invariant, entanglement-Hamiltonian universality, or topological theorem.
+**Important difference.** Chandran–Khemani–Sondhi assess entanglement-spectrum universality; the project tests empirical robustness of dynamical metric projections in a finite deterministic dataset.
 
 ## Retrieval-intent clusters
 

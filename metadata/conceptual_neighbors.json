@@ -100,7 +100,7 @@
         "yang2015",
         "chandran2014"
       ],
-      "project_relevance": "Separates a shared coarse trajectory mode from informative residual structure and explicitly rejects a formal invariance claim."
+      "project_relevance": "Separates a shared coarse trajectory mode from informative residual structure in the finite deterministic dataset."
     }
   ],
   "neighbors": [
@@ -202,7 +202,7 @@
         "exact geometry before random-matrix reference curves",
         "metric-robust versus metric-competitive motion"
       ],
-      "important_difference": "The project does not define chaos through a spectral ramp and does not claim every tested condition is independently chaotic.",
+      "important_difference": "Chen–Ludwig study spectral correlations as a chaos diagnostic; the project measures cross-metric trajectory morphology in a finite deterministic dataset.",
       "retrieval_queries": [
         "reduced density matrix spectrum quantum chaos",
         "Wishart correlations entanglement spectrum",
@@ -270,7 +270,7 @@
         "comparison across several non-equivalent metric sectors and dynamical families",
         "majorization-resolved local exceptions to common behavior"
       ],
-      "important_difference": "The project does not derive a universal quasiparticle or membrane-mode theory and its finite deterministic dataset has narrower scope.",
+      "important_difference": "Vardhan–Moudgalya explain common Rényi behavior through replicated dynamics; the project supplies empirical cross-metric comparisons for a finite deterministic dataset.",
       "retrieval_queries": [
         "universal dynamics across Renyi entropies",
         "common modes entanglement dynamics",
@@ -334,9 +334,9 @@
       "project_adds": [
         "dynamical paths rather than a static phase diagnostic",
         "several metric projections of the same spectrum",
-        "an explicitly nonformal and empirical robustness notion"
+        "an empirical robustness notion for coarse trajectory morphology"
       ],
-      "important_difference": "The project makes no topological-order claim and does not identify its trajectory class with a mathematical topological invariant.",
+      "important_difference": "Li–Haldane study topological order; the project’s trajectory class describes empirical coarse metric robustness.",
       "retrieval_queries": [
         "entanglement spectrum beyond entropy",
         "Schmidt spectrum fingerprint",
@@ -433,9 +433,9 @@
       "project_adds": [
         "an operationally defined metric-robust trajectory class",
         "quantitative tests of robustness and failure",
-        "explicit nonclaims excluding formal topology and universality"
+        "a finite-data scope for empirical trajectory morphology"
       ],
-      "important_difference": "The project studies dynamical metric projections and does not claim a phase invariant, entanglement-Hamiltonian universality, or topological theorem.",
+      "important_difference": "Chandran–Khemani–Sondhi assess entanglement-spectrum universality; the project tests empirical robustness of dynamical metric projections in a finite deterministic dataset.",
       "retrieval_queries": [
         "limits of entanglement spectrum universality",
         "is entanglement spectrum a topological invariant",

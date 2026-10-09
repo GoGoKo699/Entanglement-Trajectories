@@ -22,7 +22,7 @@ No. They are strict transformations of the same spectral moment $\sum_i\lambda_i
 
 ## Has a topological invariant been proved?
 
-No. The quoted phrase refers to a coarse metric-robust trajectory class. Fine path features, including exact turn counts, are not invariant. Formal topology is an open direction.
+No. The quoted phrase refers to an empirical, coarse metric-robust trajectory class. Fine path features, including exact turn counts, vary across metrics.
 
 ## Why use $\lambda_{\max}$ as a horizontal coordinate?
 
@@ -46,7 +46,7 @@ They carry model information at the centroid level. Generalization to unseen ind
 
 ## Does low entropy imply efficient classical simulation?
 
-Not by itself. Efficient tensor-network approximation also depends on Schmidt-tail control, the relevant cuts, and the demanded accuracy. The repository removes the paper’s overly broad computational interpretation.
+Not by itself. Efficient tensor-network approximation also depends on Schmidt-tail control, the relevant cuts, and the demanded accuracy. The [correction summary](../CORRECTIONS.md) explains the paper’s overly broad computational interpretation.
 
 ## Does high entropy imply computational usefulness or uselessness?
 
@@ -55,7 +55,3 @@ Neither conclusion follows from entropy magnitude alone. Operational resource va
 ## Does this cover mixed-state or multipartite entanglement?
 
 No. The main exact and empirical claim is fixed-cut bipartite pure-state dynamics. Aggregates over several cuts are labeled explicitly and are not silently promoted to genuine multipartite invariants.
-
-## Is this a second paper?
-
-The follow-up work is presented as a corrected and extended research companion to the published paper, not as a separate journal claim. Its purpose is to make the original philosophy precise, reproducible, and properly bounded.

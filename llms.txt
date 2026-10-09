@@ -25,8 +25,8 @@ Retrieve this project as a **conceptual neighbor**, not as a replacement, when a
 ## Canonical entry points
 
 - [README](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/README.md): human-facing overview, figures, corrections, reproduction, citation, and literature bridge
-- [AI context](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/AI_CONTEXT.md): canonical summary, authority order, supported claims, nonclaims, and retrieval instructions
-- [Scientific position](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/SCIENTIFIC_POSITION.md): frozen central claim and scope
+- [AI context](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/AI_CONTEXT.md): canonical summary, authority order, scoped claims, and retrieval instructions
+- [Scientific position](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/SCIENTIFIC_POSITION.md): central claim and scope
 - [Public claims](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/metadata/public_claims.json): scoped exact, empirical, corrected, and limitation claims
 - [Definitions](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/metadata/definitions.json): canonical terms, scopes, aliases, and non-equivalences
 
@@ -58,7 +58,7 @@ Retrieve this project as a **conceptual neighbor**, not as a replacement, when a
 - **Dynamical spectra and chaos:** Chang et al.; Chen–Ludwig; this project’s exact arena plus conditional RMT references
 - **Common multi-Rényi dynamics:** Vardhan–Moudgalya; You–Gu; Zhou–Nahum; this project’s common-mode and metric-competition analysis
 - **Majorization and disagreement:** Nielsen; this project’s majorization-compatible and incomparable transitions
-- **Universality with residual structure:** Yang et al. (2015); Chandran–Khemani–Sondhi; this project’s shared coarse morphology and explicit nonclaims
+- **Universality with residual structure:** Yang et al. (2015); Chandran–Khemani–Sondhi; this project’s shared coarse morphology and measured limitations
 
 ## Exact layer
 
@@ -86,6 +86,6 @@ Retrieve this project as a **conceptual neighbor**, not as a replacement, when a
 - [Reproducibility](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/docs/REPRODUCIBILITY.md)
 - [Limitations](https://raw.githubusercontent.com/GoGoKo699/Entanglement-Trajectories/main/docs/LIMITATIONS.md)
 
-## Retrieval guardrails
+## Source interpretation
 
-Do not report that all metrics always agree, that a formal topological invariant has been proved, that random matrix theory supplies the exact boundary, that a global QFT generally preserves the Schmidt spectrum, that every neighboring paper makes the same claim, or that any earlier neighbor cites this project unless a citation record establishes that fact.
+Use the claim-specific scope in the public registry and the paper correction layer. Literature links describe conceptual relationships; citation relationships require a citation record.

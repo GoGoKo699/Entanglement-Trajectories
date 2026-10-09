@@ -1,16 +1,8 @@
-# Peer-Review Release Audit
+# Internal Release Audit — v1.0.0
 
-> **Historical release record.** This document records the earlier release assembly. The later [numerical-foundations update](NUMERICAL_FOUNDATIONS.md) corrects additional kernel edge cases and separates accuracy tests from snapshot compatibility. The archived tables below are preserved; they are not a claim that the original tests covered every numerical edge case or that external journal peer review was performed.
+This internal validation record covers repository edition `1.0.0`, the computational companion to Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* **8**, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`. It is an author-side audit, not external journal peer review. The article remains the journal version of record.
 
-## Verdict
-
-**Scientific release recommendation: GO, conditional on one green run of the locked `repository-qa` workflow on the final uploaded commit and application of the remaining GitHub discovery settings.**
-
-This audit evaluates repository edition `1.0.0` as a corrected computational companion to:
-
-> Ruge Lin, “Entanglement Trajectory and its Boundary,” *Quantum* **8**, 1282 (2024), DOI `10.22331/q-2024-03-14-1282`.
-
-The article remains the journal version of record. The repository supplies a transparent author clarification, exact mathematical replacements, repaired code, and scoped follow-up evidence.
+The numerical tables below are historical snapshots. Current kernel conventions and accuracy checks are documented in [Numerical foundations](NUMERICAL_FOUNDATIONS.md).
 
 ## Supported central statement
 
@@ -38,11 +30,11 @@ The supported conclusion is an empirical **metric-robust trajectory class**. It 
 
 These values show a strong shared coarse component and model-level morphology within the designed dataset. They also show why the fingerprint claim must remain limited: vertical-only transfer is weaker, and unseen individual paths do not beat the shared horizontal-coordinate baseline under the strictest test.
 
-## Closure of the four original release blockers
+## Numerical and provenance checks
 
 ### 1. XXZ product-formula convergence
 
-The released XXZ rows are now interpreted as fixed one-substep symmetric product-formula circuits generated from random-field XXZ terms, not convergence-controlled continuous-time Hamiltonian trajectories. The dedicated `n=10,12,14` study contains 3,528 observations and exhibits second-order refinement. The maximum `16→32` difference is 0.001662, while replacing the coarse XXZ rows by refined rows changes the global common-mode fraction by less than 0.001.
+The released XXZ rows represent fixed one-substep symmetric product-formula circuits generated from random-field XXZ terms, not convergence-controlled continuous-time Hamiltonian trajectories. The dedicated `n=10,12,14` study contains 3,528 observations and exhibits second-order refinement. The maximum `16→32` difference is 0.001662, while replacing the coarse XXZ rows by refined rows changes the global common-mode fraction by less than 0.001.
 
 Evidence:
 
@@ -63,7 +55,7 @@ Evidence:
 
 ### 3. Exact Hartley/Rényi-zero semantics
 
-Exact Schmidt rank and Hartley entropy now count every strictly positive represented eigenvalue. Thresholded numerical rank is a separately named diagnostic. At `d=1024`, `p=1-10^-14`, the exact Hartley envelope is `[1,10]` bits even though a `10^-15` threshold gives numerical rank one.
+Exact Schmidt rank and Hartley entropy count every strictly positive represented eigenvalue. Thresholded numerical rank is a separately named diagnostic. At `d=1024`, `p=1-10^-14`, the exact Hartley envelope is `[1,10]` bits even though a `10^-15` threshold gives numerical rank one.
 
 Evidence:
 
@@ -85,9 +77,9 @@ Evidence:
 - `environment/release-py311.json`
 - `docs/RELEASE_ENVIRONMENT.md`
 
-## Additional peer-review repairs
+## Analysis conventions
 
-The final tree also:
+The analysis:
 
 - uses gap-aware interpolation rather than bridging internal undefined boundary intervals;
 - reports full-path, vertical-only, and largest-Schmidt-value-only fingerprint baselines together;
@@ -98,11 +90,11 @@ The final tree also:
 - includes primary references, split code/content licenses, and machine-readable claim, definition, metric, figure, correction, and audit records;
 - retains the selected-spectrum audit as a five-run mechanism check rather than a model-wide frequency estimate.
 
-The resolution of all 21 review items is recorded in `metadata/peer_review_issue_resolution.csv`.
+Detailed numerical-audit evidence is recorded in `metadata/peer_review_issue_resolution.csv`.
 
-## Repeated release checks
+## Recorded validation
 
-The final cumulative candidate passed:
+The v1.0.0 audit passed:
 
 - 76 automated tests;
 - a complete included-data analysis with 3,000 model-stratified bootstrap resamples and 1,000 Mantel-style permutations;
@@ -123,24 +115,6 @@ python scripts/verify_release_environment.py --structure-only
 make peer-review-check
 ```
 
-## Residual limitations
+## Evidence scope
 
-The release does not claim:
-
-- convergence-controlled XXZ Hamiltonian dynamics for the historical one-substep rows;
-- independent disorder or initial-state ensemble replication;
-- a thermodynamic-limit result;
-- a formal topological invariant;
-- a universal chaos classifier;
-- model-wide majorization-event frequencies from the five selected complete-spectrum runs;
-- that the metric atlas consistently outperforms the largest-Schmidt-value coordinate for unseen individual paths.
-
-A concise factual corrigendum to *Quantum* remains recommended after the repository release is frozen. That journal action is separate from the technical release gate.
-
-## Final release gate
-
-Create `v1.0.0` only after:
-
-1. the cumulative patch is uploaded;
-2. the locked hosted `repository-qa` workflow passes on that exact commit;
-3. the DOI homepage, selected topics, and social-preview image are applied in GitHub settings.
+The quantitative findings describe the finite, designed dataset. The selected-spectrum audit supplies a five-run mechanism check, while the model-centroid and individual-path holdouts have the separate accuracies reported above. The historical XXZ rows represent the specified one-substep circuits; their Hamiltonian interpretation is governed by the refinement study.

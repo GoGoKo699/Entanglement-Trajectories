@@ -4,15 +4,15 @@
 
 The three entanglement coordinates share a strong instantaneous component, but **its size is not evidence of temporal organization by itself**. Jointly reordering each trajectory preserves its approximately 90.26% common-mode variance exactly. Four explicitly constructed, dimension- and largest-eigenvalue-matched static references produce still larger fractions, approximately 97.50% to 97.89%. In contrast, the observed chronological paths are substantially smoother and have more locally competing raw entanglement increments than their reordered counterparts. The useful distinction is therefore **a common spectral description, temporal smoothness, and informative local disagreement**, not a new universal dynamical invariant established by a large principal component.
 
-This is a supplementary controlled analysis of the repository data, not a result demonstrated in the 2024 article. The released datasets, figures, numerical summaries, and `v1.0.0` tag are not replaced.
+This supplementary controlled analysis uses the repository data. Its results are separate from those in the 2024 article and the `v1.0.0` evidence snapshot.
 
 ## Data and computation
 
-The main input is `data/trajectory_observations.csv`: 96 designed trajectories, 5,856 observations, four dynamical families, and six sizes from 10 to 20 qubits. The vertical coordinates are normalized von Neumann entropy, normalized linear entropy, and pure-state logarithmic negativity. Boundary heights use the repaired numerical implementation, not the former remainder-snapping algorithm.
+The main input is `data/trajectory_observations.csv`: 96 designed trajectories, 5,856 observations, four dynamical families, and six sizes from 10 to 20 qubits. The vertical coordinates are normalized von Neumann entropy, normalized linear entropy, and pure-state logarithmic negativity. Boundary heights use the implementation described in [numerical foundations](NUMERICAL_FOUNDATIONS.md).
 
 All three boundary heights are usable under the declared width cutoff at 5,657 rows. There are 5,512 adjacent complete-case edges on the original recording grids. No missing interval is interpolated or bridged. The raw-metric competition calculation separately uses all 5,760 recorded transitions.
 
-The script runs 999 permutations for each primary chronological comparison and 199 complete realizations for each of four static reference generators. It also checks a late window, a stricter width cutoff, all-pair majorization on the selected spectra, and newly regenerated stable-extraction trajectories at n=10. The protocol is recorded before each production run. This is an exploratory follow-up with implementation smoke tests, not an externally preregistered experiment.
+The script runs 999 permutations for each primary chronological comparison and 199 complete realizations for each of four static reference generators. It also checks a late window, a stricter width cutoff, all-pair majorization on the selected spectra, and regenerated stable-extraction trajectories at n=10. The protocol is recorded before each production run. This is an exploratory analysis with implementation smoke tests, not an externally preregistered experiment.
 
 Detailed results and provenance are in [`../metadata/geometry_chronology_controls.json`](../metadata/geometry_chronology_controls.json). The full draw-level output tables are in [`../data/geometry_chronology_controls.zip`](../data/geometry_chronology_controls.zip).
 
@@ -81,7 +81,7 @@ A useful reading is that nearby chronological spectra encounter metric-sensitive
 
 Vertical-only RMS path distances are compared across metrics on the original grids, separately within each size. The average distance-rank agreement is 0.751632, compared with 0.650883 under joint shuffling. Most of that difference disappears when the coarse time envelope is preserved: the within-window reference mean is 0.743144.
 
-This is a new native-grid control, not a replacement for the release's 41-point interpolated analysis. It is also not uniform across sizes: on the stable n=10 rerun, the observed boundary-height distance agreement is 0.764993 versus a joint-shuffle mean of 0.787679. No universal chronology-enhanced classifier claim follows.
+This native-grid control is distinct from the snapshot's 41-point interpolated analysis. Its direction varies across sizes: on the stable n=10 rerun, the observed boundary-height distance agreement is 0.764993 versus a joint-shuffle mean of 0.787679. No universal chronology-enhanced classifier claim follows.
 
 ## 4. Static references matched at each (d,p)
 

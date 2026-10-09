@@ -1,6 +1,6 @@
 # Public-Figure Provenance
 
-## Two deliberately separate workflows
+## Figure-building modes
 
 The repository supports two figure-building modes.
 
@@ -77,9 +77,7 @@ The automated test suite performs two focused Figure 3 builds:
    deliberately changed.
 
 The test requires the resulting PNG digests to differ and verifies that the
-plotted source CSV contains the changed numerical value. This closes the
-failure mode in which a recomputed result could change while the public figure
-silently continued to read an unrelated frozen archive.
+plotted source CSV contains the changed numerical value.
 
 ## Hosted snapshot comparison
 
@@ -89,11 +87,9 @@ byte-identical. CSV source tables must have identical files, schemas, row
 order, nonnumeric entries, and finite/NaN patterns; numeric entries are
 compared with explicit absolute and relative tolerances of `1e-10`.
 
-This distinction is deliberate. CSV text produced from the same floating-point
-calculation can differ in harmless final decimal digits across Python/pandas
-serialization paths. The comparator reports the worst absolute and relative
-difference and still rejects any material numerical change. The canonical raw
-trajectory and spectrum archives are not rounded or rewritten by this check.
+The comparator reports the worst absolute and relative numerical difference.
+It compares CSV values rather than final decimal serialization digits; the
+canonical trajectory and spectrum archives retain their recorded precision.
 
 Run the comparison directly with:
 

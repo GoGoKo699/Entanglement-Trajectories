@@ -201,7 +201,7 @@
         "yang2015",
         "chandran2014"
       ],
-      "project_relevance": "Separates a shared coarse trajectory mode from informative residual structure and explicitly rejects a formal invariance claim."
+      "project_relevance": "Separates a shared coarse trajectory mode from informative residual structure in the finite deterministic dataset."
     }
   ],
   "conceptual_neighbor_map": "metadata/conceptual_neighbors.json",

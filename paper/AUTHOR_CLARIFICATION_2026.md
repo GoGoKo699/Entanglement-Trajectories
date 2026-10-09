@@ -1,16 +1,14 @@
-# Author Clarification and Correction Record (2026 Draft)
-
-## Status of this document
+# Author Clarification and Correction Record
 
 This is an author-prepared public repository clarification for the published article:
 
 **Ruge Lin, "Entanglement Trajectory and its Boundary," Quantum 8, 1282 (2024).**
 
-The journal article remains the version of record. This document identifies statements that should be read with corrected formulas or narrower scope. It accompanies the reproducible repository edition and may later support a concise formal corrigendum.
+The journal article remains the version of record. This document identifies statements that should be read with corrected formulas or narrower scope.
 
-## What remains valid
+## Trajectory representation
 
-The article introduced a useful representation: follow a quantum process through a plane whose coordinates are functions of the reduced Schmidt spectrum. The broader idea survives and is strengthened by the follow-up study:
+The trajectory construction follows a quantum process through a plane whose coordinates are functions of the reduced Schmidt spectrum:
 
 - the ordered Schmidt-spectrum path is the common underlying object;
 - familiar entanglement metrics are different nonlinear observations of that path;
@@ -67,7 +65,7 @@ Haar/Wishart and spiked-Wishart models are reference ensembles. Their typical cu
 
 ### Computational usefulness
 
-Neither low nor high scalar entropy alone determines classical simulability or quantum advantage. The repository no longer claims a universal narrow entropy band for useful quantum computation or that distance to an RMT curve measures computational value.
+Classical simulability and quantum advantage depend on computational structure as well as scalar entropy. Trajectory position and distance to an RMT reference curve alone cannot certify computational value.
 
 ### Fingerprints and topology
 
